@@ -86,7 +86,7 @@ class LibroController extends Controller
     }
 
     // Renderiza la vista app.blade.php y pasa la ruta del archivo
-    return view('pages.app')->with('rutaArchivo', $libro->archivo);
+    return view('pages.vistapdf')->with('rutaArchivo', $libro->archivo);
     }
 
     public function destroy($id)

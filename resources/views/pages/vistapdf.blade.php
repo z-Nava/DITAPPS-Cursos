@@ -14,6 +14,5 @@
     <embed src="{{ asset('storage/' . $rutaArchivo) }}" type="application/pdf" width="100%" height="900px">
 @endif
     </div>
-    
 </body>
 </html>
