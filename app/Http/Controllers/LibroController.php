@@ -109,7 +109,7 @@ class LibroController extends Controller
         $usuarioActual = auth()->user();
         $librosAlumno = $usuarioActual->libros;
     
-        return view('tu-vista')->with('librosAlumno', $librosAlumno);
+        return view('pages.rtl')->with('librosAlumno', $librosAlumno);
     }
 
 }
