@@ -104,4 +104,12 @@ class LibroController extends Controller
     return redirect()->back()->with('message', 'El libro se ha eliminado exitosamente.');
     }
 
+    public function bibliotecaAlumnos()
+    {
+        $usuarioActual = auth()->user();
+        $librosAlumno = $usuarioActual->libros;
+    
+        return view('tu-vista')->with('librosAlumno', $librosAlumno);
+    }
+
 }
