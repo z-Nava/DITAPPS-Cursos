@@ -12,11 +12,13 @@
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                         </div>
                         <!-- AQUI PARA AGREGAR EL LIBRO -->
+                        @if(auth()->user()->rol_id != 4)
                         <div class="me-3 my-3 text-end">
                             <a class="btn bg-gradient-dark mb-0" href="#" data-bs-toggle="modal" data-bs-target="#agregarLibroModal">
                                 <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Agregar nuevo libro
                             </a>
                         </div>
+                        @endif
                         <!-- Modal Agregar Libro -->
                         <div class="modal fade" id="agregarLibroModal" tabindex="-1" role="dialog" aria-labelledby="agregarLibroModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -162,6 +164,7 @@
                                                     }
                                                     </script>
                                                 </td>
+                                                @if(auth()->user()->rol_id != 4)
                                                 <td class="align-middle">
                                                     <form action="{{ route('eliminar-libro', ['id' => $libro->id]) }}" method="POST">
                                                         @csrf
@@ -172,6 +175,7 @@
                                                         </button>
                                                     </form>
                                                 </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     </tbody>
