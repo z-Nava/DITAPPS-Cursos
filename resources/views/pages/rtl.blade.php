@@ -18,11 +18,13 @@
                                 <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Agregar nuevo libro
                             </a>
                         </div>
+                                              
                         @endif
                         <!-- Modal Agregar Libro -->
                         <div class="modal fade" id="agregarLibroModal" tabindex="-1" role="dialog" aria-labelledby="agregarLibroModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
+                                    
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="agregarLibroModalLabel">Agregar nuevo libro</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -95,6 +97,7 @@
                                     <tbody>
                                         @foreach ($libros as $libro)
                                         @if(auth()->user()->rol_id == 4 && $libro->user_id == auth()->user()->id || auth()->user()->rol_id != 4)
+                                        
                                             <tr>
                                                 
                                                 <td>
@@ -176,9 +179,9 @@
                                                         </button>
                                                     </form>
                                                 </td>
-                                                @endif
+                                                    @endif
                                             </tr>
-                                            @endif
+                                                     @endif
                                         @endforeach
                                     </tbody>
                                 </table>
