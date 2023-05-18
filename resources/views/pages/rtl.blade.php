@@ -94,6 +94,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($libros as $libro)
+                                        @if(auth()->user()->rol_id == 4 && $libro->user_id == auth()->user()->id || auth()->user()->rol_id != 4)
                                             <tr>
                                                 
                                                 <td>
@@ -177,6 +178,7 @@
                                                 </td>
                                                 @endif
                                             </tr>
+                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>
