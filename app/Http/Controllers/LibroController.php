@@ -7,6 +7,7 @@ use App\Models\Libro;
 use App\Models\User;
 use App\Models\Rol;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 
 
 class LibroController extends Controller
