@@ -63,8 +63,17 @@ class LibroController extends Controller
 
     public function index()
     {
-    $libros = Libro::all();
-    return view('pages.rtl')->with('libros', $libros);
+        // Obtener el ID del rol de alumno
+        $rolAlumnoId = 4;
+
+        // Obtener el ID del alumno actual
+        $alumnoId = auth()->user()->id;
+
+        // Obtener los libros asignados al alumno actual
+        $libros = Libro::where('user_id', $alumnoId)->get();
+
+        // Pasar los libros a la vista
+        return view('pages.rtl', compact('libros'));
     }
 
     public function verArchivo($id)
