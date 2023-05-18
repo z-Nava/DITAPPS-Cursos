@@ -56,6 +56,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/rtl/{id}/ver', [LibroController::class, 'verArchivo'])->name('ver-archivo');
 	Route::delete('/rtl/{id}', [LibroController::class, 'destroy'])->name('eliminar-libro');
 	Route::get('/ver-archivo/{id}', [LibroController::class, 'verArchivo'])->name('ver-archivo');
+	Route::get('/libros/search', [LibroController::class, 'search'])->name('libros.search');
+
 
 
 

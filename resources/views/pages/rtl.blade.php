@@ -10,13 +10,13 @@
                 <div class="col-12">
                     <div class="card my-4">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                            <form action="<!-- End Navbar -->" method="GET">
-                                <div class="mb-3">
-                                    <label for="buscar" class="form-label">Buscar por título</label>
+                            <div class="mb-3">
+                                <label for="buscar" class="form-label">Buscar por título</label>
+                                <form action="{{ route('libros.search') }}" method="GET">
                                     <input type="text" class="form-control" id="buscar" name="buscar" placeholder="Ingresa el título del libro...">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Buscar</button>
-                            </form>
+                                    <button type="submit" class="btn btn-primary">Buscar</button>
+                                </form>
+                            </div>
                         </div>
                         <!-- AQUI PARA AGREGAR EL LIBRO -->
                         @if(auth()->user()->rol_id != 4)
