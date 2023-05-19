@@ -124,19 +124,27 @@ class LibroController extends Controller
 
     public function search(Request $request)
     {
-    // Obtener el término de búsqueda del formulario
-    $searchTerm = $request->input('letra');
-
-    // Realizar la búsqueda de libros por título
-    $libros = Libro::where('titulo', 'LIKE', $searchTerm . '%')->get();
-
-    // Obtener los usuarios con el rol de alumno
-    $usuarios = User::whereHas('rol', function ($query) {
-        $query->where('id', 4);
-    })->get();
-
-    // Pasar los libros y usuarios a la vista
-    return view('pages.rtl', compact('libros', 'usuarios'));
+        $searchTerm = $request->input('buscar');
+        $letra = $request->input('letra');
+    
+        if (!empty($searchTerm)) {
+            // Realizar búsqueda por título
+            $libros = Libro::where('titulo', 'LIKE', "%$searchTerm%")->get();
+        } elseif (!empty($letra)) {
+            // Realizar búsqueda por letra
+            $libros = Libro::where('titulo', 'LIKE', $letra . '%')->get();
+        } else {
+            // Si no se proporciona ningún término de búsqueda, obtener todos los libros
+            $libros = Libro::all();
+        }
+    
+        // Obtener los usuarios con el rol de alumno
+        $usuarios = User::whereHas('rol', function ($query) {
+            $query->where('id', 4);
+        })->get();
+    
+        // Pasar los libros y usuarios a la vista
+        return view('pages.rtl', compact('libros', 'usuarios'));
     }
 
     
