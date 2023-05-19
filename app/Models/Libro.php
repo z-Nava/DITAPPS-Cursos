@@ -14,14 +14,11 @@ class Libro extends Model
         'autor',
         'descripcion',
         'archivo',
-        'user_id',
+        
         'archivo_url'
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+   
 
     public function getArchivoExtensionAttribute()
     {

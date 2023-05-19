@@ -62,9 +62,6 @@ class User extends Authenticatable
         return $this->belongsTo(Rol::class);
     }
 
-    public function libros()
-    {
-    return $this->hasMany(Libro::class);
-    }
+    
 
 }

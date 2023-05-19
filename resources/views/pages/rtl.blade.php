@@ -95,15 +95,7 @@
                                                 <label for="archivo" class="form-label">Archivo</label>
                                                 <input type="file" class="form-control" id="archivo" name="archivo" required>
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="usuario" class="form-label">Usuario</label>
-                                                <select class="form-select" id="usuario" name="user_id" required>
-                                                    <option value="">Seleccionar Usuario</option>
-                                                    @foreach ($usuarios as $usuario)
-                                                        <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>     
+                                                 
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                                 <button type="submit" class="btn btn-primary">Subir libro</button>
@@ -142,8 +134,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($libros as $libro)
-                                        @if(auth()->user()->rol_id == 4 && $libro->user_id == auth()->user()->id || auth()->user()->rol_id != 4)
-                                        
+                                        @if(auth()->user()->rol_id != 4 || $libro->user_id == null)
                                             <tr>
                                                 
                                                 <td>

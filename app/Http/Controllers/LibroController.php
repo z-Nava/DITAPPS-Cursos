@@ -35,16 +35,16 @@ class LibroController extends Controller
         $libro->autor = $request->input('autor');
         $libro->descripcion = $request->input('descripcion');
         $libro->archivo = $request->input('archivo');
-        $libro->user_id = $request->input('user_id');
+        #$libro->user_id = $request->input('user_id');
 
-        $username = $request->input('username');
-        $user = User::where('name', $username)->first();
-        if ($user) {
-            $libro->user_id = $user->id;
-        } 
-        else {
+        #$username = $request->input('username');
+        #$user = User::where('name', $username)->first();
+        #if ($user) {
+        #   $libro->user_id = $user->id;
+        #} 
+        #else {
             #return redirect()->route('rtl')->with('message', 'No se encontró el usuario.');
-        }   
+        #}   
 
         if ($request->hasFile('archivo')) {
             $archivo = $request->file('archivo');
@@ -64,16 +64,8 @@ class LibroController extends Controller
 
     public function index()
     {
-        // Obtener el ID del rol de alumno
-        $rolAlumnoId = 4;
-
-        // Obtener el ID del alumno actual
-        $alumnoId = auth()->user()->id;
-
-        // Obtener los libros asignados al alumno actual
-        $libros = Libro::where('user_id', $alumnoId)->get();
-
-        // Pasar los libros a la vista
+       
+        $libros = Libro::all();
         return view('pages.rtl', compact('libros'));
     }
 

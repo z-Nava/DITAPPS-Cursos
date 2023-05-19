@@ -20,11 +20,9 @@ return new class extends Migration
             $table->string('autor');
             $table->text('descripcion');
             $table->string('archivo');
-            $table->unsignedBigInteger('user_id');
             $table->string('archivo_url')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
         });
 
         $libroController = new LibroController();
