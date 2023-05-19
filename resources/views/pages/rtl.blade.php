@@ -21,7 +21,7 @@
                                 <!-- BUSCADOR POR LETRA -->
                                 <label for="letra" class="form-label">Buscar por letra</label>
                                 <form action="{{ route('libros.search') }}" method="GET">
-                                    <select class="form-select-lg" id="buscar-letra" name="letra">
+                                    <select class="form-select-lg" id="buscar-letra" name="letra" onchange="filtrarPorLetra()">
                                         <option value="">Seleccionar letra</option>
                                         <option value="a">A</option>
                                         <option value="b">B</option>
@@ -241,6 +241,25 @@
         console.log(libro);
     });
     }
+
+    function filtrarPorLetra() {
+        console.log("Archivo JavaScript cargado 3");
+            var letraSeleccionada = document.getElementById('buscar-letra').value.toUpperCase();
+            console.log(letraSeleccionada);
+            var libros = document.querySelectorAll('#lista-libros tr.libro');
+            console.log(libros);  
+            libros.forEach(function(libro) {
+                var tituloLibro = libro.querySelector('h6').textContent.toUpperCase();
+                console.log(tituloLibro);
+                if (letraSeleccionada === "" || tituloLibro.startsWith(letraSeleccionada)) {
+                    console.log("entro a if", libro);
+                    libro.style.display = 'table-row';
+                } else {
+                    console.log("entro a else", libro);
+                    libro.style.display = 'none';
+                }
+            });
+        }
 
     document.addEventListener('DOMContentLoaded', function() {
         var buscarInput = document.getElementById('buscar');
