@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card my-4">
-                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="card-header p-0 position-relative mt mx-3 z-index-2">
                             <div class="mb-1">
                                 <div class="d-flex">
                                     <div class="me-3">
@@ -21,11 +21,11 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <div>
+                                    <div class="">
                                         <form action="{{ route('libros.search') }}" method="GET">
                                             <label for="letra" class="form-label">Buscar por letra</label>
                                             <div class="input-group">
-                                                <select class="form-select-lg" id="buscar-letra" name="letra" onchange="filtrarPorLetra()">
+                                                <select class="form-control-lg" id="buscar-letra" name="letra" onchange="filtrarPorLetra()">
                                                     <option value="">Seleccionar letra</option>
                                                     <option value="a">A</option>
                                                     <option value="b">B</option>
