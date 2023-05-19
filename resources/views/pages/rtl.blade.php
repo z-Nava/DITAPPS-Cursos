@@ -5,6 +5,7 @@
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage="Biblioteca Digital"></x-navbars.navs.auth>
         <!-- End Navbar -->
+        
         <div class="container-fluid py-4">
             <div class="row">
                 <div class="col-12">
@@ -14,14 +15,15 @@
                                 <form action="{{ route('libros.search') }}" method="GET">
                                         <label for="buscar" class="form-label">Buscar por título</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control-lg" id="buscar" name="buscar" placeholder="Ingresa el título del libro...">
+                                            <input type="text" class="form-control-lg" id="buscar" name="buscar" placeholder="Ingresa el título del libro..." onkeyup="realizarBusqueda()">
+
                                             <button type="submit" class="btn btn-primary">Buscar</button>
                                         </div>
                                 </form>
                                 <!-- BUSCADOR POR LETRA -->
                                 <label for="letra" class="form-label">Buscar por letra</label>
                                 <form action="{{ route('libros.search') }}" method="GET">
-                                    <select class="form-select-lg" id="letra" name="letra">
+                                    <select class="form-select-lg" id="buscar-letra" name="letra">
                                         <option value="">Seleccionar letra</option>
                                         <option value="a">A</option>
                                         <option value="b">B</option>
@@ -136,7 +138,6 @@
                                         @foreach ($libros as $libro)
                                         @if(auth()->user()->rol_id != 4 || $libro->user_id == null)
                                             <tr>
-                                                
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div class="d-flex flex-column justify-content-center">
@@ -148,7 +149,7 @@
 
                                                
                                                 <td>
-                                                    <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex px-2 py-1 libro">
                                                         <div>
                                                             <h6 class="mb-0 text-sm">{{ $libro->titulo }}</h6>
                                                         </div>
@@ -179,31 +180,7 @@
                                                         <iframe id="iframe-archivo" src="" width="100%" height="500px"></iframe>
                                                     </div>
 
-                                                    <script>
-                                                    function verArchivo(url) {
-                                                        var nuevaVentana = window.open(url, '_blank');
-                                                        
-                                                        // Esperar a que la ventana se cargue completamente antes de manipular el documento
-                                                        nuevaVentana.onload = function() {
-                                                            // Obtener el elemento del visor de PDF en la ventana abierta
-                                                            var visorPDF = nuevaVentana.document.getElementById('pdf-viewer');
-                                                            
-                                                            if (visorPDF) {
-                                                                // Deshabilitar la opción de impresión
-                                                                var opcionImprimir = visorPDF.querySelector('[data-toolbar="print"]');
-                                                                if (opcionImprimir) {
-                                                                    opcionImprimir.style.display = 'none';
-                                                                }
-                                                                
-                                                                // Deshabilitar la opción de descarga
-                                                                var opcionDescargar = visorPDF.querySelector('[data-toolbar="download"]');
-                                                                if (opcionDescargar) {
-                                                                    opcionDescargar.style.display = 'none';
-                                                                }
-                                                            }
-                                                        };
-                                                    }
-                                                    </script>
+                                                    
                                                 </td>
                                                 @if(auth()->user()->rol_id != 4)
                                                 <td class="align-middle">
@@ -227,6 +204,53 @@
                     </div>
                 </div>
             </div>
+            <script>
+                function verArchivo(url) {
+                    var nuevaVentana = window.open(url, '_blank');
+                    
+                    // Esperar a que la ventana se cargue completamente antes de manipular el documento
+                    nuevaVentana.onload = function() {
+                        // Obtener el elemento del visor de PDF en la ventana abierta
+                        var visorPDF = nuevaVentana.document.getElementById('pdf-viewer');
+                        
+                        if (visorPDF) {
+                            // Deshabilitar la opción de impresión
+                            var opcionImprimir = visorPDF.querySelector('[data-toolbar="print"]');
+                            if (opcionImprimir) {
+                                opcionImprimir.style.display = 'none';
+                            }
+                            
+                            // Deshabilitar la opción de descarga
+                            var opcionDescargar = visorPDF.querySelector('[data-toolbar="download"]');
+                            if (opcionDescargar) {
+                                opcionDescargar.style.display = 'none';
+                            }
+                        }
+                    };
+                }
+                console.log("Archivo JavaScript cargado 1");
+                function realizarBusqueda() {
+        var input = document.getElementById('buscar');
+        var filter = input.value.toUpperCase();
+        var libros = document.getElementsByClassName('libro');
+
+        for (var i = 0; i < libros.length; i++) {
+            var titulo = libros[i].querySelector('h6'); // Obtener el primer elemento h6 dentro del libro
+            var texto = titulo ? titulo.textContent || titulo.innerText : '';
+
+            if (texto.toUpperCase().includes(filter)) {
+                libros[i].style.display = '';
+            } else {
+                libros[i].style.display = 'none';
+            }
+        }
+    }
+
+    // Agregar evento input al campo de búsqueda
+    var buscarInput = document.getElementById('buscar');
+    buscarInput.addEventListener('input', realizarBusqueda);
+    console.log("Archivo JavaScript cargado 2");
+                </script>
             <x-footers.auth></x-footers.auth>
         </div>
     </main>

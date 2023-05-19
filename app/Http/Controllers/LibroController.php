@@ -138,8 +138,4 @@ class LibroController extends Controller
         // Pasar los libros y usuarios a la vista
         return view('pages.rtl', compact('libros', 'usuarios'));
     }
-
-    
-
-
 }
