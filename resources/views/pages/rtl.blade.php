@@ -15,9 +15,7 @@
                                 <form action="{{ route('libros.search') }}" method="GET">
                                         <label for="buscar" class="form-label">Buscar por título</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control-lg" id="buscar" name="buscar" placeholder="Ingresa el título del libro..." onkeyup="realizarBusqueda()">
-
-                                            <button type="submit" class="btn btn-primary">Buscar</button>
+                                            <input type="text" class="form-control-lg" id="buscar" name="letra" placeholder="Ingresa una letra..." onkeyup="realizarBusqueda()">    
                                         </div>
                                 </form>
                                 <!-- BUSCADOR POR LETRA -->
@@ -134,68 +132,56 @@
                                             <th class="text-secondary opacity-7"></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="lista-libros">
                                         @foreach ($libros as $libro)
-                                        @if(auth()->user()->rol_id != 4 || $libro->user_id == null)
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex px-2 py-1">
+                                            @if(auth()->user()->rol_id != 4 || $libro->user_id == null)
+                                                <tr class="libro" data-libro-id="{{ $libro->id }}">
+                                                    <td>
+                                                        <div class="d-flex px-2 py-1">
+                                                            <div class="d-flex flex-column justify-content-center">
+                                                                <p class="mb-0 text-sm">{{ $libro->id }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex px-2 py-1">
+                                                            <div>
+                                                                <h6 class="mb-0 text-sm">{{ $libro->titulo }}</h6>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
                                                         <div class="d-flex flex-column justify-content-center">
-                                                            <p class="mb-0 text-sm">{{ $libro->id }}</p>
+                                                            <p class="text-xs text-secondary mb-0">{{ $libro->autor }}</p>
                                                         </div>
-                                                    </div>
-                                                </td>
-
-
-                                               
-                                                <td>
-                                                    <div class="d-flex px-2 py-1 libro">
-                                                        <div>
-                                                            <h6 class="mb-0 text-sm">{{ $libro->titulo }}</h6>
+                                                    </td>
+                                                    <td class="align-middle text-center text-sm">
+                                                        <p class="text-xs font-weight-bold mb-0">{{ $libro->descripcion }}</p>
+                                                    </td>
+                                                    <td class="align-middle text-center">
+                                                        @if($libro->archivo_extension === 'pdf')
+                                                            <a href="{{ route('ver-archivo', ['id' => $libro->id]) }}" target="_blank">Ver archivo</a>
+                                                        @else
+                                                            <a href="{{ $libro->archivo_url }}" download>Descargar archivo</a>
+                                                        @endif
+                                                        <div id="vista-previa" style="display: none;">
+                                                            <iframe id="iframe-archivo" src="" width="100%" height="500px"></iframe>
                                                         </div>
-                                                    </div>
-                                                </td>
-
-                                                
-                                                <td>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <p class="text-xs text-secondary mb-0">{{ $libro->autor }}</p>
-                                                    </div>
-                                                </td>
-
-                                                
-                                                <td class="align-middle text-center text-sm">
-                                                    <p class="text-xs font-weight-bold mb-0">{{ $libro->descripcion }}</p>
-                                                </td>
-
-                                                
-                                                <td class="align-middle text-center">
-                                                    @if($libro->archivo_extension === 'pdf')
-                                                    <a href="{{ route('ver-archivo', ['id' => $libro->id]) }}" target="_blank">Ver archivo</a>
-                                                    @else
-                                                        <a href="{{ $libro->archivo_url }}" download>Descargar archivo</a>
+                                                    </td>
+                                                    @if(auth()->user()->rol_id != 4)
+                                                        <td class="align-middle">
+                                                            <form action="{{ route('eliminar-libro', ['id' => $libro->id]) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger btn-link" onclick="return confirm('¿Estás seguro de que deseas eliminar este documento?')">
+                                                                    <i class="material-icons">delete</i>
+                                                                    <div class="ripple-container"></div>
+                                                                </button>
+                                                            </form>
+                                                        </td>
                                                     @endif
-                                                    <!-- Agrega un div o contenedor para la vista previa del archivo -->
-                                                    <div id="vista-previa" style="display: none;">
-                                                        <iframe id="iframe-archivo" src="" width="100%" height="500px"></iframe>
-                                                    </div>
-
-                                                    
-                                                </td>
-                                                @if(auth()->user()->rol_id != 4)
-                                                <td class="align-middle">
-                                                    <form action="{{ route('eliminar-libro', ['id' => $libro->id]) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-link" onclick="return confirm('¿Estás seguro de que deseas eliminar este documento?')">
-                                                            <i class="material-icons">delete</i>
-                                                            <div class="ripple-container"></div>
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                                    @endif
-                                            </tr>
-                                                     @endif
+                                                </tr>
+                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -204,56 +190,61 @@
                     </div>
                 </div>
             </div>
-            <script>
-                function verArchivo(url) {
-                    var nuevaVentana = window.open(url, '_blank');
-                    
-                    // Esperar a que la ventana se cargue completamente antes de manipular el documento
-                    nuevaVentana.onload = function() {
-                        // Obtener el elemento del visor de PDF en la ventana abierta
-                        var visorPDF = nuevaVentana.document.getElementById('pdf-viewer');
-                        
-                        if (visorPDF) {
-                            // Deshabilitar la opción de impresión
-                            var opcionImprimir = visorPDF.querySelector('[data-toolbar="print"]');
-                            if (opcionImprimir) {
-                                opcionImprimir.style.display = 'none';
-                            }
-                            
-                            // Deshabilitar la opción de descarga
-                            var opcionDescargar = visorPDF.querySelector('[data-toolbar="download"]');
-                            if (opcionDescargar) {
-                                opcionDescargar.style.display = 'none';
-                            }
-                        }
-                    };
-                }
-                console.log("Archivo JavaScript cargado 1");
-                function realizarBusqueda() {
-        var input = document.getElementById('buscar');
-        var filter = input.value.toUpperCase();
-        var libros = document.getElementsByClassName('libro');
-
-        for (var i = 0; i < libros.length; i++) {
-            var titulo = libros[i].querySelector('h6'); // Obtener el primer elemento h6 dentro del libro
-            var texto = titulo ? titulo.textContent || titulo.innerText : '';
-
-            if (texto.toUpperCase().includes(filter)) {
-                libros[i].style.display = '';
-            } else {
-                libros[i].style.display = 'none';
-            }
-        }
-    }
-
-    // Agregar evento input al campo de búsqueda
-    var buscarInput = document.getElementById('buscar');
-    buscarInput.addEventListener('input', realizarBusqueda);
-    console.log("Archivo JavaScript cargado 2");
-                </script>
+            
             <x-footers.auth></x-footers.auth>
         </div>
     </main>
     <x-plugins></x-plugins>
+    <script>
+        function verArchivo(url) {
+            var nuevaVentana = window.open(url, '_blank');
+            
+            // Esperar a que la ventana se cargue completamente antes de manipular el documento
+            nuevaVentana.onload = function() {
+                // Obtener el elemento del visor de PDF en la ventana abierta
+                var visorPDF = nuevaVentana.document.getElementById('pdf-viewer');
+                
+                if (visorPDF) {
+                    // Deshabilitar la opción de impresión
+                    var opcionImprimir = visorPDF.querySelector('[data-toolbar="print"]');
+                    if (opcionImprimir) {
+                        opcionImprimir.style.display = 'none';
+                    }
+                    
+                    // Deshabilitar la opción de descarga
+                    var opcionDescargar = visorPDF.querySelector('[data-toolbar="download"]');
+                    if (opcionDescargar) {
+                        opcionDescargar.style.display = 'none';
+                    }
+                }
+            };
+        }
+        console.log("Archivo JavaScript cargado 1");
+        function realizarBusqueda() {
+            console.log("Archivo JavaScript cargado 2");
+            var buscarInput = document.querySelector('#buscar');
+    console.log(buscarInput);
+    var filtro = buscarInput.value.toUpperCase();
+    console.log(filtro);
+    var libros = document.querySelectorAll('#lista-libros tr.libro');
+    console.log(libros);
+    libros.forEach(function(libro) {
+        var titulo = libro.querySelector('h6').textContent.toUpperCase();
+        console.log(titulo);
+        if (titulo.includes(filtro)) {
+            libro.style.display = 'table-row';
+            console.log(libro);
+        } else {
+            console.log(libro);
+            libro.style.display = 'none';
+        }
+        console.log(libro);
+    });
+    }
 
+    document.addEventListener('DOMContentLoaded', function() {
+        var buscarInput = document.getElementById('buscar');
+        buscarInput.addEventListener('input', realizarBusqueda);
+    });
+        </script>
 </x-layout>
