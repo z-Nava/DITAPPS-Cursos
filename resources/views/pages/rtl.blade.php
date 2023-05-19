@@ -12,48 +12,53 @@
                     <div class="card my-4">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                             <div class="mb-1">
-                                <form action="{{ route('libros.search') }}" method="GET" id="form-buscar-titulo">
-                                    <label for="buscar" class="form-label">Buscar por título</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control-lg" id="buscar" name="buscar" placeholder="Ingresa un título..." onkeyup="realizarBusqueda()">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <form action="{{ route('libros.search') }}" method="GET" id="form-buscar-titulo">
+                                            <label for="buscar" class="form-label">Buscar por título</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control-lg" id="buscar" name="buscar" placeholder="Ingresa un título..." onkeyup="realizarBusqueda()">
+                                            </div>
+                                        </form>
                                     </div>
-                                </form>
-                                <!-- BUSCADOR POR LETRA -->
-                                <label for="letra" class="form-label">Buscar por letra</label>
-                                <form action="{{ route('libros.search') }}" method="GET">
-                                    <select class="form-select-lg" id="buscar-letra" name="letra" onchange="filtrarPorLetra()">
-                                        <option value="">Seleccionar letra</option>
-                                        <option value="a">A</option>
-                                        <option value="b">B</option>
-                                        <option value="c">C</option>
-                                        <option value="d">D</option>
-                                        <option value="e">E</option>
-                                        <option value="f">F</option>
-                                        <option value="g">G</option>
-                                        <option value="h">H</option>
-                                        <option value="i">I</option>
-                                        <option value="j">J</option>
-                                        <option value="k">K</option>
-                                        <option value="l">L</option>
-                                        <option value="m">M</option>
-                                        <option value="n">N</option>
-                                        <option value="ñ">Ñ</option>
-                                        <option value="o">O</option>
-                                        <option value="p">P</option>
-                                        <option value="q">Q</option>
-                                        <option value="r">R</option>
-                                        <option value="s">S</option>
-                                        <option value="t">T</option>
-                                        <option value="u">U</option>
-                                        <option value="v">V</option>
-                                        <option value="w">W</option>
-                                        <option value="x">X</option>
-                                        <option value="y">Y</option>
-                                        <option value="z">Z</option>
-
-                                    <!-- Agrega las opciones para todas las letras del abecedario -->
-                                    </select>
-                                </form>
+                                    <div>
+                                        <form action="{{ route('libros.search') }}" method="GET">
+                                            <label for="letra" class="form-label">Buscar por letra</label>
+                                            <div class="input-group">
+                                                <select class="form-select-lg" id="buscar-letra" name="letra" onchange="filtrarPorLetra()">
+                                                    <option value="">Seleccionar letra</option>
+                                                    <option value="a">A</option>
+                                                    <option value="b">B</option>
+                                                    <option value="c">C</option>
+                                                    <option value="d">D</option>
+                                                    <option value="e">E</option>
+                                                    <option value="f">F</option>
+                                                    <option value="g">G</option>
+                                                    <option value="h">H</option>
+                                                    <option value="i">I</option>
+                                                    <option value="j">J</option>
+                                                    <option value="k">K</option>
+                                                    <option value="l">L</option>
+                                                    <option value="m">M</option>
+                                                    <option value="n">N</option>
+                                                    <option value="ñ">Ñ</option>
+                                                    <option value="o">O</option>
+                                                    <option value="p">P</option>
+                                                    <option value="q">Q</option>
+                                                    <option value="r">R</option>
+                                                    <option value="s">S</option>
+                                                    <option value="t">T</option>
+                                                    <option value="u">U</option>
+                                                    <option value="v">V</option>
+                                                    <option value="w">W</option>
+                                                    <option value="x">X</option>
+                                                    <option value="y">Y</option>
+                                                    <option value="z">Z</option>
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- AQUI PARA AGREGAR EL LIBRO -->
