@@ -53,7 +53,6 @@
 
                                     <!-- Agrega las opciones para todas las letras del abecedario -->
                                     </select>
-                                    <button type="submit" class="btn btn-primary">Buscar</button>
                                 </form>
                             </div>
                         </div>
