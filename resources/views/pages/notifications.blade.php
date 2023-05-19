@@ -92,8 +92,7 @@
                             <h5 class="mb-0">Notifications</h5>
                             <p class="text-sm mb-0">
                                 Notifications on this page use Toasts from Bootstrap. Read more details <a
-                                    href="https://getbootstrap.com/docs/5.0/components/toasts/" target="
-          ">here</a>.
+                                    href="https://getbootstrap.com/docs/5.0/components/toasts/" target="">here</a>.
                             </p>
                         </div>
                         <div class="card-body p-3">
