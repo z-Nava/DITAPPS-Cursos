@@ -12,13 +12,11 @@
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                             <div class="mb-1">
                                 <form action="{{ route('libros.search') }}" method="GET">
-                                    
                                         <label for="buscar" class="form-label">Buscar por título</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control-lg" id="buscar" name="buscar" placeholder="Ingresa el título del libro...">
                                             <button type="submit" class="btn btn-primary">Buscar</button>
                                         </div>
-                                    
                                 </form>
                                 <!-- BUSCADOR POR LETRA -->
                                 <label for="letra" class="form-label">Buscar por letra</label>
