@@ -125,10 +125,10 @@ class LibroController extends Controller
     public function search(Request $request)
     {
     // Obtener el término de búsqueda del formulario
-    $searchTerm = $request->input('buscar');
+    $searchTerm = $request->input('letra');
 
     // Realizar la búsqueda de libros por título
-    $libros = Libro::where('titulo', 'LIKE', "%$searchTerm%")->get();
+    $libros = Libro::where('titulo', 'LIKE', $searchTerm . '%')->get();
 
     // Obtener los usuarios con el rol de alumno
     $usuarios = User::whereHas('rol', function ($query) {
@@ -138,6 +138,8 @@ class LibroController extends Controller
     // Pasar los libros y usuarios a la vista
     return view('pages.rtl', compact('libros', 'usuarios'));
     }
+
+    
 
 
 }
