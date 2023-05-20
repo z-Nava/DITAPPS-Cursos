@@ -25,7 +25,7 @@
                             </div>
                             <div class="ms-auto text-end">
                                 <a class="btn btn-link text-dark px-3 mb-2" href="javascript:;"><i
-                                        class="material-icons text-sm me-2">edit</i>Edit</a>
+                                        class="material-icons text-sm me-2">edit</i>Editar</a>
                                 <a class="btn btn-link text-dark px-3 mb-2" href="javascript:;"><i
                                         class="material-icons text-sm me-2">visibility</i>Ver</a>
                                 <a class="btn btn-link text-dark px-3 mb-2" href="javascript:;"><i
@@ -33,7 +33,7 @@
                                 <a class="btn btn-link text-dark px-3 mb-2" href="javascript:;"><i
                                         class="material-icons text-sm me-2">chat_bubble</i>Discusión</a>
                                 <a class="btn btn-link text-danger text-gradient px-3 mb-2"
-                                        href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
+                                        href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Eliminar</a>
                             </div>
                         </li>
                         <!-- Resto de elementos de la lista -->
