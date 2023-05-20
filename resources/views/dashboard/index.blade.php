@@ -30,8 +30,6 @@
                                         class="material-icons text-sm me-2">visibility</i>Ver</a>
                                 <a class="btn btn-link text-dark px-3 mb-2" href="javascript:;"><i
                                         class="material-icons text-sm me-2">forum</i>Foro</a>
-                                <a class="btn btn-link text-dark px-3 mb-2" href="javascript:;"><i
-                                        class="material-icons text-sm me-2">chat_bubble</i>Discusión</a>
                                 <a class="btn btn-link text-danger text-gradient px-3 mb-2"
                                         href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Eliminar</a>
                             </div>
