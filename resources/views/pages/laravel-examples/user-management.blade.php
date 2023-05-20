@@ -116,6 +116,7 @@
                                             <td class="align-middle text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">{{$user->created_at}}</span>
                                             </td>
+                                            <!--COPIAR LO DE ELIMNAR, TODO EL FORM-->
                                             <td class="align-middle">
                                                 <a rel="tooltip" class="btn btn-success btn-link" data-bs-target="#editarUsuarioModal" data-bs-toggle="modal">
                                                     <i class="material-icons">edit</i>
