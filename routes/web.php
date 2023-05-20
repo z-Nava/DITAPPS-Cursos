@@ -69,7 +69,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('static-sign-in', function () {return view('pages.static-sign-in');})->name('static-sign-in');
 	Route::get('static-sign-up', function () {return view('pages.static-sign-up');})->name('static-sign-up');
 	Route::get('user-management', function () {return view('pages.laravel-examples.user-management');})->name('user-management');
+
 	Route::get('user-management', [UserManagementController::class, 'index'])->name('user-management');
+	Route::post('user-management', [UserManagementController::class, 'store'])->name('usermanagement.store');
+	Route::delete('user-management/{id}', [UserManagementController::class, 'destroy'])->name('usermanagement.destroy');
+	Route::post('user-management/{id}', [UserManagementController::class, 'update'])->name('usermanagement.update');
 
 	Route::get('user-profile', function () {return view('pages.laravel-examples.user-profile');})->name('user-profile');
 });
