@@ -88,7 +88,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($usuarios as $user)
-                                        
+                                        @if ($user->rol_id != 1 && $user->rol_id != 2 || Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2)
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
@@ -190,6 +190,7 @@
                                             </td>
                                             </td>                                        
                                         </tr>
+                                        @endif
                                         @endforeach
                                     </tbody>
                                 </table>
