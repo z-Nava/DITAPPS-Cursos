@@ -23,9 +23,9 @@
                                   <div class="card" data-animation="false">
                                       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                           <a class="d-block blur-shadow-image">
-                                              <img src="https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
+                                            <img src="{{ asset($curso->imagen) }}" alt="Imagen del curso">
                                           </a>
-                                          <div class="colored-shadow" style="background-image: url(&quot;https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg&quot;);"></div>
+                                          <div class="colored-shadow" style="background-image: url(&quot;{{ asset($curso->imagen) }}&quot;);"></div>
                                       </div>
                                       <div class="card-body text-center">
                                           <div class="d-flex mt-n6 mx-auto">
@@ -75,6 +75,10 @@
                     <label for="descripcion" class="form-label">Descripción del curso</label>
                     <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
                   </div>
+                  <div class="form-group">
+                    <label for="imagen">Imagen del curso:</label>
+                    <input type="file" class="form-control" id="imagen" name="imagen">
+                </div>
                   <div class="mb-3">
                     <label for="fecha_inicio" class="form-label">Fecha de inicio</label>
                     <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
