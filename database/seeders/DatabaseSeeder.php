@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'SuperAdministrador',
             'email' => 'superadministrador@material.com',
             'rol_id' => 1,
+            'phone' => '8713457555',
             'status' => 'verified',
             'password' => ('secret')
         ]);
