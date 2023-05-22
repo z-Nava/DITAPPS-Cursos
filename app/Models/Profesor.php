@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Profesor extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['curso_id', 'usuario_id'];
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function curso()
+    {
+        return $this->belongsTo(Curso::class);
+    }
 }
