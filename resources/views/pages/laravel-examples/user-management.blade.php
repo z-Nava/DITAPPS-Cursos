@@ -157,8 +157,10 @@
                                                                     <div class="mb-3">
                                                                         <label for="rol_id" class="form-label">Rol ID</label>
                                                                         <select class="form-select" id="rol_id" name="rol_id">
+                                                                            @if (Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2)
                                                                             <option value="1" {{ $user->rol_id === 1 ? 'selected' : '' }}>SuperAdministrador</option>
                                                                             <option value="2" {{ $user->rol_id === 2 ? 'selected' : '' }}>Administrador</option>
+                                                                            @endif
                                                                             <option value="3" {{ $user->rol_id === 3 ? 'selected' : '' }}>Profesor</option>
                                                                             <option value="4" {{ $user->rol_id === 4 ? 'selected' : '' }}>Alumno</option>
                                                                         </select>
