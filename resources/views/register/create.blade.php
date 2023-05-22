@@ -15,7 +15,7 @@
                 <div class="page-header min-vh-100">
                     <div class="container">
                         <div class="row">
-                            <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-4 start-0 text-center justify-content-center flex-column">
+                            <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-4 start-5 text-center justify-content-center flex-column">
                                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                     <div class="carousel-inner mb-4">
                                       <div class="carousel-item">

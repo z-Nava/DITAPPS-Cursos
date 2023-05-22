@@ -14,8 +14,68 @@
                 style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');">
                 <span class="mask bg-gradient-dark opacity-6"></span>
                 <div class="container my-auto">
+                    
+                    <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-4 start-5 text-center justify-content-center flex-column">
+                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner mb-4">
+                              <div class="carousel-item">
+                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image: url('https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-3-min.jpg');">
+                                  <span class="mask bg-gradient-dark"></span>
+                                  <div class="container">
+                                    <div class="row justify-content-center">
+                                      <div class="col-lg-6 my-auto">
+                                        <h4 class="text-white mb-0 fadeIn1 fadeInBottom">CURSO</h4>
+                                        <h1 class="text-white fadeIn2 fadeInBottom">PROGRAMACION EN PHP</h1>
+                                        <p class="lead text-white opacity-8 fadeIn3 fadeInBottom">APRENDERAS A USAR PHP, ADEMAS DE DIFERENTES FRAMEWORKS.</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                               <div class="carousel-item">
+                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image: url('https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg');">
+                                  <span class="mask bg-gradient-dark"></span>
+                                  <div class="container">
+                                    <div class="row justify-content-center">
+                                      <div class="col-lg-6 my-auto">
+                                        <h4 class="text-white mb-0 fadeIn1 fadeInBottom">CURSO</h4>
+                                        <h1 class="text-white fadeIn2 fadeInBottom">PROGRAMACION IoT CON PYTHON</h1>
+                                        <p class="lead text-white opacity-8 fadeIn3 fadeInBottom">APRENDERAS A USAR ARDUINO Y MANEJAR EL LENGUAJE PYTHON.</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>  
+                              </div>
+                              <div class="carousel-item active">
+                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image: url('https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-2-min.jpg');">
+                                  <span class="mask bg-gradient-dark"></span>
+                                  <div class="container">
+                                    <div class="row justify-content-center">
+                                      <div class="col-lg-6 my-auto">
+                                        <h4 class="text-white mb-0 fadeIn1 fadeInBottom">CURSO</h4>
+                                        <h1 class="text-white fadeIn2 fadeInBottom">FUNDAMENTO DE POO</h1>
+                                        <p class="lead text-white opacity-8 fadeIn3 fadeInBottom">APRENDERAS ACERCA DE LOS FUNDAMENTOS DE POO.</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="min-vh-75 position-absolute w-100 top-0">
+                              <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon position-absolute bottom-50" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                              </a>
+                              <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+                                <span class="carousel-control-next-icon position-absolute bottom-50" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                              </a>
+                            </div>
+                          </div>
+                    </div>
+
                     <div class="row signin-margin">
-                        <div class="col-lg-4 col-md-8 col-12 mx-auto">
+                        <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
                             <div class="card z-index-0 fadeIn3 fadeInBottom">
                                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                     <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
