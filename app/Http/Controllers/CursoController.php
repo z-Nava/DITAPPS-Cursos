@@ -35,7 +35,11 @@ class CursoController extends Controller
     // Obtener y guardar la imagen asociada al curso
     if ($request->hasFile('imagen')) {
         $imagen = $request->file('imagen');
-        $imagenPath = $imagen->store('public/storage/imagenes');
+        $imagenPath = $imagen->store('public/storage/');
+        if (!$imagenPath) {
+            // Manejo del error de almacenamiento de la imagen
+            return redirect()->back()->withInput()->withErrors(['imagen' => 'Error al guardar la imagen']);
+        }
         $curso->imagen = $imagenPath;
 
 
