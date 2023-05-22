@@ -1,9 +1,18 @@
 <x-layout bodyClass="g-sidenav-show bg-gray-200">
   <x-navbars.sidebar activePage="tables"></x-navbars.sidebar>
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+
       <!-- Navbar -->
       <x-navbars.navs.auth titlePage="Tables"></x-navbars.navs.auth>
       <!-- End Navbar -->
+      <style>
+        .custom-image {
+  width: 200px; /* Ajusta el valor según el tamaño deseado */
+  height: 150px; /* Ajusta el valor según el tamaño deseado */
+  object-fit: cover; /* Para mantener la proporción de la imagen y recortar si es necesario */
+}
+
+      </style>
       <div class="container-fluid py-4 mt-5">
           <div class="row">
               <div class="col">
@@ -21,9 +30,9 @@
                           <div class="card my-4">
                               <div class="card-group">
                                   <div class="card" data-animation="false">
-                                      <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                      <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 d-flex justify-content-center">
                                           <a class="d-block blur-shadow-image">
-                                            <img src="{{ $curso->imagen_url }}" alt="Imagen del curso">
+                                            <img src="{{ $curso->imagen_url }}" alt="Imagen del curso" class="custom-image">
                                           </a>
                                           <div class="colored-shadow" style="background-image: url(&quot;{{ asset($curso->imagen) }}&quot;);"></div>
                                       </div>
