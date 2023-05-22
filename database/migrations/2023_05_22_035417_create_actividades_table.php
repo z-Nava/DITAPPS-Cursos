@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('actividades', function (Blueprint $table) {
             $table->id();
+            $table->string('titulo');
+            $table->text('descripcion');
+            $table->dateTime('fecha_creacion');
+            $table->foreignId('modulo_id')->constrained('modulos');
             $table->timestamps();
         });
     }

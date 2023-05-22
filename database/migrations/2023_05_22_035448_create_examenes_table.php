@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('examenes', function (Blueprint $table) {
             $table->id();
+            $table->string('titulo');
+            $table->text('descripcion');
+            $table->foreignId('actividad_id')->constrained('actividades');
             $table->timestamps();
         });
     }

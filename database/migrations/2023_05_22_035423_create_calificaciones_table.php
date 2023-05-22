@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('calificaciones', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('actividad_id')->constrained('actividades');
+            $table->foreignId('usuario_id')->constrained('users');
+            $table->float('calificacion');
+            $table->date('fecha_calificacion');
             $table->timestamps();
         });
     }

@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('respuestas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tarea_id')->constrained('tareas');
+            $table->foreignId('usuario_id')->constrained('users');
+            $table->text('respuesta');
+            $table->string('archivo')->nullable();
+            $table->string('archivo_url')->nullable();
             $table->timestamps();
         });
     }

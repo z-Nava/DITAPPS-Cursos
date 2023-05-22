@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('opciones_respuesta', function (Blueprint $table) {
             $table->id();
+            $table->text('opcion');
+            $table->boolean('es_correcta');
+            $table->foreignId('pregunta_id')->constrained('preguntas');
             $table->timestamps();
         });
     }

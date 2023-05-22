@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('modulos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->text('descripcion');
+            $table->foreignId('curso_id')->constrained('cursos');
             $table->timestamps();
         });
     }

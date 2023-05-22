@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('preguntas', function (Blueprint $table) {
             $table->id();
+            $table->text('enunciado');
+            $table->foreignId('examen_id')->constrained('examenes');
             $table->timestamps();
         });
     }
