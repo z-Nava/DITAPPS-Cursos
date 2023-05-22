@@ -18,6 +18,8 @@ return new class extends Migration
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
             $table->enum('estado', ['activo', 'inactivo'])->default('activo');
+            $table->string('imagen')->nullable();
+            $table->string('imagen_url')->nullable();
             $table->timestamps();
         });
     }

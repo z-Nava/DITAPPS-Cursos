@@ -35,15 +35,18 @@ class CursoController extends Controller
     // Obtener y guardar la imagen asociada al curso
     if ($request->hasFile('imagen')) {
         $imagen = $request->file('imagen');
-        $imagenPath = $imagen->store('public/storage/');
-        
+        $imagenPath = $imagen->storeAs('public/imagenes', $imagen->getClientOriginalName());
+        if (!$imagenPath) {
+            // Manejo del error de almacenamiento de la imagen
+            return redirect()->back()->withInput()->withErrors(['imagen' => 'Error al guardar la imagen']);
+        }
         $curso->imagen = $imagenPath;
-
-
+    
         // Generar la URL para acceder a la imagen
         $imagenUrl = Storage::url($imagenPath);
         $curso->imagen_url = $imagenUrl;
     }
+    
     $curso->save();
     return redirect()->route('tables')->with('success', 'Curso creado correctamente');
 }

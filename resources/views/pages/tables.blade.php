@@ -65,7 +65,7 @@
               </div>
               <div class="modal-body">
                 <!-- Formulario para agregar un nuevo curso -->
-                <form action="{{ route('cursos.store') }}" method="POST">
+                <form action="{{ route('cursos.store') }}" method="POST" enctype="multipart/form-data">
                   @csrf
                   <div class="mb-3">
                     <label for="titulo" class="form-label">Nombre del curso</label>
