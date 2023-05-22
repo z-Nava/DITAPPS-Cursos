@@ -23,7 +23,7 @@
                                   <div class="card" data-animation="false">
                                       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                           <a class="d-block blur-shadow-image">
-                                            <img src="{{ asset($curso->imagen) }}" alt="Imagen del curso">
+                                            <img src="{{ asset('storage/imagenes/'.$curso->imagen) }}" alt="Imagen del curso">
                                           </a>
                                           <div class="colored-shadow" style="background-image: url(&quot;{{ asset($curso->imagen) }}&quot;);"></div>
                                       </div>

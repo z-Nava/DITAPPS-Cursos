@@ -35,16 +35,7 @@ class LibroController extends Controller
         $libro->autor = $request->input('autor');
         $libro->descripcion = $request->input('descripcion');
         $libro->archivo = $request->input('archivo');
-        #$libro->user_id = $request->input('user_id');
-
-        #$username = $request->input('username');
-        #$user = User::where('name', $username)->first();
-        #if ($user) {
-        #   $libro->user_id = $user->id;
-        #} 
-        #else {
-            #return redirect()->route('rtl')->with('message', 'No se encontró el usuario.');
-        #}   
+         
 
         if ($request->hasFile('archivo')) {
             $archivo = $request->file('archivo');

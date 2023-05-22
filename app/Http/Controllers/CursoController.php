@@ -15,46 +15,39 @@ class CursoController extends Controller
         return view('pages.tables', compact('cursos'));
     }
     public function store(Request $request)
-    {
-        
-        // Validar los datos del formulario
-        $request->validate([
-            'nombre' => 'required',
-            'descripcion' => 'required',
-            'fecha_inicio' => 'required',
-            'fecha_fin' => 'required',
-        ]);
+{
+    // Validar los datos del formulario
+    $request->validate([
+        'nombre' => 'required',
+        'descripcion' => 'required',
+        'fecha_inicio' => 'required',
+        'fecha_fin' => 'required',
+    ]);
 
-       
+    // Crear un nuevo curso con los datos recibidos
+    $curso = Curso::create([
+        'nombre' => $request->input('nombre'),
+        'descripcion' => $request->input('descripcion'),
+        'fecha_inicio' => $request->input('fecha_inicio'),
+        'fecha_fin' => $request->input('fecha_fin'),
+    ]);
 
-        // Crear un nuevo curso con los datos recibidos
-        $curso = Curso::create([
-            'nombre' => $request->input('nombre'),
-            'descripcion' => $request->input('descripcion'),
-            'fecha_inicio' => $request->input('fecha_inicio'),
-            'fecha_fin' => $request->input('fecha_fin'),
-        ]);
-
-       ;
-
-        // Obtener y guardar la imagen asociada al curso
+    // Obtener y guardar la imagen asociada al curso
     if ($request->hasFile('imagen')) {
         $imagen = $request->file('imagen');
-        $imagenPath = $imagen->store('public/imagenes');
-        $curso->imagen = Storage::url($imagenPath);
-        $curso->save();
-        
-        Storage::disk('public')->exists($imagenPath);
-      
-    }
-        
-        $cursos = Curso::all();
-        
-        return redirect()->route('tables')->with('success', 'Curso creado correctamente');
-        
-        
+        $imagenPath = $imagen->store('public/storage/imagenes');
+        $curso->imagen = $imagenPath;
 
+
+        // Generar la URL para acceder a la imagen
+        $imagenUrl = asset('storage/'.$imagenPath);
+        $curso->imagen_url = $imagenUrl;
     }
+    $curso->save();
+    return redirect()->route('tables')->with('success', 'Curso creado correctamente');
+}
+
+
     
     public function destroy($id)
     {
