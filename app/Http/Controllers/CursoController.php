@@ -40,7 +40,7 @@ class CursoController extends Controller
 
 
         // Generar la URL para acceder a la imagen
-        $imagenUrl = asset('storage/'.$imagenPath);
+        $imagenUrl = Storage::url($imagenPath);
         $curso->imagen_url = $imagenUrl;
     }
     $curso->save();
