@@ -32,7 +32,15 @@ Route::post('/libros', [LibroController::class, 'store'])->name('libros.store');
 
 
 Route::get('/', function () {return redirect('sign-in');})->middleware('guest');
+
+
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+
+
+
+
+
 Route::get('sign-up', [RegisterController::class, 'create'])->middleware('guest')->name('register');
 Route::post('sign-up', [RegisterController::class, 'store'])->middleware('guest');
 Route::get('sign-in', [SessionsController::class, 'create'])->middleware('guest')->name('login');
@@ -59,6 +67,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/tables', [CursoController::class, 'index'])->name('tables');
 	Route::post('/tables', [CursoController::class, 'store'])->name('cursos.store');
 	Route::delete('/tables/{id}', [CursoController::class, 'destroy'])->name('cursos.destroy');
+	Route::get('/tables/{curso}', [CursoController::class, 'trabajo'])->name('curso.trabajo');
+
+
 
 	Route::get('/rtl', [LibroController::class, 'show'])->name('rtl');
 	Route::delete('/rtl/{id}', [LibroController::class, 'destroy'])->name('eliminar-libro');

@@ -9,11 +9,11 @@ class Alumno extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['curso_id', 'usuario_id'];
+    protected $fillable = ['curso_id', 'user_id'];
 
-    public function usuario()
+    public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function curso()

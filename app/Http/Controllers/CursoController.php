@@ -51,12 +51,17 @@ class CursoController extends Controller
     return redirect()->route('tables')->with('success', 'Curso creado correctamente');
 }
 
-
-    
     public function destroy($id)
     {
         $curso = Curso::find($id);
         $curso->delete();
         return redirect()->route('tables');
+    }
+
+    public function trabajo($curso)
+    {
+        // Lógica para obtener los alumnos inscritos en el curso y otras operaciones relacionadas
+
+        return view('dashboard.index', compact('curso'));
     }
 }
