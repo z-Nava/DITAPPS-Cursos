@@ -36,10 +36,7 @@ class CursoController extends Controller
     if ($request->hasFile('imagen')) {
         $imagen = $request->file('imagen');
         $imagenPath = $imagen->store('public/storage/');
-        if (!$imagenPath) {
-            // Manejo del error de almacenamiento de la imagen
-            return redirect()->back()->withInput()->withErrors(['imagen' => 'Error al guardar la imagen']);
-        }
+        
         $curso->imagen = $imagenPath;
 
 
