@@ -27,13 +27,16 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label for="titulo" class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" id="name" name="name" required placeholder="Ingresa el titulo del libro...">
+                                    <input type="text" class="form-control" id="name" name="name" required placeholder="Ingresa el nombre del nuevo usuario">
                                 </div>
                                 <div class="mb-3">
                                     <label for="autor" class="form-label">Email</label>
-                                    <input type="text" class="form-control" id="email" name="email" placeholder="Ingresa el Autor del Libro" required>
+                                    <input type="text" class="form-control" id="email" name="email" placeholder="Ingresa el email del nuevo usuario" required>
                                 </div>
-                                
+                                <div class="mb-3">
+                                    <label for="autor" class="form-label">Telefono</label>
+                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Ingresa el telefono del nuevo usuario" required>
+                                </div>
                                 <div class="mb-3">
                                     <label for="archivo" class="form-label">Rol</label>
                                     <select class="form-control-lg" name="rol_id" id="rol_id">
@@ -77,7 +80,7 @@
                                                 ROL</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                CREADO EL: 
+                                                NUMERO TELEFONICO 
                                             </th>
                                             <th class="text-secondary opacity-7"></th>
                                         </tr>
@@ -114,7 +117,7 @@
                                                 <span class="text-secondary text-xs font-weight-bold">{{$user->rol_id}}</span>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">{{$user->created_at}}</span>
+                                                <span class="text-secondary text-xs font-weight-bold">{{$user->phone}}</span>
                                             </td>
                                             <!--COPIAR LO DE ELIMNAR, TODO EL FORM-->
                                             <td class="align-middle">

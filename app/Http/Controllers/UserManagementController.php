@@ -46,6 +46,7 @@ class UserManagementController extends Controller
         $usuario->password = bcrypt($request->password);
         $usuario->password = Str::random(10);
         $usuario->rol_id = $request->rol_id;
+        $usuario->phone = $request->phone;
         $usuario->status = 'unverified';
         $usuario->save();
 
