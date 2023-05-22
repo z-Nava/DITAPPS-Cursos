@@ -34,6 +34,9 @@ class UserManagementController extends Controller
         $usuario = User::find($id);
         $usuario->name = $request->name;
         $usuario->email = $request->email;
+        $usuario->status = $request->status;
+        $usuario->rol_id = $request->rol_id;
+        $usuario->phone = $request->phone;
         $usuario->save();
         return redirect()->route('user-management');
     }

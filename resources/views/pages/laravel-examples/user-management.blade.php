@@ -121,10 +121,58 @@
                                             </td>
                                             <!--COPIAR LO DE ELIMNAR, TODO EL FORM-->
                                             <td class="align-middle">
-                                                <a rel="tooltip" class="btn btn-success btn-link" data-bs-target="#editarUsuarioModal" data-bs-toggle="modal">
+                                                <a rel="tooltip" class="btn btn-success btn-link" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal{{ $user->id }}">
                                                     <i class="material-icons">edit</i>
                                                     <div class="ripple-container"></div>
                                                 </a>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="editarUsuarioModal{{ $user->id }}" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editarUsuarioModalLabel">Editar Usuario</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="{{ route('usermanagement.update', ['id' => $user->id]) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <div class="mb-3">
+                                                                        <label for="nombre" class="form-label">Nombre</label>
+                                                                        <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="email" class="form-label">Email</label>
+                                                                        <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="status" class="form-label">Status</label>
+                                                                        <select class="form-select" id="status" name="status">
+                                                                            <option value="verified" {{ $user->status === 'verified' ? 'selected' : '' }}>Verified</option>
+                                                                            <option value="unverified" {{ $user->status === 'unverified' ? 'selected' : '' }}>Unverified</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="rol_id" class="form-label">Rol ID</label>
+                                                                        <select class="form-select" id="rol_id" name="rol_id">
+                                                                            <option value="1" {{ $user->rol_id === 1 ? 'selected' : '' }}>SuperAdministrador</option>
+                                                                            <option value="2" {{ $user->rol_id === 2 ? 'selected' : '' }}>Administrador</option>
+                                                                            <option value="3" {{ $user->rol_id === 3 ? 'selected' : '' }}>Profesor</option>
+                                                                            <option value="4" {{ $user->rol_id === 4 ? 'selected' : '' }}>Alumno</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="email" class="form-label">Numero telefonico</label>
+                                                                        <input type="text" class="form-control" id="phone" name="phone" value="{{ $user->phone }}">
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
                                                 <form action="{{ route('usermanagement.destroy', ['id' => $user->id]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -133,6 +181,7 @@
                                                         <div class="ripple-container"></div>
                                                     </button>
                                                 </form>
+                                            </td>
                                             </td>                                        
                                         </tr>
                                         @endforeach
