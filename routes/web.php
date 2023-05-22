@@ -23,6 +23,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\LibroController;
+use App\Http\Controllers\CursoController;
+
+
             
 Route::get('/verify-email/{id}/{hash}', [RegisterController::class, 'verify'])->name('verification.verify');
 Route::post('/libros', [LibroController::class, 'store'])->name('libros.store');
@@ -51,7 +54,11 @@ Route::post('user-profile', [ProfileController::class, 'update'])->middleware('a
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('billing', function () {return view('pages.billing');})->name('billing');
-	Route::get('tables', function () {return view('pages.tables');})->name('tables');
+
+
+	Route::get('/tables', [CursoController::class, 'index'])->name('tables');
+	Route::post('/tables', [CursoController::class, 'store'])->name('cursos.store');
+	Route::delete('/tables/{id}', [CursoController::class, 'destroy'])->name('cursos.destroy');
 
 	Route::get('/rtl', [LibroController::class, 'show'])->name('rtl');
 	Route::delete('/rtl/{id}', [LibroController::class, 'destroy'])->name('eliminar-libro');
