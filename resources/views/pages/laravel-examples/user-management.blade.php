@@ -175,6 +175,7 @@
                                                     </div>
                                                 </div>
                                                 <!-- AQUI ACABA MODAL EDITAR USUARIO -->
+                                                @if (Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2)
                                                 <form action="{{ route('usermanagement.destroy', ['id' => $user->id]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -183,6 +184,7 @@
                                                         <div class="ripple-container"></div>
                                                     </button>
                                                 </form>
+                                                @endif
                                             </td>
                                             </td>                                        
                                         </tr>
