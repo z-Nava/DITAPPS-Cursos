@@ -34,6 +34,9 @@
                 </a>
             </li>
 
+            
+            @if (Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2 || Auth::user()->rol_id == 3)
+
             <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'user-management' ? ' active bg-gradient-primary' : '' }} "
                     href="{{ route('user-management') }}">
@@ -43,6 +46,8 @@
                     <span class="nav-link-text ms-1">Gestion de usuarios</span>
                 </a>
             </li>
+
+            @endif
 
             <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'tables' ? ' active bg-gradient-primary' : '' }} "

@@ -40,13 +40,14 @@
                                 <div class="mb-3">
                                     <label for="archivo" class="form-label">Rol</label>
                                     <select class="form-control-lg" name="rol_id" id="rol_id">
+                                        @if (Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2)
                                         <option value="1" id="rol_id" name="rol_id">SuperAdministrador</option>
                                         <option value="2" id="rol_id">Administrador</option>
+                                        @endif
                                         <option value="3" id="rol_id">Profesor</option>
                                         <option value="4" id="rol_id">Alumno</option>
                                     </select>
                                 </div>
-                                     
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                     <button type="submit" class="btn btn-primary">Agregar Usuario</button>
@@ -87,6 +88,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($usuarios as $user)
+                                        
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
@@ -172,7 +174,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            
+                                                <!-- AQUI ACABA MODAL EDITAR USUARIO -->
                                                 <form action="{{ route('usermanagement.destroy', ['id' => $user->id]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
