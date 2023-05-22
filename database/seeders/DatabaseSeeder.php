@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Rol;
+use App\Models\Profesor;
+use App\Models\Alumno;
 
 
 
@@ -17,6 +20,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(RolesSeeder::class);
+        
+        
 
         User::factory()->create([
             'name' => 'SuperAdministrador',
@@ -75,6 +80,11 @@ class DatabaseSeeder extends Seeder
             'status' => 'verified',
             'password' => ('secret')
         ]);
+
+
+        
+
+        
 
 
     }
