@@ -58,10 +58,10 @@ class CursoController extends Controller
         return redirect()->route('tables');
     }
 
-    public function trabajo($curso)
-    {
+    #public function trabajo($curso)
+    #{
         // Lógica para obtener los alumnos inscritos en el curso y otras operaciones relacionadas
 
-        return view('dashboard.index', compact('curso'));
-    }
+       # return view('dashboard.index', compact('curso'));
+    #}
 }
