@@ -9,25 +9,10 @@ class Curso extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre', 'descripcion', 'fecha_inicio', 'fecha_fin', 'estado', 'imagen', 'imagen_url'];
+    protected $fillable = ['nombre', 'descripcion', 'fecha_inicio', 'fecha_fin', 'estado', 'imagen', 'imagen_url', 'user_id'];
 
-    public function profesores()
+    public function usuario()
     {
-        return $this->belongsToMany(User::class, 'profesores', 'curso_id', 'usuario_id');
-    }
-
-    public function alumnos()
-    {
-        return $this->belongsToMany(User::class, 'alumnos', 'curso_id', 'usuario_id');
-    }
-
-    public function modulos()
-    {
-        return $this->hasMany(Modulo::class);
-    }
-
-    public function examenes()
-    {
-        return $this->hasMany(Examen::class);
+    return $this->belongsTo(User::class, 'user_id');
     }
 }

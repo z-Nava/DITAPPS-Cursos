@@ -24,13 +24,17 @@ class CursoController extends Controller
         'fecha_fin' => 'required',
     ]);
 
+    $user = auth()->user();
+
     // Crear un nuevo curso con los datos recibidos
     $curso = Curso::create([
         'nombre' => $request->input('nombre'),
         'descripcion' => $request->input('descripcion'),
         'fecha_inicio' => $request->input('fecha_inicio'),
         'fecha_fin' => $request->input('fecha_fin'),
+        'user_id' => $user->id,
     ]);
+        
 
     // Obtener y guardar la imagen asociada al curso
     if ($request->hasFile('imagen')) {
@@ -58,10 +62,4 @@ class CursoController extends Controller
         return redirect()->route('tables');
     }
 
-    #public function trabajo($curso)
-    #{
-        // Lógica para obtener los alumnos inscritos en el curso y otras operaciones relacionadas
-
-       # return view('dashboard.index', compact('curso'));
-    #}
 }
