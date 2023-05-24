@@ -78,9 +78,9 @@ Route::group(['middleware' => 'auth'], function () {
 	
 
 	Route::get('/gestioncursos', [GestiondeCursoController::class, 'index'])->name('gestion-cursos');
+	Route::post('/gestioncursos/{id}', [GestiondeCursoController::class, 'store'])->name('gestion-cursos.store');
 
 
-	
 
 	Route::get('virtual-reality', function () {return view('pages.virtual-reality');})->name('virtual-reality');
 	Route::get('notifications', function () {return view('pages.notifications');})->name('notifications');
