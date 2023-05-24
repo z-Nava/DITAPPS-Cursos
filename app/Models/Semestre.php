@@ -11,13 +11,10 @@ class Semestre extends Model
 
     protected $fillable = ['nombre', 'fecha_inicio', 'fecha_fin', 'estado', 'user_id'];
 
-    public function cursos()
+    public function curso()
     {
-        return $this->hasMany(Curso::class);
+        return $this->belongsTo(Curso::class, 'curso_id');
     }
 
-    public function usuario()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+   
 }

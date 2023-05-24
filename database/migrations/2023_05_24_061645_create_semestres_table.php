@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
             $table->enum('estado', ['activo', 'inactivo'])->default('activo');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('curso_id')->constrained('cursos')->onDelete('cascade');
             $table->timestamps();
         });
     }
