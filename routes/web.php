@@ -77,7 +77,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/libros/search', [LibroController::class, 'search'])->name('libros.search');
 	
 
-
+	Route::get('/gestioncursos', function () {return view('pages.gestion-cursos');})->name('gestioncursos');
 
 
 	
