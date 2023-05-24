@@ -24,7 +24,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\LibroController;
 use App\Http\Controllers\CursoController;
-
+use App\Http\Controllers\GestiondeCursoController;
 
             
 Route::get('/verify-email/{id}/{hash}', [RegisterController::class, 'verify'])->name('verification.verify');
@@ -77,7 +77,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/libros/search', [LibroController::class, 'search'])->name('libros.search');
 	
 
-	Route::get('/gestioncursos', function () {return view('pages.gestion-cursos');})->name('gestioncursos');
+	Route::get('/gestioncursos', [GestiondeCursoController::class, 'index'])->name('gestion-cursos');
 
 
 	
