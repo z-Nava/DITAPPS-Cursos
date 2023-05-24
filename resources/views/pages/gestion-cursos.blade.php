@@ -11,7 +11,7 @@
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearSemestreModal">
                         Agregar Semestre
                     </button>                    
-                    <div class="rounded p-3 bg-primary" >
+                    <div class="rounded p-3 bg-primary">
                         <div class="accordion" id="cursosAccordion">
                             @foreach ($cursos as $curso)
                                 @if ($curso->usuario->id === auth()->user()->id)
@@ -45,7 +45,6 @@
                                 @endif
                             @endforeach
                         </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -60,13 +59,15 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('gestion-cursos.store', $curso->id) }}" method="POST">
+                        <form action="{{ route('gestion-cursos.store') }}" method="POST">
+
+
                             @csrf
                             <div class="mb-3">
                                 <label for="curso" class="form-label">Curso</label>
                                 <select class="form-select" id="curso" name="curso_id" required>
-                                    @foreach (auth()->user()->cursos as $curso)
-                                        <option value="{{ $curso->id }}">{{ $curso->nombre }}</option>
+                                    @foreach (auth()->user()->cursos as $cursoOption)
+                                        <option value="{{ $cursoOption->id }}">{{ $cursoOption->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -76,7 +77,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
-                                <input type="date" class="form-control" id="fechaInicio" name="fecha_inicio" required >
+                                <input type="date" class="form-control" id="fechaInicio" name="fecha_inicio" required>
                             </div>
                             <div class="mb-3">
                                 <label for="fechaFin" class="form-label">Fecha de Fin</label>
@@ -93,5 +94,3 @@
     </main>
     <x-plugins></x-plugins>
 </x-layout>
-
-
