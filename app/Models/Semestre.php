@@ -15,6 +15,4 @@ class Semestre extends Model
     {
         return $this->belongsTo(Curso::class, 'curso_id');
     }
-
-   
 }
