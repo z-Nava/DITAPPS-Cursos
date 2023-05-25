@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Curso;
 use App\Models\Semestre;
 use App\Models\Tema;
+use App\Models\Recurso;
 
 class GestiondeCursoController extends Controller
 {
@@ -60,5 +61,37 @@ class GestiondeCursoController extends Controller
         // Redireccionar o realizar alguna acción adicional
         return redirect()->back()->with('success', 'El tema se ha creado correctamente.');
     }
+
+    public function storeRecurso(Request $request)
+    {
+        $request->validate([
+            'tipo' => 'required|in:actividad,tarea,examen,enlace,video,archivo',
+            'titulo' => 'required',
+            'contenido' => 'nullable',
+            'url' => 'nullable',
+            'tema_id' => 'required|exists:temas,id',
+        ]);
+
+        $recurso = new Recurso($request->all());
+        $recurso->save();
+
+        return redirect()->back()->with('success', 'Recurso creado con éxito');
+    }
+
+    public function updateRecurso(Request $request, Recurso $recurso)
+    {
+        $request->validate([
+            'tipo' => 'required|in:actividad,tarea,examen,enlace,video,archivo',
+            'titulo' => 'required',
+            'contenido' => 'nullable',
+            'url' => 'nullable',
+            'tema_id' => 'required|exists:temas,id',
+        ]);
+
+        $recurso->update($request->all());
+
+        return redirect()->back()->with('success', 'Recurso actualizado con éxito');
+    }
+
 
 }
