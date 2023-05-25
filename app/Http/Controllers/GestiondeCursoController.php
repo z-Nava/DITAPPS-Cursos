@@ -93,5 +93,32 @@ class GestiondeCursoController extends Controller
         return redirect()->back()->with('success', 'Recurso actualizado con éxito');
     }
 
+    public function storeActividad(Request $request)
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'titulo' => 'required',
+            'contenido' => 'required',
+            'fecha_entrega' => 'required|date|after_or_equal:today', // Asegura que la fecha de entrega no sea anterior a la fecha actual
+            'tema_id' => 'required|exists:temas,id',
+        ]);
+
+        // Crear un nuevo recurso de tipo 'actividad'
+        $recurso = new Recurso();
+        $recurso->tipo = 'actividad';
+        $recurso->titulo = $request->titulo;
+        $recurso->contenido = $request->contenido;
+        $recurso->fecha_entrega = $request->fecha_entrega;
+        $tema = Tema::findOrFail($request->tema_id);
+        $recurso->tema()->associate($tema);
+        
+        $recurso->save();
+        
+
+        // Redireccionar o realizar alguna acción adicional
+        return redirect()->back()->with('success', 'La actividad se ha creado correctamente.');
+    }
+
+
 
 }

@@ -39,14 +39,32 @@
                                                                     <h5>{{ $tema->nombre }}</h5>
                                                                     <p>{{ $tema->descripcion }}</p>
                                                                 <div class="ms-auto text-end">          
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">assignment</i>Actividad</a>                                                  
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">assignment</i>Tarea</a>
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">assignment_turned_in</i>Examen</a>
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">link</i>Link</a>
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">play_circle</i>Video</a>
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">attachment</i>Archivo</a>
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">edit</i>Editar</a>
-                                                                    <a class="btn btn-link text-danger text-gradient px-3 mb-2" href="#"><i class="material-icons text-sm me-2">delete</i>Eliminar</a>
+                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#" data-bs-toggle="modal" data-bs-target="#crearActividadModal" data-tema-id="{{ $tema->id }}">
+                                                                        <i class="material-icons text-sm me-2">assignment</i>Actividad
+                                                                    </a>
+                                                                    
+                                                                                                                                                                                          
+                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#">
+                                                                        <i class="material-icons text-sm me-2">assignment</i>Tarea
+                                                                    </a>
+                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#">
+                                                                        <i class="material-icons text-sm me-2">assignment_turned_in</i>Examen
+                                                                    </a>
+                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#">
+                                                                        <i class="material-icons text-sm me-2">link</i>Link
+                                                                    </a>
+                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#">
+                                                                        <i class="material-icons text-sm me-2">play_circle</i>Video
+                                                                    </a>
+                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#">
+                                                                        <i class="material-icons text-sm me-2">attachment</i>Archivo
+                                                                    </a>
+                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#">
+                                                                        <i class="material-icons text-sm me-2">edit</i>Editar
+                                                                    </a>
+                                                                    <a class="btn btn-link text-danger text-gradient px-3 mb-2" href="#">
+                                                                        <i class="material-icons text-sm me-2">delete</i>Eliminar
+                                                                        </a>
                                                                 </div>
                                                                 </div>
                                                             @endforeach
@@ -135,6 +153,65 @@
                 </div>
             @endforeach
         @endforeach
+
+        <!-- Modal para Agregar Actividad -->
+        <!-- Modal Actividad -->
+<div class="modal fade" id="crearActividadModal" tabindex="-1" role="dialog" aria-labelledby="crearActividadModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="crearActividadModalLabel">Crear Actividad</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{{ route('guardarActividad') }}" method="post">
+          @csrf
+          <div class="modal-body">
+            <!-- Aquí puedes poner los campos necesarios para la actividad -->
+            <input type="hidden" id="temaIdInput" name="tema_id">
+            <div class="form-group">
+              <label for="titulo">Titulo</label>
+              <input type="text" class="form-control" id="titulo" name="titulo" required>
+            </div>
+            <div class="form-group">
+              <label for="contenido">Contenido</label>
+              <textarea class="form-control" id="contenido" name="contenido" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="fecha_entrega">Fecha de entrega</label>
+                <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega" required min="{{ date('Y-m-d')}}">
+            </div>
+            <!-- Añade aquí más campos según lo necesites -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar Actividad</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var actividadModal = document.getElementById('crearActividadModal');
+      var temaIdInput = document.getElementById('temaIdInput');
+    
+      actividadModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+    
+        // Extract info from data-* attributes
+        var temaId = button.getAttribute('data-tema-id');
+    
+        // Update the modal
+        temaIdInput.value = temaId;
+      });
+    });
+    </script>
+
+  
 
         <x-footers.auth></x-footers.auth>
     </main>
