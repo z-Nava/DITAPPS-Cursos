@@ -11,7 +11,7 @@ class GestiondeCursoController extends Controller
     public function index()
     {
         $cursos = Curso::where('user_id', auth()->user()->id)->with(['semestres.temas.recursos'])->get();
-
+        
         return view('pages.gestion-cursos', compact('cursos'));
     }
 

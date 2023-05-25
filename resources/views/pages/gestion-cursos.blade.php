@@ -14,37 +14,35 @@
                     <div class="rounded p-3 bg-primary">
                         <div class="accordion" id="cursosAccordion">
                             @foreach ($cursos as $curso)
-                                @if ($curso->usuario->id === auth()->user()->id)
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header">
-                                            <button class="accordion-button collapsed text-dark text-end" type="button" data-bs-toggle="collapse" data-bs-target="#semestresCollapse{{ $curso->id }}" aria-expanded="false" aria-controls="semestresCollapse{{ $curso->id }}">
-                                                {{ $curso->nombre }}
-                                            </button>
-                                        </h2>
-                                        <div id="semestresCollapse{{ $curso->id }}" class="accordion-collapse collapse" data-bs-parent="#cursosAccordion">
-                                            <div class="accordion-body bg-light">
-                                                <div class="accordion" id="semestresAccordion{{ $curso->id }}">
-                                                    @foreach ($curso->semestres as $semestre)
-                                                        <div class="accordion-item">
-                                                            <h2 class="accordion-header">
-                                                                <button class="accordion-button collapsed text-dark text-end" type="button" data-bs-toggle="collapse" data-bs-target="#temasCollapse{{ $curso->id }}{{ $semestre->id }}" aria-expanded="false" aria-controls="temasCollapse{{ $curso->id }}{{ $semestre->id }}">
-                                                                    Semestre {{ $semestre->nombre }}
-                                                                </button>
-                                                            </h2>
-                                                            <div id="temasCollapse{{ $curso->id }}{{ $semestre->id }}" class="accordion-collapse collapse" data-bs-parent="#semestresAccordion{{ $curso->id }}">
-                                                                <div class="accordion-body bg-white">
-                                                                    <!-- Contenido del semestre -->
-                                                                </div>
-                                                            </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed text-dark text-end" type="button" data-bs-toggle="collapse" data-bs-target="#semestresCollapse{{ $curso->id }}" aria-expanded="false" aria-controls="semestresCollapse{{ $curso->id }}">
+                                            Curso {{ $curso->nombre }}
+                                        </button>
+                                    </h2>
+                                    <div id="semestresCollapse{{ $curso->id }}" class="accordion-collapse collapse" data-bs-parent="#cursosAccordion">
+                                        <div class="accordion-body bg-white">
+                                            @foreach ($curso->semestres as $semestre)
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header">
+                                                        <button class="accordion-button collapsed text-dark text-end" type="button" data-bs-toggle="collapse" data-bs-target="#temasCollapse{{ $curso->id }}{{ $semestre->id }}" aria-expanded="false" aria-controls="temasCollapse{{ $curso->id }}{{ $semestre->id }}">
+                                                            Semestre {{ $semestre->nombre }}
+                                                        </button>
+                                                    </h2>
+                                                    <div id="temasCollapse{{ $curso->id }}{{ $semestre->id }}" class="accordion-collapse collapse" data-bs-parent="#semestresCollapse{{ $curso->id }}">
+                                                        <div class="accordion-body bg-white">
+                                                            @foreach ($semestre->temas as $tema)
+                                                                <!-- Aquí va el código para mostrar los temas -->
+                                                            @endforeach
                                                         </div>
-                                                    @endforeach
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
-                                @endif
+                                </div>
                             @endforeach
-                        </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -61,12 +59,11 @@
                     <div class="modal-body">
                         <form action="{{ route('gestion-cursos.store') }}" method="POST">
 
-
                             @csrf
                             <div class="mb-3">
                                 <label for="curso" class="form-label">Curso</label>
                                 <select class="form-select" id="curso" name="curso_id" required>
-                                    @foreach (auth()->user()->cursos as $cursoOption)
+                                    @foreach ($cursos as $cursoOption)
                                         <option value="{{ $cursoOption->id }}">{{ $cursoOption->nombre }}</option>
                                     @endforeach
                                 </select>
