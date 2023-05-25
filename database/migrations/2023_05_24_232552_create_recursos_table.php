@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('recursos', function (Blueprint $table) {
             $table->id();
-            $table->enum('tipo', ['foro', 'tarea', 'examen', 'enlace', 'video', 'archivo']);
+            $table->enum('tipo', ['actividad', 'tarea', 'examen', 'enlace', 'video', 'archivo']);
             $table->string('titulo');
             $table->text('contenido')->nullable();
             $table->string('url')->nullable();
