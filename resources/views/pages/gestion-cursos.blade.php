@@ -38,17 +38,15 @@
                                                                 <div class="p-2 bg-light border rounded my-2">
                                                                     <h5>{{ $tema->nombre }}</h5>
                                                                     <p>{{ $tema->descripcion }}</p>
-                                                                <div class="ms-auto text-end">
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">edit</i>Editar</a>
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">visibility</i>Ver</a>
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">forum</i>Foro</a>
-                                                                    <a class="btn btn-link text-danger text-gradient px-3 mb-2" href="#"><i class="material-icons text-sm me-2">delete</i>Eliminar</a>
+                                                                <div class="ms-auto text-end">          
+                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">assignment</i>Actividad</a>                                                  
                                                                     <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">assignment</i>Tarea</a>
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">forum</i>Foro</a>
                                                                     <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">assignment_turned_in</i>Examen</a>
                                                                     <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">link</i>Link</a>
                                                                     <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">play_circle</i>Video</a>
                                                                     <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">attachment</i>Archivo</a>
+                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#"><i class="material-icons text-sm me-2">edit</i>Editar</a>
+                                                                    <a class="btn btn-link text-danger text-gradient px-3 mb-2" href="#"><i class="material-icons text-sm me-2">delete</i>Eliminar</a>
                                                                 </div>
                                                                 </div>
                                                             @endforeach
