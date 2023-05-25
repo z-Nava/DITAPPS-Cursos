@@ -54,7 +54,7 @@
                                       </div>
                                       <hr class="dark horizontal my-0">
                                       <div class="card-footer d-flex justify-content-center">
-                                        <a href="{{ route('curso.trabajo', ['curso' => $curso->id]) }}" class="btn btn-primary btn-lg">Inscribirse al curso</a>
+                                        <a href="{{ route('curso.inscripcion', ['curso' => $curso->id]) }}" class="btn btn-primary btn-lg">Inscribirse al curso</a>
                                       </div>
                                   </div>
                               </div>

@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('curso_usuario', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('curso_id')->constrained('cursos')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->timestamps();
+            $table->unsignedBigInteger('curso_id');
+            $table->unsignedBigInteger('user_id');
 
-        // Esto es opcional, pero te permitirá asegurarte de que cada combinación de curso/usuario es única
+            // Restricción única para evitar duplicados
             $table->unique(['curso_id', 'user_id']);
+
+            $table->foreign('curso_id')->references('id')->on('cursos')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

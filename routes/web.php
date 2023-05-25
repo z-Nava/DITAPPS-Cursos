@@ -25,6 +25,7 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\LibroController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\GestiondeCursoController;
+use App\Http\Controllers\GestionCursosAlumnoController;
 
             
 Route::get('/verify-email/{id}/{hash}', [RegisterController::class, 'verify'])->name('verification.verify');
@@ -35,10 +36,7 @@ Route::get('/', function () {return redirect('sign-in');})->middleware('guest');
 
 
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
-
-
-
+Route::get('/dashboard', [GestionCursosAlumnoController::class, 'index'])->middleware('auth')->name('dashboard');
 
 
 Route::get('sign-up', [RegisterController::class, 'create'])->middleware('guest')->name('register');
@@ -81,6 +79,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/gestioncursos/semestre', [GestiondeCursoController::class, 'store'])->name('gestion-cursos.store');
 	Route::post('/gestioncursos/tema', [GestiondeCursoController::class, 'storeTema'])->name('gestion-cursos.storeTema');
 	Route::post('/guardarActividad', [GestiondeCursoController::class, 'storeActividad'])->name('guardarActividad');
+
+	Route::get('/curso/inscribir/{curso}', [GestionCursosAlumnoController::class, 'inscribirCurso'])->name('curso.inscripcion');
+
 
 
 
