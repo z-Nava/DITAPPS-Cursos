@@ -92,11 +92,11 @@
                             </div>
                             <div class="mb-3">
                                 <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
-                                <input type="date" class="form-control" id="fechaInicio" name="fecha_inicio" required>
+                                <input type="date" class="form-control" id="fechaInicio" name="fecha_inicio" required min="{{ date('Y-m-d') }}">
                             </div>
                             <div class="mb-3">
                                 <label for="fechaFin" class="form-label">Fecha de Fin</label>
-                                <input type="date" class="form-control" id="fechaFin" name="fecha_fin" required>
+                                <input type="date" class="form-control" id="fechaFin" name="fecha_fin" required min="{{ date('Y-m-d') }}">
                             </div>
                             <button type="submit" class="btn btn-primary">Crear Semestre</button>
                         </form>
