@@ -11,10 +11,11 @@ class Curso extends Model
 
     protected $fillable = ['nombre', 'descripcion', 'fecha_inicio', 'fecha_fin', 'estado', 'imagen', 'imagen_url', 'user_id'];
 
-    public function usuario()
+    public function usuarios()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsToMany(User::class, 'curso_usuario', 'curso_id', 'user_id');
     }
+
 
     public function semestres()
     {
