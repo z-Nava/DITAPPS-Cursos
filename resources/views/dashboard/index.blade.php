@@ -11,8 +11,7 @@
             <h4>Semestre: {{ $semestre->nombre }}</h4>
             <ul>
                 @foreach ($semestre->temas as $tema)
-                    <li>{{ $tema->nombre }}</li>
-                    
+                    <li>{{ $tema->nombre }}</li>   
                 @endforeach
             </ul>
             @endforeach
