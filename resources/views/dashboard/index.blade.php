@@ -15,13 +15,17 @@
             <ul>
                 @foreach ($semestre->temas as $tema)
                     <li>{{ $tema->nombre }}</li>
+                    
                 @endforeach
+            </ul>
+
+            <ul>
+               
+                
             </ul>
 
             @endforeach
         @endforeach
-        
-       
         
     </main>
 </x-layout>
