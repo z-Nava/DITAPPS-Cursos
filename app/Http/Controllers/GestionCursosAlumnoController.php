@@ -67,7 +67,7 @@ class GestionCursosAlumnoController extends Controller
         'archivo' => 'required|mimes:pdf,docx'
     ]);
 
-    $path = $request->file('archivo')->storeAs('public', $request->file('archivo')->getClientOriginalName());
+    $path = $request->file('archivo')->storeAs('public/entregas', $request->file('archivo')->getClientOriginalName());
 
     $entrega = new Entrega();
     $entrega->recurso_id = $request->recurso_id;

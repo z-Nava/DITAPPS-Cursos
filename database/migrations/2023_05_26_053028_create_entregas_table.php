@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('archivo');
             $table->text('descripcion')->nullable();
             $table->timestamp('fecha_entrega')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->float('calificacion')->nullable();
             $table->timestamps();
         });
     }
