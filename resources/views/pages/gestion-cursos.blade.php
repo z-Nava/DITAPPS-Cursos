@@ -40,11 +40,6 @@
                                                                     <p>{{ $tema->descripcion }}</p>
                                                                 <div class="ms-auto text-end">          
                                                                     <a class="btn btn-link text-dark px-3 mb-2" href="#" data-bs-toggle="modal" data-bs-target="#crearActividadModal" data-tema-id="{{ $tema->id }}">
-                                                                        <i class="material-icons text-sm me-2">assignment</i>Actividad
-                                                                    </a>
-                                                                    
-                                                                                                                                                                                          
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#">
                                                                         <i class="material-icons text-sm me-2">assignment</i>Tarea
                                                                     </a>
                                                                     <a class="btn btn-link text-dark px-3 mb-2" href="#">
@@ -155,17 +150,17 @@
         @endforeach
 
         <!-- Modal para Agregar Actividad -->
-        <!-- Modal Actividad -->
+        <!-- Modal Tarea -->
 <div class="modal fade" id="crearActividadModal" tabindex="-1" role="dialog" aria-labelledby="crearActividadModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="crearActividadModalLabel">Crear Actividad</h5>
+          <h5 class="modal-title" id="crearActividadModalLabel">Crear Tarea</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="{{ route('guardarActividad') }}" method="post">
+        <form action="{{ route('guardarTarea') }}" method="post">
           @csrf
           <div class="modal-body">
             <!-- Aquí puedes poner los campos necesarios para la actividad -->

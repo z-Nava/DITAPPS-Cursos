@@ -78,7 +78,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/gestioncursos', [GestiondeCursoController::class, 'index'])->name('gestion-cursos');
 	Route::post('/gestioncursos/semestre', [GestiondeCursoController::class, 'store'])->name('gestion-cursos.store');
 	Route::post('/gestioncursos/tema', [GestiondeCursoController::class, 'storeTema'])->name('gestion-cursos.storeTema');
-	Route::post('/guardarActividad', [GestiondeCursoController::class, 'storeActividad'])->name('guardarActividad');
+	Route::post('/guardarActividad', [GestiondeCursoController::class, 'storeTarea'])->name('guardarTarea');
 
 	Route::get('/curso/inscribir/{curso}', [GestionCursosAlumnoController::class, 'inscribirCurso'])->name('curso.inscripcion');
 

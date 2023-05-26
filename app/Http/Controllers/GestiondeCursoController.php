@@ -93,7 +93,7 @@ class GestiondeCursoController extends Controller
         return redirect()->back()->with('success', 'Recurso actualizado con éxito');
     }
 
-    public function storeActividad(Request $request)
+    public function storeTarea(Request $request)
     {
         // Validar los datos del formulario
         $request->validate([
@@ -105,7 +105,7 @@ class GestiondeCursoController extends Controller
 
         // Crear un nuevo recurso de tipo 'actividad'
         $recurso = new Recurso();
-        $recurso->tipo = 'actividad';
+        $recurso->tipo = 'tarea';
         $recurso->titulo = $request->titulo;
         $recurso->contenido = $request->contenido;
         $recurso->fecha_entrega = $request->fecha_entrega;
@@ -116,7 +116,7 @@ class GestiondeCursoController extends Controller
         
 
         // Redireccionar o realizar alguna acción adicional
-        return redirect()->back()->with('success', 'La actividad se ha creado correctamente.');
+        return redirect()->back()->with('success', 'La tarea se ha creado correctamente.');
     }
 
 
