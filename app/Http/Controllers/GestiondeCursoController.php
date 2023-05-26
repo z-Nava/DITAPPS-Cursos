@@ -7,14 +7,17 @@ use App\Models\Curso;
 use App\Models\Semestre;
 use App\Models\Tema;
 use App\Models\Recurso;
+use App\Models\Entrega;
 
 class GestiondeCursoController extends Controller
 {
     public function index()
     {
         $cursos = Curso::where('user_id', auth()->user()->id)->with(['semestres.temas.recursos'])->get();
+
+        $tareas = Recurso::where('tipo','tarea')->get();
         
-        return view('pages.gestion-cursos', compact('cursos'));
+        return view('pages.gestion-cursos', compact('cursos', 'tareas'));
     }
 
     public function store(Request $request)
@@ -119,6 +122,32 @@ class GestiondeCursoController extends Controller
         return redirect()->back()->with('success', 'La tarea se ha creado correctamente.');
     }
 
+    public function calificarEntrega(Request $request, $id)
+    {
+        $request->validate([
+            'calificacion' => 'required|numeric|min:0|max:100'
+        ]);
 
+        $entrega = Entrega::find($id);
+        $entrega->calificacion = $request->calificacion;
+        $entrega->save();
+
+        return redirect()->back()->with('success', 'La entrega ha sido calificada correctamente.');
+    }
+
+    public function getCalificaciones()
+{
+    $calificaciones = Entrega::where('entregas.user_id', auth()->user()->id)
+        ->join('recursos', 'entregas.recurso_id', '=', 'recursos.id')
+        ->join('temas', 'recursos.tema_id', '=', 'temas.id')
+        ->join('semestres', 'temas.semestre_id', '=', 'semestres.id')
+        ->join('cursos', 'semestres.curso_id', '=', 'cursos.id')
+        ->select('cursos.nombre as curso', 'entregas.calificacion', 'entregas.created_at')
+        ->get();
+
+        
+
+    return view('pages.billing')->with('calificaciones', $calificaciones);
+}
 
 }

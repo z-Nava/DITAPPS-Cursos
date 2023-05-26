@@ -14,7 +14,7 @@ class Entrega extends Model
         'archivo',
         'fecha_entrega',
         'recurso_id',
-        'alumno_id',
+        'user_id',
     ];
 
     // Relación con Recurso
@@ -26,7 +26,7 @@ class Entrega extends Model
     // Relación con User
     public function alumno()
     {
-        return $this->belongsTo(User::class, 'alumno_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 }

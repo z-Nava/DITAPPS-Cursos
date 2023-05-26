@@ -63,6 +63,8 @@
             @endforeach
           </div>
         </div>
+
+        
         <x-footers.auth></x-footers.auth>
         <!-- Modal -->
         <div class="modal fade" id="agregarCursoModal" tabindex="-1" aria-labelledby="agregarCursoModalLabel" aria-hidden="true">

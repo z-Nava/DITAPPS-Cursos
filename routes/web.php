@@ -59,7 +59,8 @@ Route::get('profile', [ProfileController::class, 'create'])->middleware('auth')-
 Route::post('user-profile', [ProfileController::class, 'update'])->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('billing', function () {return view('pages.billing');})->name('billing');
+	Route::get('billing', [GestiondeCursoController::class, 'getCalificaciones'])->name('billing');
+
 
 
 	Route::get('/tables', [CursoController::class, 'index'])->name('tables');
@@ -78,7 +79,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/gestioncursos', [GestiondeCursoController::class, 'index'])->name('gestion-cursos');
 	Route::post('/gestioncursos/semestre', [GestiondeCursoController::class, 'store'])->name('gestion-cursos.store');
 	Route::post('/gestioncursos/tema', [GestiondeCursoController::class, 'storeTema'])->name('gestion-cursos.storeTema');
-	Route::post('/guardarActividad', [GestiondeCursoController::class, 'storeTarea'])->name('guardarTarea');
+	Route::post('/guardartarea', [GestiondeCursoController::class, 'storeTarea'])->name('guardarTarea');
+	Route::post('/calificar/{id}', [GestiondeCursoController::class, 'calificarEntrega'])->name('gestion-cursos.calificarEntrega');
 
 	Route::get('/curso/inscribir/{curso}', [GestionCursosAlumnoController::class, 'inscribirCurso'])->name('curso.inscripcion');
 	Route::post('/entregartarea', [GestionCursosAlumnoController::class, 'entregarTarea'])->name('entregarTarea');
