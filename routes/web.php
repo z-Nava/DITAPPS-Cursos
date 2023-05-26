@@ -81,6 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/guardarActividad', [GestiondeCursoController::class, 'storeTarea'])->name('guardarTarea');
 
 	Route::get('/curso/inscribir/{curso}', [GestionCursosAlumnoController::class, 'inscribirCurso'])->name('curso.inscripcion');
+	Route::post('/entregartarea', [GestionCursosAlumnoController::class, 'entregarTarea'])->name('entregarTarea');
 
 
 

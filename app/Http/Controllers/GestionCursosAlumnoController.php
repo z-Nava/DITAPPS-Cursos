@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Curso;
+use App\Models\Recurso;
+use App\Models\Entrega;
 use Illuminate\Support\Facades\Auth;
+
 
 class GestionCursosAlumnoController extends Controller
 {
@@ -52,7 +55,28 @@ class GestionCursosAlumnoController extends Controller
         
         // Retornar la vista del dashboard con los datos cargados
         return view('dashboard', compact('cursos'));
-        
+
         }
     }
+
+    public function entregarTarea(Request $request)
+{
+    $request->validate([
+        'recurso_id' => 'required|exists:recursos,id',
+        'descripcion' => 'required',
+        'archivo' => 'required|mimes:pdf,docx'
+    ]);
+
+    $path = $request->file('archivo')->storeAs('public', $request->file('archivo')->getClientOriginalName());
+
+    $entrega = new Entrega();
+    $entrega->recurso_id = $request->recurso_id;
+    $entrega->user_id = Auth::id();
+    $entrega->archivo = $path;
+    $entrega->descripcion = $request->descripcion;
+    $entrega->save();
+
+    return redirect()->back()->with('success', 'La tarea se ha entregado correctamente.');
+}
+
 }
