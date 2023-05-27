@@ -85,6 +85,41 @@ class GestionCursosAlumnoController extends Controller
     return redirect()->back()->with('success', 'La tarea se ha entregado correctamente.');
 }
 
+
+    public function crearExamen(Request $request)
+{
+    $request->validate([
+        'recurso_id' => 'required',
+        'titulo' => 'required',
+        'preguntas' => 'required',
+	'tema_id' => 'required'
+    ]);
+
+    $recurso = new Recurso();
+    $recurso->tipo = 'examen';
+    $recurso->titulo = $request->titulo;
+    $recurso->tema_id = $request->tema_id;
+    $recurso->save();
+    foreach($request->preguntas as $p){
+//return $p['pregunta'];
+        $pregunta = new Pregunta();
+        $pregunta->pregunta = $p['pregunta'];
+        $pregunta->tipo = $p['tipo'];
+        $pregunta->recurso_id = $recurso->id;
+        $pregunta->save();
+	foreach($p['opciones'] as $r){
+	    $respuesta = new Respuesta();
+	    $respuesta->respuesta = $r['respuesta'];
+	    $respuesta->correcta = $r['correcta'];
+            $respuesta->pregunta_id = $pregunta->id;
+	    $respuesta->save();
+	}
+    }
+    return $request;
+
+    return redirect()->back()->with('success', 'La tarea se ha entregado correctamente.');
+}
+
 public function entregarExamen(Request $request)
 {
     // Asegúrate de que el usuario ha respondido todas las preguntas

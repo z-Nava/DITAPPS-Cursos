@@ -24,6 +24,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\LibroController;
 use App\Http\Controllers\CursoController;
+use App\Http\Controllers\ExamenController;
 use App\Http\Controllers\GestiondeCursoController;
 use App\Http\Controllers\GestionCursosAlumnoController;
 
@@ -38,7 +39,7 @@ Route::get('/', function () {return redirect('sign-in');})->middleware('guest');
 
 Route::get('/dashboard', [GestionCursosAlumnoController::class, 'index'])->middleware('auth')->name('dashboard');
 
-
+//Route::post('/crearexamen',  [GestionCursosAlumnoController::class, 'crearExamen'])->name('crearExamen');
 Route::get('sign-up', [RegisterController::class, 'create'])->middleware('guest')->name('register');
 Route::post('sign-up', [RegisterController::class, 'store'])->middleware('guest');
 Route::get('sign-in', [SessionsController::class, 'create'])->middleware('guest')->name('login');
@@ -91,7 +92,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/gestion-cursos/crear-examen', [GestiondeCursoController::class, 'mostrarCrearExamen'])->name('gestion-cursos.mostrarCrearExamen');
 	Route::post('/gestion-cursos/crear-examen', [GestiondeCursoController::class, 'crearExamen'])->name('gestion-cursos.crearExamen');
 
-
+	Route::get('/examen/{id}',[ExamenController::class, 'show'])->name('obtener-examen');
 
 	Route::get('/curso/inscribir/{curso}', [GestionCursosAlumnoController::class, 'inscribirCurso'])->name('curso.inscripcion');
 	
@@ -100,8 +101,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::post('/entregarexamen', [GestionCursosAlumnoController::class, 'entregarExamen'])->name('entregarExamen');
 
-
-
+	//Route::post('/crearexamen',  [GestionCursosAlumnoController::class, 'crearExamen'])->name('crearExamen');Route::post('/crearexamen',  [GestionCursosAlumnoController::class, 'crearExamen'])->name('crearExamen');
 
 
 
