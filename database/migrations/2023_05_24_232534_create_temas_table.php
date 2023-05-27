@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->text('contenido')->nullable();
+            $table->string('enlace')->nullable();
+            
             $table->foreignId('semestre_id')->constrained('semestres')->onDelete('cascade');
             $table->timestamps();
         });

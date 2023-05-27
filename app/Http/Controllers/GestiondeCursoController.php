@@ -17,7 +17,14 @@ class GestiondeCursoController extends Controller
 
         $tareas = Recurso::where('tipo','tarea')->get();
         
-        return view('pages.gestion-cursos', compact('cursos', 'tareas'));
+        $entregas = Entrega::all();
+
+        $recursos = Recurso::where('tipo', 'tarea')->get();
+
+
+        
+        return view('pages.gestion-cursos', compact('cursos', 'tareas', 'recursos', 'entregas'));
+
     }
 
     public function store(Request $request)
@@ -50,6 +57,7 @@ class GestiondeCursoController extends Controller
         $request->validate([
             'nombre' => 'required',
             'contenido' => 'required',
+            'enlace' => 'nullable',
             'semestre_id' => 'required|exists:semestres,id',  // Aquí estás validando que el ID del semestre exista en la tabla de semestres
         ]);
 
@@ -57,6 +65,7 @@ class GestiondeCursoController extends Controller
         $tema = new Tema();
         $tema->nombre = $request->nombre;
         $tema->contenido = $request->contenido;
+        $tema->enlace = $request->enlace;
         $semestre = Semestre::findOrFail($request->semestre_id);  // Aquí estás obteniendo el ID del semestre desde los datos de la solicitud
         $tema->semestre()->associate($semestre);
         $tema->save();
@@ -98,6 +107,7 @@ class GestiondeCursoController extends Controller
 
     public function storeTarea(Request $request)
     {
+        
         // Validar los datos del formulario
         $request->validate([
             'titulo' => 'required',
