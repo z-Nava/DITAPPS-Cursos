@@ -68,6 +68,9 @@
               </div>
           </div>
       </div>
+      <!-- AQUI EMPIEZA EL AGREGAR SEMESTRE -->
+      #crearActividadModal
+        
         <!-- AQUI ACABA EL AGREGAR SEMESTRE -->
 
         <!-- Modal para Agregar Tema -->
