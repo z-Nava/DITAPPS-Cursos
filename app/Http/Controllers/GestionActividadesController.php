@@ -22,6 +22,19 @@ class GestionActividadesController extends Controller
         return view('pages.gestion-actividades', compact('cursos', 'recursos', 'entregas'));
     }   
 
-    
+    public function calificarEntrega(Request $request, $id)
+    {
+        $request->validate([
+            'calificacion' => 'required|numeric|min:0|max:100'
+        ]);
+
+        $entrega = Entrega::find($id);
+        $entrega->calificacion = $request->calificacion;
+        $entrega->save();
+
+        return redirect()->back()->with('success', 'La entrega ha sido calificada correctamente.');
+    }
+
+
 
 }
