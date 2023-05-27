@@ -7,13 +7,13 @@
         <!-- End Navbar -->
         <script>
             // Obtén el contenedor principal
-var contenedorSemestre = document.getElementById('contenedor-semestre');
+            var contenedorSemestre = document.getElementById('contenedor-semestre');
 
-// Crea una variable para el contenido del nuevo semestre
-var nuevoSemestreHTML = '<div class="card"> <!-- Contenido del nuevo semestre --> </div>';
+            // Crea una variable para el contenido del nuevo semestre
+            var nuevoSemestreHTML = '<div class="card"> <!-- Contenido del nuevo semestre --> </div>';
 
-// Inserta el contenido del nuevo semestre al final del contenedor principal
-contenedorSemestre.insertAdjacentHTML('afterend', nuevoSemestreHTML);
+            // Inserta el contenido del nuevo semestre al final del contenedor principal
+            contenedorSemestre.insertAdjacentHTML('afterend', nuevoSemestreHTML);
         </script>
         <div class="container-fluid py-4 ">
             <div class="row">

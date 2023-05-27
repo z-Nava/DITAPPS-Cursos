@@ -85,6 +85,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/calificar/{id}', [GestiondeCursoController::class, 'calificarEntrega'])->name('gestion-cursos.calificarEntrega');
 
 	Route::get('/curso/inscribir/{curso}', [GestionCursosAlumnoController::class, 'inscribirCurso'])->name('curso.inscripcion');
+	
 	Route::post('/entregartarea', [GestionCursosAlumnoController::class, 'entregarTarea'])->name('entregarTarea');
 
 
