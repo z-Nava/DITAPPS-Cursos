@@ -103,17 +103,16 @@ contenedorSemestre.insertAdjacentHTML('afterend', nuevoSemestreHTML);
                             </div>
                           </div>
                           <div class="col-lg-6">
-                            <div class="col-lg mt-3">
+                            <div class="col-lg mt-3" style="max-height:500px; overflow-y: scroll;">
                                 <div class="card h-100">
                                     <div class="card-header pb-0 px-3">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <h6 class="mb-0">Actividades encargadas</h6><button class="btn btn-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#crearActividadModal">Crear Tarea</button>
+                                                <h6 class="mb-0">Actividades encargadas</h6>
+                                                <button class="btn btn-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#crearActividadModal">Crear Tarea</button>
+                                                <button class="btn btn-primary btn-sm mb-0">Crear examen</button>
                                             </div>
-                                            <div class="col-md-6 d-flex justify-content-start justify-content-md-end align-items-center">
-                                                <i class="material-icons me-2 text-lg">date_range</i>
-                                                <small>23 - 30 March 2020</small>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                     <div class="card-body pt-4 p-3">
