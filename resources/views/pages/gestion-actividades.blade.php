@@ -49,18 +49,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body pt-4 p-3">
-                            <ul class="list-group">
-                                <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                    <div class="d-flex align-items-center">
-                                        <div class="d-flex flex-column">
-                                            <h5 class="mb-1 text-dark text-sm"></h5>
-                                            <h6 class="mb-1 text-dark text-sm"></h6>
-                                            <span class="text-xs"></span>
-                                        </li>
-                                        </div>
-                                    </div>
+                    <div class="card-body pt-4 p-3">
+                        <ul class="list-group">
+                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                                <div class="d-flex align-items-center">
+                                    <div class="d-flex flex-column">
+                                    <h5 class="mb-1 text-dark text-sm"></h5>
+                                    <h6 class="mb-1 text-dark text-sm"></h6>
+                                <span class="text-xs"></span>
+                            </li>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
+    
+            
     </main>
     <x-plugins></x-plugins>
 </x-layout> 
