@@ -19,6 +19,8 @@ class GestiondeCursoController extends Controller
     
     $entregas = Entrega::all();
     $recursos = Recurso::where('tipo', 'tarea')->get();
+
+    
     
 
     return view('pages.gestion-cursos', compact('cursos', 'recursos', 'entregas'));
@@ -101,9 +103,13 @@ class GestiondeCursoController extends Controller
     
         // Guardar los cambios en la base de datos
         $tema->save();
+
+        $temaActualizado = Tema::findOrFail($tema->id);
+
+// Redireccionar a la vista del modal de edición y pasar el tema actualizado como una variable
+return redirect()->back()->with(['success' => 'El tema se ha actualizado correctamente.', 'tema' => $temaActualizado]);
     
-        // Redireccionar o realizar alguna acción adicional
-        return redirect()->back()->with('success', 'El tema se ha actualizado correctamente.');
+
     }
 
 
