@@ -121,43 +121,42 @@
                                                                     <i class="material-icons text-sm me-2">assignment</i>Tarea
                                                                 </a>
                                                                 
-                                                                    <!--MODAL-->
-                                                                    <div class="modal fade" id="crearActividadModal" tabindex="-1" role="dialog" aria-labelledby="crearActividadModalLabel" aria-hidden="true">
-                                                                      <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
+                                                                <!--MODAL-->
+                                                                <div class="modal fade" id="crearActividadModal{{ $tema->id }}" tabindex="-1" role="dialog" aria-labelledby="crearActividadModalLabel" aria-hidden="true">
+                                                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                      <div class="modal-content">
                                                                           <div class="modal-header">
-                                                                            <h5 class="modal-title" id="crearActividadModalLabel">Asignar Tarea</h5>
-                                                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Cerrar">
-                                                                              <span aria-hidden="true">&times;</span>
-                                                                            </button>
+                                                                              <h5 class="modal-title" id="crearActividadModalLabel">Asignar Tarea</h5>
+                                                                              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Cerrar">
+                                                                                  <span aria-hidden="true">&times;</span>
+                                                                              </button>
                                                                           </div>
                                                                           <form action="{{ route('guardarTarea') }}" method="POST">
-                                                                            @csrf
-                                                                            <div class="modal-body">
-                                                                              <input type="hidden" id="temaIdInput" name="tema_id">
-                                                                              <div class="form-group">
-                                                                                <label for="titulo">Título</label>
-                                                                                <input type="text" class="form-control" id="titulo" name="titulo" required>
+                                                                              @csrf
+                                                                              <div class="modal-body">
+                                                                                  <input type="hidden" id="temaIdInput" name="tema_id">
+                                                                                  <div class="form-group">
+                                                                                      <label for="titulo">Título</label>
+                                                                                      <input type="text" class="form-control" id="titulo" name="titulo" required>
+                                                                                  </div>
+                                                                                  <div class="form-group">
+                                                                                      <label for="contenido">Contenido</label>
+                                                                                      <textarea class="form-control" id="contenido" name="contenido" rows="3" required></textarea>
+                                                                                  </div>
+                                                                                  <div class="form-group">
+                                                                                      <label for="fecha_entrega">Fecha de entrega</label>
+                                                                                      <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega" required min="{{ date('Y-m-d')}}">
+                                                                                  </div>
                                                                               </div>
-                                                                              <div class="form-group">
-                                                                                <label for="contenido">Contenido</label>
-                                                                                <textarea class="form-control" id="contenido" name="contenido" rows="3" required></textarea>
+                                                                              <div class="modal-footer">
+                                                                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                                  <button type="submit" class="btn btn-primary">Guardar Tarea</button>
                                                                               </div>
-                                                                              <div class="form-group">
-                                                                                <label for="fecha_entrega">Fecha de entrega</label>
-                                                                                <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega" required min="{{ date('Y-m-d')}}">
-                                                                              </div>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                                              <button type="submit" class="btn btn-primary">Guardar Tarea</button>
-                                                                            </div>
                                                                           </form>
-                                                                        </div>
                                                                       </div>
-                                                                    </div>
-                                                                    
-                                                                    <!--FIN MODAL-->
+                                                                  </div>
+                                                                </div>
+                                                                <!--FIN MODAL-->              
                                                                     <a class="btn btn-link text-dark px-3 mb-2" href="#">
                                                                         <i class="material-icons text-sm me-2">assignment_turned_in</i>Examen
                                                                     </a>
