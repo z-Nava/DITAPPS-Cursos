@@ -109,7 +109,7 @@
                                             <div class="col-md-6">
                                                 <h6 class="mb-0">Actividades encargadas</h6>
                                                 <button class="btn btn-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#crearActividadModal">Crear Tarea</button>
-                                                <button class="btn btn-primary btn-sm mb-0">Crear examen</button>
+                                                <a href="{{ route('gestion-cursos.mostrarCrearExamen') }}" class="btn btn-primary btn-sm mb-0">Crear examen</a>
                                             </div>
                                             
                                         </div>
