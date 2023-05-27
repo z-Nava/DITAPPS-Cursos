@@ -1,212 +1,81 @@
 <x-layout bodyClass="g-sidenav-show bg-gray-200">
-    <x-navbars.sidebar activePage="Gestion de cursos"></x-navbars.sidebar>
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-        
-        <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="Gestion de cursos"></x-navbars.navs.auth>
-        <!-- End Navbar -->
-        <script>
-            // Obtén el contenedor principal
-            var contenedorSemestre = document.getElementById('contenedor-semestre');
+  <x-navbars.sidebar activePage="Gestion de cursos"></x-navbars.sidebar>
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+      <!-- Navbar -->
+      <x-navbars.navs.auth titlePage="Gestion de cursos"></x-navbars.navs.auth>
 
-            // Crea una variable para el contenido del nuevo semestre
-            var nuevoSemestreHTML = '<div class="card"> <!-- Contenido del nuevo semestre --> </div>';
-
-            // Inserta el contenido del nuevo semestre al final del contenedor principal
-            contenedorSemestre.insertAdjacentHTML('afterend', nuevoSemestreHTML);
-        </script>
-        <div class="container-fluid py-4 ">
-            <div class="row">
-                <div class="col-12">
-                    <button class="btn btn-warning btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#seleccionarCursoModal">Seleccionar Curso</button>
-                    <h2>Mis cursos</h2>
-                    <div>
-                        <button class="btn btn-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#crearSemestreModal">Crear Semestre</button>
-                        <button class="btn btn-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#crearTemaModal">Crear Tema</button>
-                    </div>
-                      <div class="row">
-                        <div class="col-lg mt-4" style="max-height:400px; overflow-y: scroll;">
+      <div class="container-fluid py-4 ">
+          <div class="row">
+              <div class="col-12">
+                  <h2>Mis cursos</h2>
+                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearSemestreModal">
+                      Agregar Semestre
+                  </button>                    
+                  <div class="rounded p-3 bg-light">
+                      <div class="accordion" id="cursosAccordion">
                           @foreach ($cursos as $curso)
-                            @foreach ($curso->semestres as $semestre)
-                              @if ($semestre->estado == 'activo')
-                              <div id="contenedor-semestre" class="card">
-                                <div class="card">
-                                  <div class="card-header pb-0 px-3">
-                                    <h6 class="mb-0">{{ $semestre->nombre }}</h6>
-                                  </div>
-                                  <div class="card-body pt-4 p-3">
-                                    <ul class="list-group">
-                                      @foreach ($semestre->temas as $tema)
-                                        <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                                          <div class="d-flex flex-column">
-                                            <h6 class="mb-3 text-sm">{{ $tema->nombre }} - {{$tema->created_at}}</h6>
-                                            <span class="mb-2 text-xs">Contenido: <span class="text-dark font-weight-bold ms-sm-2">{{ $tema->contenido }}</span></span>
-                                            <span class="mb-2 text-xs">Enlace: <span class="text-dark font-weight-bold ms-sm-2">{{ $tema->enlace }}</span></span>
+                              <div class="accordion-item shadow-lg bg-light my-3">
+                                  <h2 class="accordion-header bg-dark text-light p-2 rounded">
+                                      <button class="accordion-button collapsed text-light" type="button" data-bs-toggle="collapse" data-bs-target="#semestresCollapse{{ $curso->id }}" aria-expanded="false" aria-controls="semestresCollapse{{ $curso->id }}">
+                                          Curso {{ $curso->nombre }}
+                                      </button>
+                                  </h2>
+                                  <div id="semestresCollapse{{ $curso->id }}" class="accordion-collapse collapse" data-bs-parent="#cursosAccordion">
+                                      @foreach ($curso->semestres as $semestre)
+                                          <div class="accordion-body bg-white">
+                                              <div class="accordion-item">
+                                                  <h2 class="accordion-header bg-secondary text-light p-2 rounded">
+                                                      <button class="btn btn-warning my-2" data-bs-toggle="modal" data-bs-target="#crearTemaModal{{ $curso->id }}{{ $semestre->id }}">
+                                                          Agregar Tema
+                                                      </button>
+                                                      <button class="accordion-button collapsed text-light" type="button" data-bs-toggle="collapse" data-bs-target="#temasCollapse{{ $curso->id }}{{ $semestre->id }}" aria-expanded="false" aria-controls="temasCollapse{{ $curso->id }}{{ $semestre->id }}">
+                                                          Semestre {{ $semestre->nombre }}
+                                                      </button>
+                                                  </h2>
+                                                  <div id="temasCollapse{{ $curso->id }}{{ $semestre->id }}" class="accordion-collapse collapse" data-bs-parent="#semestresCollapse{{ $curso->id }}">
+                                                      <div class="accordion-body bg-white">
+                                                          @foreach ($semestre->temas as $tema)
+                                                              <div class="p-2 bg-light border rounded my-2">
+                                                                  <h5>{{ $tema->nombre }}</h5>
+                                                                  <p>{{ $tema->descripcion }}</p>
+                                                              <div class="ms-auto text-end">          
+                                                                  <a class="btn btn-link text-dark px-3 mb-2" href="#" data-bs-toggle="modal" data-bs-target="#crearActividadModal" data-tema-id="{{ $tema->id }}">
+                                                                      <i class="material-icons text-sm me-2">assignment</i>Tarea
+                                                                  </a>
+                                                                  <a class="btn btn-link text-dark px-3 mb-2" href="#">
+                                                                      <i class="material-icons text-sm me-2">assignment_turned_in</i>Examen
+                                                                  </a>
+                                                                  <a class="btn btn-link text-dark px-3 mb-2" href="#">
+                                                                      <i class="material-icons text-sm me-2">link</i>Link
+                                                                  </a>
+                                                                  <a class="btn btn-link text-dark px-3 mb-2" href="#">
+                                                                      <i class="material-icons text-sm me-2">play_circle</i>Video
+                                                                  </a>
+                                                                  <a class="btn btn-link text-dark px-3 mb-2" href="#">
+                                                                      <i class="material-icons text-sm me-2">attachment</i>Archivo
+                                                                  </a>
+                                                                  <a class="btn btn-link text-dark px-3 mb-2" href="#">
+                                                                      <i class="material-icons text-sm me-2">edit</i>Editar
+                                                                  </a>
+                                                                  <a class="btn btn-link text-danger text-gradient px-3 mb-2" href="#">
+                                                                      <i class="material-icons text-sm me-2">delete</i>Eliminar
+                                                                      </a>
+                                                              </div>
+                                                              </div>
+                                                          @endforeach
+                                                      </div>
+                                                  </div>
+                                              </div>
                                           </div>
-                                          <div class="ms-auto text-end">
-                                            <form action="{{ route('gestion-cursos.eliminarTema', $tema->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-link text-danger text-gradient px-3 mb-0">
-                                                    <i class="material-icons text-sm me-2">delete</i>Eliminar tema
-                                                </button>
-                                            </form>
-                                            <a class="btn btn-link text-dark px-3 mb-0" data-bs-toggle="modal" data-bs-target="#editarModal{{ $tema->id }}"><i class="material-icons text-sm me-2">edit</i>Editar tema</a>
-                                          </div>
-                                        </li>
                                       @endforeach
-                                    </ul>
                                   </div>
-                                </div>
-                              @endif
-                            @endforeach
+                              </div>
                           @endforeach
-                        </div>
-                    </div>
-                </div>   
-                          </div>
-                        <div class="row">
-                          <div class="col-lg-6">
-                            <div class="card h-100 mt-3">
-                              <div class="card-header pb-0 p-3">
-                                <div class="row">
-                                  <div class="col-6 d-flex align-items-center">
-                                    <h6 class="mb-0">Entregas de actividades</h6>
-                                  </div>
-                                  <div class="col-6 text-end">
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="card-body p-3 pb-0">
-                                <ul class="list-group">
-                                    @foreach ($entregas as $entrega)
-                                    @if ($entrega->calificacion == null)
-                                         <li id="entrega-{{ $entrega->id }}" class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                            <div class="d-flex flex-column">
-                                                <h6 class="mb-1 text-dark font-weight-bold text-sm">{{ $entrega->recurso->titulo }}</h6>
-                                                <span class="text-xs">{{ $entrega->archivo }}</span>
-                                                <span class="text-xs">Alumno: {{ $entrega->user_id }}</span>
-                                            </div>
-                                            <div class="d-flex align-items-center text-sm">
-                                                {{ $entrega->descripcion }}
-                                                <a href="{{ asset('storage/' . str_replace('public/', '', $entrega->archivo)) }}" target="_blank" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4">
-                                                    <i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> Descargar PDF
-                                                  </a>
-                                                  <button class="btn btn-primary btn-sm mb-0 ms-4" data-bs-toggle="modal" data-bs-target="#calificarModal{{ $entrega->id }}">Calificar</button>                                               
-                                            </div>
-                                        </li>
-                                        @endif
-                                    @endforeach
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-lg-6">
-                            <div class="col-lg mt-3" style="max-height:500px; overflow-y: scroll;">
-                                <div class="card h-100">
-                                    <div class="card-header pb-0 px-3">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <h6 class="mb-0">Actividades encargadas</h6>
-                                                <button class="btn btn-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#crearActividadModal">Crear Tarea</button>
-                                                <a href="{{ route('gestion-cursos.mostrarCrearExamen') }}" class="btn btn-primary btn-sm mb-0">Crear examen</a>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="card-body pt-4 p-3">
-                                        <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Newest</h6>
-                                        <ul class="list-group">
-                                            @foreach ($recursos as $recurso)
-                                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex align-items-center">
-                                                    <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center">
-                                                        <i class="material-icons text-lg">expand_more</i>
-                                                    </button>
-                                                    <div class="d-flex flex-column">
-                                                        <h5 class="mb-1 text-dark text-sm">{{ $recurso->tipo }}</h5>
-                                                        <h6 class="mb-1 text-dark text-sm">{{ $recurso->titulo }}</h6>
-                                                        <span class="text-xs">{{ $recurso->fecha_entrega}}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
-                                                    {{ $recurso->estado }}
-                                                </div>
-                                            </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        </div>
-                    </div>
-                        
-        <x-footers.auth></x-footers.auth>
-        <!-- Modal de selección de curso -->
-        <div class="modal fade" id="seleccionarCursoModal" tabindex="-1" aria-labelledby="seleccionarCursoModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="seleccionarCursoModalLabel">Seleccionar Curso</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="cursoSelect" class="form-label">Seleccione un curso:</label>
-                                <select class="form-select" id="cursoSelect">
-                                    @foreach ($cursos as $curso)
-                                        <option value="{{ $curso->id }}">{{ $curso->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <button type="button" class="btn btn-primary" onclick="seleccionarCurso()">Confirmar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Agregar Semestre -->
-        <div class="modal fade" id="crearSemestreModal" tabindex="-1" aria-labelledby="crearSemestreModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="crearSemestreModalLabel">Agregar Semestre</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('gestion-cursos.store') }}" method="POST">
-
-                            @csrf
-                            <div class="mb-3">
-                                <label for="curso" class="form-label">Curso</label>
-                                <select class="form-select" id="curso" name="curso_id" required>
-                                    @foreach ($cursos as $cursoOption)
-                                        <option value="{{ $cursoOption->id }}">{{ $cursoOption->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="nombre" class="form-label">Nombre del Semestre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
-                                <input type="date" class="form-control" id="fechaInicio" name="fecha_inicio" required min="{{ date('Y-m-d') }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="fechaFin" class="form-label">Fecha de Fin</label>
-                                <input type="date" class="form-control" id="fechaFin" name="fecha_fin" required min="{{ date('Y-m-d') }}">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Crear Semestre</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+                      </div>                        
+                  </div>
+              </div>
+          </div>
+      </div>
         <!-- AQUI ACABA EL AGREGAR SEMESTRE -->
 
         <!-- Modal para Agregar Tema -->
