@@ -42,27 +42,32 @@
                     <div class="card h-100">
                         <div class="card-header pb-0 px-3">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-lg-6">
                                     <h6 class="mb-0">Actividades encargadas</h6>
                                     <button class="btn btn-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#crearActividadModal">Crear Tarea</button>
                                     <button class="btn btn-primary btn-sm mb-0">Crear examen</button>
                                 </div>
                             </div>
                         </div>
-                    <div class="card-body pt-4 p-3">
-                        <ul class="list-group">
-                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                <div class="d-flex align-items-center">
-                                    <div class="d-flex flex-column">
-                                    <h5 class="mb-1 text-dark text-sm"></h5>
-                                    <h6 class="mb-1 text-dark text-sm"></h6>
-                                <span class="text-xs"></span>
-                            </li>
+                        <div class="card-body pt-4 p-3">
+                            <ul class="list-group">
+                                <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                                    <div class="d-flex align-items-center">
+                                        <div class="d-flex flex-column">
+                                            <h5 class="mb-1 text-dark text-sm"></h5>
+                                            <h6 class="mb-1 text-dark text-sm"></h6>
+                                            <span class="text-xs"></span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>   
     </main>
     <x-plugins></x-plugins>
 </x-layout> 
