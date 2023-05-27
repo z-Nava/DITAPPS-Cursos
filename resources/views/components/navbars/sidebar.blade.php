@@ -59,6 +59,8 @@
                 </a>
             </li>
 
+            @if (Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2 || Auth::user()->rol_id == 3)
+
             <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'Gestion de cursos' ? ' active bg-gradient-primary' : '' }} "
                     href="{{ route('gestion-cursos') }}">
@@ -69,7 +71,7 @@
                 </a>
             </li>
 
-            
+            @endif
 
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Pages</h6>
