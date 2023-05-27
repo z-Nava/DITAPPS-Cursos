@@ -27,6 +27,7 @@ use App\Http\Controllers\CursoController;
 use App\Http\Controllers\ExamenController;
 use App\Http\Controllers\GestiondeCursoController;
 use App\Http\Controllers\GestionCursosAlumnoController;
+use App\Http\Controllers\GestionActividadesController;
 
             
 Route::get('/verify-email/{id}/{hash}', [RegisterController::class, 'verify'])->name('verification.verify');
@@ -101,7 +102,13 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::post('/entregarexamen', [GestionCursosAlumnoController::class, 'entregarExamen'])->name('entregarExamen');
 
+<<<<<<< HEAD
 	//Route::post('/crearexamen',  [GestionCursosAlumnoController::class, 'crearExamen'])->name('crearExamen');Route::post('/crearexamen',  [GestionCursosAlumnoController::class, 'crearExamen'])->name('crearExamen');
+=======
+
+	Route::get('/gestion-actividades', [GestionActividadesController::class, 'index'])->name('gestion-actividades');
+	Route::post('/gestion-actividades/calificar/{id}', [GestionActividadesController::class, 'calificarEntrega'])->name('gestion-actividades.calificar');
+>>>>>>> a578ddca99c6597dc8621a75a0688484d0d38dca
 
 
 

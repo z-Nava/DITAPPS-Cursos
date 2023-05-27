@@ -17,10 +17,10 @@ class ProfileController extends Controller
         $user = request()->user();
         $attributes = request()->validate([
             'email' => 'required|email|unique:users,email,'.$user->id,
-            'name' => 'required',
-            'phone' => 'required|max:10',
-            'about' => 'required:max:150',
-            'location' => 'required'
+            'name' => 'required|max:255|min:5',
+            'phone' => 'required|max:10|min:10',
+            'about' => 'required:max:150|min:10',
+            'location' => 'required|max:255|min:5|string',
         ]);
 
         auth()->user()->update($attributes);

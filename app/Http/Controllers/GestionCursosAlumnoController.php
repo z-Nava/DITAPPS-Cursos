@@ -69,8 +69,8 @@ class GestionCursosAlumnoController extends Controller
 {
     $request->validate([
         'recurso_id' => 'required|exists:recursos,id',
-        'descripcion' => 'required',
-        'archivo' => 'required|mimes:pdf,docx'
+        'descripcion' => 'required|max:255|min:10|string',
+        'archivo' => 'required|mimes:pdf,docx|'
     ]);
 
     $path = $request->file('archivo')->storeAs('public/entregas', $request->file('archivo')->getClientOriginalName());
@@ -151,10 +151,5 @@ public function entregarExamen(Request $request)
         $entrega->save();
     // Redirigir a donde prefieras después de que el usuario ha entregado el examen
     #return redirect()->route('dashboard');
-}
-
-
-
-
-
+    }
 }

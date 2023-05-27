@@ -164,8 +164,8 @@ return redirect()->back()->with(['success' => 'El tema se ha actualizado correct
         
         // Validar los datos del formulario
         $request->validate([
-            'titulo' => 'required',
-            'contenido' => 'required',
+            'titulo' => 'required|max:50',
+            'contenido' => 'required|max:255|',
             'fecha_entrega' => 'required|date|after_or_equal:today', // Asegura que la fecha de entrega no sea anterior a la fecha actual
             'tema_id' => 'required|exists:temas,id',
         ]);
@@ -186,18 +186,7 @@ return redirect()->back()->with(['success' => 'El tema se ha actualizado correct
         return redirect()->back()->with('success', 'La tarea se ha creado correctamente.');
     }
 
-    public function calificarEntrega(Request $request, $id)
-    {
-        $request->validate([
-            'calificacion' => 'required|numeric|min:0|max:100'
-        ]);
-
-        $entrega = Entrega::find($id);
-        $entrega->calificacion = $request->calificacion;
-        $entrega->save();
-
-        return redirect()->back()->with('success', 'La entrega ha sido calificada correctamente.');
-    }
+    
 
         public function getCalificaciones()
     {

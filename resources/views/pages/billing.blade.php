@@ -26,6 +26,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($calificaciones as $calificacion)
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold"></span>
                                         </td>
@@ -38,6 +39,7 @@
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold"></span>
                                         </td>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
