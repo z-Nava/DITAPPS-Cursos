@@ -20,8 +20,8 @@ class SessionsController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'login' => 'required',
-            'password' => 'required'
+            'login' => 'required|email|exists:users,email',
+            'password' => 'required|min:5|max:10'
         ]);
 
         $loginType = filter_var($attributes['login'], FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';

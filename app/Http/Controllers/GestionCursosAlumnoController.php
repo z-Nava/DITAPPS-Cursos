@@ -69,8 +69,8 @@ class GestionCursosAlumnoController extends Controller
 {
     $request->validate([
         'recurso_id' => 'required|exists:recursos,id',
-        'descripcion' => 'required',
-        'archivo' => 'required|mimes:pdf,docx'
+        'descripcion' => 'required|max:255|min:10|string',
+        'archivo' => 'required|mimes:pdf,docx|'
     ]);
 
     $path = $request->file('archivo')->storeAs('public/entregas', $request->file('archivo')->getClientOriginalName());

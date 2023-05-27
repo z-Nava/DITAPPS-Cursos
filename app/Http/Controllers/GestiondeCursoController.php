@@ -164,8 +164,8 @@ return redirect()->back()->with(['success' => 'El tema se ha actualizado correct
         
         // Validar los datos del formulario
         $request->validate([
-            'titulo' => 'required',
-            'contenido' => 'required',
+            'titulo' => 'required|max:50',
+            'contenido' => 'required|max:255|',
             'fecha_entrega' => 'required|date|after_or_equal:today', // Asegura que la fecha de entrega no sea anterior a la fecha actual
             'tema_id' => 'required|exists:temas,id',
         ]);
