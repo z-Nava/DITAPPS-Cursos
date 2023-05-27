@@ -112,6 +112,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('user-management', function () {return view('pages.laravel-examples.user-management');})->name('user-management');
 
 	Route::get('user-management', [UserManagementController::class, 'index'])->name('user-management');
+	#Route::get('/user-management', [UserManagementController::class, 'getEstudiantes'])->name('get-estudiantes');
 	Route::post('user-management', [UserManagementController::class, 'store'])->name('usermanagement.store');
 	Route::delete('user-management/{id}', [UserManagementController::class, 'destroy'])->name('usermanagement.destroy');
 	Route::put('user-management/{id}', [UserManagementController::class, 'update'])->name('usermanagement.update');

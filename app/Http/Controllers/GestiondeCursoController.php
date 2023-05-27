@@ -79,6 +79,15 @@ class GestiondeCursoController extends Controller
         return redirect()->back()->with('success', 'El tema se ha creado correctamente.');
     }
 
+    public function showTema($id)
+{
+    $temas = Tema::all();
+    return view('pages.gestion-cursos', compact('temas'));
+}
+
+
+
+
     public function eliminarTema($id)
     {
         $tema = Tema::findOrFail($id);

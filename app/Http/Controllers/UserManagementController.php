@@ -5,6 +5,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
 use App\Notifications\EmailVerificationNotification;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
@@ -62,4 +63,6 @@ class UserManagementController extends Controller
         
         return redirect()->route('user-management');
     }
+
+   
 }
