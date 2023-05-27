@@ -12,25 +12,25 @@
                       Agregar Semestre
                   </button>                    
                   <div class="rounded p-3 bg-light">
-                      <div class="accordion" id="cursosAccordion">
+                      <div class="accordion " id="cursosAccordion">
                           @foreach ($cursos as $curso)
                           @foreach ($curso->semestres as $semestre)
                               <div class="accordion-item shadow-lg bg-light my-3">
                                   <h2 class="accordion-header bg-dark text-light p-2 rounded">
                                       <button class="accordion-button collapsed text-light" type="button" data-bs-toggle="collapse" data-bs-target="#semestresCollapse{{ $curso->id }}" aria-expanded="false" aria-controls="semestresCollapse{{ $curso->id }}">
-                                          Curso {{ $curso->nombre }} - Semestre {{ $semestre->nombre }}
+                                            Semestre {{ $semestre->nombre }}
                                       </button>
                                   </h2>
                                   <div id="semestresCollapse{{ $curso->id }}" class="accordion-collapse collapse" data-bs-parent="#cursosAccordion">
                                      
                                           <div class="accordion-body bg-white">
-                                              <div class="accordion-item">
+                                              <div class="accordion-item ">
                                                   <h2 class="accordion-header bg-secondary text-light p-2 rounded">
                                                       <button class="btn btn-warning my-2" data-bs-toggle="modal" data-bs-target="#crearTemaModal{{ $curso->id }}{{ $semestre->id }}">
                                                           Agregar Tema
                                                       </button>
                                                       <button class="accordion-button collapsed text-light" type="button" data-bs-toggle="collapse" data-bs-target="#temasCollapse{{ $curso->id }}{{ $semestre->id }}" aria-expanded="false" aria-controls="temasCollapse{{ $curso->id }}{{ $semestre->id }}">
-                                                          Semestre {{ $semestre->nombre }}
+                                                        Curso {{ $curso->nombre }}
                                                       </button>
                                                   </h2>
                                                   <div id="temasCollapse{{ $curso->id }}{{ $semestre->id }}" class="accordion-collapse collapse" data-bs-parent="#semestresCollapse{{ $curso->id }}">
@@ -116,7 +116,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary">Crear Tema</button>
                         </form>
-                    </div>
+                    </div>    
                 </div>
             </div>
         </div>
