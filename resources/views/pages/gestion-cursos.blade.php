@@ -47,15 +47,6 @@
                                                                       <i class="material-icons text-sm me-2">assignment_turned_in</i>Examen
                                                                   </a>
                                                                   <a class="btn btn-link text-dark px-3 mb-2" href="#">
-                                                                      <i class="material-icons text-sm me-2">link</i>Link
-                                                                  </a>
-                                                                  <a class="btn btn-link text-dark px-3 mb-2" href="#">
-                                                                      <i class="material-icons text-sm me-2">play_circle</i>Video
-                                                                  </a>
-                                                                  <a class="btn btn-link text-dark px-3 mb-2" href="#">
-                                                                      <i class="material-icons text-sm me-2">attachment</i>Archivo
-                                                                  </a>
-                                                                  <a class="btn btn-link text-dark px-3 mb-2" href="#">
                                                                       <i class="material-icons text-sm me-2">edit</i>Editar
                                                                   </a>
                                                                   <a class="btn btn-link text-danger text-gradient px-3 mb-2" href="#">
