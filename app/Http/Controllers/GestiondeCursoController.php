@@ -8,6 +8,8 @@ use App\Models\Semestre;
 use App\Models\Tema;
 use App\Models\Recurso;
 use App\Models\Entrega;
+use Auth;
+
 
 class GestiondeCursoController extends Controller
 {
@@ -185,18 +187,41 @@ return redirect()->back()->with(['success' => 'El tema se ha actualizado correct
         return redirect()->back()->with('success', 'La entrega ha sido calificada correctamente.');
     }
 
-    public function getCalificaciones()
+        public function getCalificaciones()
     {
-        $calificaciones = Entrega::where('entregas.user_id', auth()->user()->id)
-            ->join('recursos', 'entregas.recurso_id', '=', 'recursos.id')
-            ->join('temas', 'recursos.tema_id', '=', 'temas.id')
-            ->join('semestres', 'temas.semestre_id', '=', 'semestres.id')
-            ->join('cursos', 'semestres.curso_id', '=', 'cursos.id')
-            ->select('cursos.nombre as curso', 'temas.nombre as tema', 'recursos.titulo as tarea', 'entregas.calificacion')
-            ->get();
+        $userId = Auth::user()->id;
+        $userRole = Auth::user()->rol_id;
 
+        if ($userRole === 3) { // ID del rol de profesor
+            $calificaciones = Entrega::join('recursos', 'entregas.recurso_id', '=', 'recursos.id')
+                ->join('temas', 'recursos.tema_id', '=', 'temas.id')
+                ->join('semestres', 'temas.semestre_id', '=', 'semestres.id')
+                ->join('cursos', 'semestres.curso_id', '=', 'cursos.id')
+                ->select('cursos.nombre as curso', 'temas.nombre as tema', 'recursos.titulo as tarea', 'entregas.calificacion')
+                ->get();
+        } else {
+            $calificaciones = Entrega::join('recursos', 'entregas.recurso_id', '=', 'recursos.id')
+                ->join('temas', 'recursos.tema_id', '=', 'temas.id')
+                ->join('semestres', 'temas.semestre_id', '=', 'semestres.id')
+                ->join('cursos', 'semestres.curso_id', '=', 'cursos.id')
+                ->where('entregas.user_id', $userId)
+                ->select('cursos.nombre as curso', 'temas.nombre as tema', 'recursos.titulo as tarea', 'entregas.calificacion')
+                ->get();
+        }
+        
         return view('pages.billing')->with('calificaciones', $calificaciones);
     }
 
-
+    public function editarCalificacion(Request $request, $id)
+    {
+        $request->validate([
+            'calificacion' => 'required|numeric|min:0|max:100'
+        ]);
+    
+        $entrega = Entrega::findOrFail($id);
+        $entrega->calificacion = $request->calificacion;
+        $entrega->save();
+    
+        return redirect()->back()->with('success', 'La calificación ha sido actualizada correctamente.');
+    }
 }

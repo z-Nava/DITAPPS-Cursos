@@ -60,6 +60,10 @@ Route::post('user-profile', [ProfileController::class, 'update'])->middleware('a
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('billing', [GestiondeCursoController::class, 'getCalificaciones'])->name('billing');
+	Route::put('billing/{id}', [GestiondeCursoController::class, 'editarCalificacion'])->name('editarCalificacion');
+
+
+
 
 
 
