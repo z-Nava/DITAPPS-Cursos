@@ -74,6 +74,42 @@ class GestiondeCursoController extends Controller
         return redirect()->back()->with('success', 'El tema se ha creado correctamente.');
     }
 
+    public function eliminarTema($id)
+    {
+        $tema = Tema::findOrFail($id);
+        // Aquí realizas la lógica para eliminar el tema y sus recursos relacionados
+        $tema->delete();
+
+        return redirect()->back()->with('success', 'El tema ha sido eliminado correctamente.');
+    }
+
+    public function editarTema(Request $request, $id)
+    {   
+        $request->validate([
+            'nombre' => 'required',
+            'contenido' => 'required',
+            'enlace' => 'nullable',
+            // Agrega aquí las validaciones para otros campos si es necesario
+        ]);
+    
+        // Encontrar el tema por su ID
+        $tema = Tema::findOrFail($id);
+    
+        // Actualizar los campos del tema con los nuevos datos
+        $tema->nombre = $request->nombre;
+        $tema->contenido = $request->contenido;
+        $tema->enlace = $request->enlace;
+        // Actualiza otros campos si es necesario
+    
+        // Guardar los cambios en la base de datos
+        $tema->save();
+    
+        // Redireccionar o realizar alguna acción adicional
+        return redirect()->back()->with('success', 'El tema se ha actualizado correctamente.');
+    }
+
+
+
     public function storeRecurso(Request $request)
     {
         $request->validate([
