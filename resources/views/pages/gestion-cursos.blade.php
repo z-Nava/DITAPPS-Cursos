@@ -25,7 +25,7 @@ contenedorSemestre.insertAdjacentHTML('afterend', nuevoSemestreHTML);
                         <button class="btn btn-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#crearTemaModal">Crear Tema</button>
                     </div>
                       <div class="row">
-                        <div class="col-lg mt-4">
+                        <div class="col-lg mt-4" style="max-height:400px; overflow-y: scroll;">
                           @foreach ($cursos as $curso)
                             @foreach ($curso->semestres as $semestre)
                               @if ($semestre->estado == 'activo')
