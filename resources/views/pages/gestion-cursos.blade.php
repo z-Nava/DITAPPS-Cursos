@@ -14,14 +14,6 @@ var nuevoSemestreHTML = '<div class="card"> <!-- Contenido del nuevo semestre --
 
 // Inserta el contenido del nuevo semestre al final del contenedor principal
 contenedorSemestre.insertAdjacentHTML('afterend', nuevoSemestreHTML);
-
-function seleccionarCurso() {
-        // Obtener el valor seleccionado del select
-        var cursoId = document.getElementById('cursoSelect').value;
-        
-        // Redireccionar a la página del curso seleccionado
-        window.location.href = "{{ route('gestion-cursos') }}?curso=" + cursoId;
-    }
         </script>
         <div class="container-fluid py-4 ">
             <div class="row">
@@ -357,8 +349,7 @@ function seleccionarCurso() {
         </div>
       </div>
     </main>
-    
-    
-    
+
+
     <x-plugins></x-plugins>
 </x-layout>
