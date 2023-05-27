@@ -54,8 +54,10 @@ class GestionCursosAlumnoController extends Controller
         // Cargar los datos necesarios para cada curso
         foreach ($cursos as $curso) {
             $curso->load(['semestres.temas', 'semestres.temas.recursos' => function ($query) {
-                $query->where('tipo', 'examen');
+                $query->whereIn('tipo', ['examen', 'tarea']);
             }]);
+            
+            
         }
         // Retornar la vista del dashboard con los datos cargados
         return view('dashboard', compact('cursos'));

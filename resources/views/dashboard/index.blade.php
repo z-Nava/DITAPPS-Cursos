@@ -18,43 +18,34 @@
                                 @foreach ($semestre->temas as $tema)
                                     <li>{{ $tema->nombre }}</li>
                                     @foreach($tema->recursos as $recurso)
-                                    <!-- Muestra las tareas -->
-                                    @if($recurso->tipo == 'tarea' && $recurso->estado == 'activo')
-                                        <!-- Código existente para mostrar tareas -->
-                                    @endif
-
-                                    <!-- Muestra los exámenes -->
-                                    @if($recurso->tipo == 'examen' && $recurso->estado == 'activo')
+                                       
+                                        @if($recurso->tipo == 'tarea' && $recurso->estado == 'activo')
                                         <div class="card mt-3">
                                             <div class="card-header">
                                                 <h5 class="mb-0">{{ $recurso->titulo }}</h5>
                                             </div>
                                             <div class="card-body">
+                                                <p>{{ $recurso->contenido }}</p>
                                                 <p>Fecha de entrega: {{ $recurso->fecha_entrega }}</p>
-                                                <!-- Aquí podrías mostrar las preguntas del examen, 
-                                                    pero necesitarás cargarlas desde la base de datos -->
-                                                <form action="{{ route('entregarExamen') }}" method="post">
+                                    
+                                                <form action="{{ route('entregarTarea') }}" method="post" enctype="multipart/form-data">
                                                     @csrf
                                                     <input type="hidden" name="recurso_id" value="{{ $recurso->id }}">
-                                                    @foreach($recurso->preguntas as $pregunta)
-                                                        <div class="mb-3">
-                                                            <p>{{ $pregunta->pregunta }}</p>
-                                                            @foreach($pregunta->respuestas as $respuesta)
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="respuestas[{{ $pregunta->id }}]" value="{{ $respuesta->id }}" id="respuesta-{{ $respuesta->id }}">
-                                                                    <label class="form-check-label" for="respuesta-{{ $respuesta->id }}">
-                                                                        {{ $respuesta->respuesta }}
-                                                                    </label>
-                                                                </div>
-                                                            @endforeach
-                                                        </div>
-                                                    @endforeach
-                                                    <button type="submit" class="btn btn-primary">Entregar examen</button>
+                                                    <div class="mb-3">
+                                                        <label for="descripcion" class="form-label">Descripción</label>
+                                                        <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="archivo" class="form-label">Subir Archivo</label>
+                                                        <input class="form-control" type="file" id="archivo" name="archivo">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Entregar tarea</button>
                                                 </form>
                                             </div>
                                         </div>
                                     @endif
-                                @endforeach
+                                    
+                                    @endforeach
                                 @endforeach
                             </ul>
                         @endforeach
@@ -62,5 +53,6 @@
                 </div>
             @endforeach
         </div>
+        
     </main>
 </x-layout>
