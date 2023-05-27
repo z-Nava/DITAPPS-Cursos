@@ -11,21 +11,19 @@ use App\Models\Entrega;
 
 class GestiondeCursoController extends Controller
 {
-    public function index()
-    {
-        $cursos = Curso::where('user_id', auth()->user()->id)->with(['semestres.temas.recursos'])->get();
+    public function index(Request $request)
+{
+    $cursoId = $request->query('curso');
+    
+    $cursos = Curso::where('user_id', auth()->user()->id)->with(['semestres.temas.recursos'])->get();
+    
+    $entregas = Entrega::all();
+    $recursos = Recurso::where('tipo', 'tarea')->get();
+    
 
-        $tareas = Recurso::where('tipo','tarea')->get();
-        
-        $entregas = Entrega::all();
+    return view('pages.gestion-cursos', compact('cursos', 'recursos', 'entregas'));
+}
 
-        $recursos = Recurso::where('tipo', 'tarea')->get();
-
-
-        
-        return view('pages.gestion-cursos', compact('cursos', 'tareas', 'recursos', 'entregas'));
-
-    }
 
     public function store(Request $request)
     {

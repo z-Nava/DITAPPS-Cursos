@@ -15,10 +15,19 @@ var nuevoSemestreHTML = '<div class="card"> <!-- Contenido del nuevo semestre --
 
 // Inserta el contenido del nuevo semestre al final del contenedor principal
 contenedorSemestre.insertAdjacentHTML('afterend', nuevoSemestreHTML);
+
+function seleccionarCurso() {
+        // Obtener el valor seleccionado del select
+        var cursoId = document.getElementById('cursoSelect').value;
+        
+        // Redireccionar a la página del curso seleccionado
+        window.location.href = "{{ route('gestion-cursos') }}?curso=" + cursoId;
+    }
         </script>
         <div class="container-fluid py-4 ">
             <div class="row">
                 <div class="col-12">
+                    <button class="btn btn-warning btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#seleccionarCursoModal">Seleccionar Curso</button>
                     <h2>Mis cursos</h2>
                     <div>
                         <button class="btn btn-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#crearSemestreModal">Crear Semestre</button>
@@ -145,6 +154,30 @@ contenedorSemestre.insertAdjacentHTML('afterend', nuevoSemestreHTML);
                     </div>
                         
         <x-footers.auth></x-footers.auth>
+        <!-- Modal de selección de curso -->
+        <div class="modal fade" id="seleccionarCursoModal" tabindex="-1" aria-labelledby="seleccionarCursoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="seleccionarCursoModalLabel">Seleccionar Curso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="cursoSelect" class="form-label">Seleccione un curso:</label>
+                                <select class="form-select" id="cursoSelect">
+                                    @foreach ($cursos as $curso)
+                                        <option value="{{ $curso->id }}">{{ $curso->nombre }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="seleccionarCurso()">Confirmar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Agregar Semestre -->
         <div class="modal fade" id="crearSemestreModal" tabindex="-1" aria-labelledby="crearSemestreModalLabel" aria-hidden="true">
             <div class="modal-dialog">
