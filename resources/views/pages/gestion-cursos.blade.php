@@ -136,15 +136,15 @@
                                                                               <div class="modal-body">
                                                                                   <input type="hidden" id="temaIdInput" name="tema_id">
                                                                                   <div class="form-group">
-                                                                                      <label for="titulo">Título</label>
+                                                                                      <label for="titulo" class="text-start">Título</label>
                                                                                       <input type="text" class="form-control" id="titulo" name="titulo" required>
                                                                                   </div>
                                                                                   <div class="form-group">
-                                                                                      <label for="contenido">Contenido</label>
+                                                                                      <label for="contenido" class="text-start">Contenido</label>
                                                                                       <textarea class="form-control" id="contenido" name="contenido" rows="3" required></textarea>
                                                                                   </div>
                                                                                   <div class="form-group">
-                                                                                      <label for="fecha_entrega">Fecha de entrega</label>
+                                                                                      <label for="fecha_entrega" class="text-start">Fecha de entrega</label>
                                                                                       <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega" required min="{{ date('Y-m-d')}}">
                                                                                   </div>
                                                                               </div>
@@ -156,7 +156,8 @@
                                                                       </div>
                                                                   </div>
                                                                 </div>
-                                                                <!--FIN MODAL-->              
+                                                                <!--FIN MODAL-->
+          
                                                                     <a class="btn btn-link text-dark px-3 mb-2" href="#">
                                                                         <i class="material-icons text-sm me-2">assignment_turned_in</i>Examen
                                                                     </a>
