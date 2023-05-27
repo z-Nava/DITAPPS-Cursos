@@ -14,14 +14,15 @@
                   <div class="rounded p-3 bg-light">
                       <div class="accordion" id="cursosAccordion">
                           @foreach ($cursos as $curso)
+                          @foreach ($curso->semestres as $semestre)
                               <div class="accordion-item shadow-lg bg-light my-3">
                                   <h2 class="accordion-header bg-dark text-light p-2 rounded">
                                       <button class="accordion-button collapsed text-light" type="button" data-bs-toggle="collapse" data-bs-target="#semestresCollapse{{ $curso->id }}" aria-expanded="false" aria-controls="semestresCollapse{{ $curso->id }}">
-                                          Curso {{ $curso->nombre }}
+                                          Curso {{ $curso->nombre }} - Semestre {{ $semestre->nombre }}
                                       </button>
                                   </h2>
                                   <div id="semestresCollapse{{ $curso->id }}" class="accordion-collapse collapse" data-bs-parent="#cursosAccordion">
-                                      @foreach ($curso->semestres as $semestre)
+                                     
                                           <div class="accordion-body bg-white">
                                               <div class="accordion-item">
                                                   <h2 class="accordion-header bg-secondary text-light p-2 rounded">
@@ -134,7 +135,7 @@
                 <form action="{{ route('guardarTarea') }}" method="POST">
                   @csrf
                   <div class="modal-body">
-                    <!-- Aquí puedes poner los campos necesarios para la actividad -->
+            
                     <input type="hidden" id="temaIdInput" name="tema_id" value="{{ $tema->id }}">
                     <div class="form-group">
                       <label for="titulo">Titulo</label>
@@ -148,7 +149,7 @@
                       <label for="fecha_entrega">Fecha de entrega</label>
                       <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega" required min="{{ date('Y-m-d')}}">
                     </div>
-                    <!-- Añade aquí más campos según lo necesites -->
+                   
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -175,7 +176,7 @@
                                   <label for="calificacion{{ $entrega->id }}" class="form-label">Calificación</label>
                                   <input type="number" class="form-control" id="calificacion{{ $entrega->id }}" name="calificacion" min="0" max="100" required>
                               </div>
-                              <!-- Agrega aquí otros campos o comentarios para la calificación -->
+                           
                               <button type="submit" class="btn btn-primary">Guardar calificación</button>
                           </form>
                       </div>
@@ -183,7 +184,8 @@
               </div>
           </div>
       @endforeach
-    </div>     
+    </div> 
+      
     <div class="modal fade" id="editarModal{{ $tema->id }}" tabindex="-1" aria-labelledby="editarModalLabel{{ $tema->id }}" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -209,7 +211,7 @@
                     <input type="text" class="form-control" id="enlace{{ $tema->id }}" name="enlace" value="{{ $tema->enlace }}" required>
                 </div>
 
-                <!-- Agrega aquí otros campos para editar el tema -->
+                
                 <button type="submit" class="btn btn-primary">Guardar cambios</button>
               </form>
             </div>
