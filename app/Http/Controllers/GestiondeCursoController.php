@@ -22,7 +22,8 @@ class GestiondeCursoController extends Controller
     $cursos = Curso::where('user_id', auth()->user()->id)->with(['semestres.temas.recursos'])->get();
     
     $entregas = Entrega::all();
-    $recursos = Recurso::where('tipo', 'tarea')->get();
+    $recursos = Recurso::whereIn('tipo', ['tarea', 'examen'])->get();
+
 
     
     
@@ -262,11 +263,11 @@ return redirect()->back()->with(['success' => 'El tema se ha actualizado correct
         $respuesta->save();
     }
 
-    return redirect('/'); // Deberías redirigir a la página que prefieras
+    return redirect()->route('gestion-cursos');  // Deberías redirigir a la página que prefieras
 }
 
 public function mostrarCrearExamen()
 {
-    return view('crear-examen');
+    return view('pages.crear-examen');
 }
 }

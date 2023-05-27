@@ -8,6 +8,7 @@ use App\Models\Recurso;
 use App\Models\Entrega;
 use App\Models\Respuesta;
 use App\Models\Pregunta;
+use App\Models\RespuestaUsuario;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -52,9 +53,10 @@ class GestionCursosAlumnoController extends Controller
 
         // Cargar los datos necesarios para cada curso
         foreach ($cursos as $curso) {
-            $curso->load('semestres.temas');
+            $curso->load(['semestres.temas', 'semestres.temas.recursos' => function ($query) {
+                $query->where('tipo', 'examen');
+            }]);
         }
-        
         // Retornar la vista del dashboard con los datos cargados
         return view('dashboard', compact('cursos'));
 
@@ -80,6 +82,41 @@ class GestionCursosAlumnoController extends Controller
 
     return redirect()->back()->with('success', 'La tarea se ha entregado correctamente.');
 }
+
+public function entregarExamen(Request $request)
+{
+    // Asegúrate de que el usuario ha respondido todas las preguntas
+    $preguntas = Pregunta::where('recurso_id', $request->input('recurso_id'))->get();
+
+    foreach ($preguntas as $pregunta) {
+        // El nombre del campo de respuesta debe coincidir con lo que estableciste en la vista
+        if (!$request->has('respuesta-' . $pregunta->id)) {
+            // Maneja el error si no se ha proporcionado una respuesta
+            dd('Debes responder a todas las preguntas.');
+            return redirect()->back()->with('error', 'Debes responder a todas las preguntas.');
+        }
+    }
+
+    // Guardar las respuestas del usuario
+    foreach ($preguntas as $pregunta) {
+        $respuestaUsuario = new RespuestaUsuario;
+        $respuestaUsuario->pregunta_id = $pregunta->id;
+        $respuestaUsuario->recurso_id = $request->input('recurso_id');
+        $respuestaUsuario->user_id = auth()->user()->id;
+        $respuestaUsuario->respuesta = $request->input('respuesta-' . $pregunta->id);
+        $respuestaUsuario->save();
+    }
+        $entrega = new Entrega;
+        $entrega->recurso_id = $request->input('recurso_id');
+        $entrega->user_id = auth()->user()->id;
+        // Aquí puedes añadir cualquier otro campo necesario para la tabla de entregas
+        dd($entrega);
+        $entrega->save();
+    // Redirigir a donde prefieras después de que el usuario ha entregado el examen
+    #return redirect()->route('dashboard');
+}
+
+
 
 
 
