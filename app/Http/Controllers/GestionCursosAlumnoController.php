@@ -81,49 +81,6 @@ class GestionCursosAlumnoController extends Controller
     return redirect()->back()->with('success', 'La tarea se ha entregado correctamente.');
 }
 
-public function crearExamen(Request $request)
-{
-    // Crear el nuevo examen
-    $recurso = new Recurso;
-    $recurso->tipo = 'examen';
-    $recurso->titulo = $request->input('titulo');
-    $recurso->fecha_entrega = $request->input('fecha_entrega');
-    $recurso->tema_id = 1; // Aquí deberías obtener el id del tema real
-    $recurso->save();
-
-    // Obtener las preguntas y respuestas del formulario
-    $preguntas = $request->input('preguntas');
-    $respuestas = $request->input('respuestas');
-
-    // Asegurarte de que hay la misma cantidad de preguntas y respuestas
-    if (count($preguntas) !== count($respuestas)) {
-        // Deberías manejar este error de alguna manera
-        return;
-    }
-
-    // Crear las preguntas y respuestas
-    for ($i = 0; $i < count($preguntas); $i++) {
-        $pregunta = new Pregunta;
-        $pregunta->pregunta = $preguntas[$i];
-        $pregunta->tipo = 'opcion_multiple'; // Deberías obtener el tipo real del formulario
-        $pregunta->recurso_id = $recurso->id;
-        $pregunta->save();
-
-        $respuesta = new Respuesta;
-        $respuesta->respuesta = $respuestas[$i];
-        $respuesta->correcta = false; // Deberías obtener el valor real del formulario
-        $respuesta->pregunta_id = $pregunta->id;
-        $respuesta->save();
-    }
-
-    return redirect('/'); // Deberías redirigir a la página que prefieras
-}
-
-public function mostrarCrearExamen()
-{
-    return view('crear-examen');
-}
-
 
 
 }
