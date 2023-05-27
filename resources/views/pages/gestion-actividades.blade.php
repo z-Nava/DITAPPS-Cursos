@@ -62,9 +62,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    
-            
+        </div>    
     </main>
     <x-plugins></x-plugins>
 </x-layout> 
