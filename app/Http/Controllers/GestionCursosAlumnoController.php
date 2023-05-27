@@ -92,7 +92,7 @@ public function entregarExamen(Request $request)
         // El nombre del campo de respuesta debe coincidir con lo que estableciste en la vista
         if (!$request->has('respuesta-' . $pregunta->id)) {
             // Maneja el error si no se ha proporcionado una respuesta
-            dd('Debes responder a todas las preguntas.');
+           
             return redirect()->back()->with('error', 'Debes responder a todas las preguntas.');
         }
     }
@@ -110,7 +110,7 @@ public function entregarExamen(Request $request)
         $entrega->recurso_id = $request->input('recurso_id');
         $entrega->user_id = auth()->user()->id;
         // Aquí puedes añadir cualquier otro campo necesario para la tabla de entregas
-        dd($entrega);
+      
         $entrega->save();
     // Redirigir a donde prefieras después de que el usuario ha entregado el examen
     #return redirect()->route('dashboard');
