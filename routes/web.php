@@ -26,6 +26,7 @@ use App\Http\Controllers\LibroController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\GestiondeCursoController;
 use App\Http\Controllers\GestionCursosAlumnoController;
+use App\Http\Controllers\GestionActividadesController;
 
             
 Route::get('/verify-email/{id}/{hash}', [RegisterController::class, 'verify'])->name('verification.verify');
@@ -101,7 +102,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/entregarexamen', [GestionCursosAlumnoController::class, 'entregarExamen'])->name('entregarExamen');
 
 
-
+	Route::get('/gestion-actividades', [GestionActividadesController::class, 'index'])->name('gestion-actividades');
 
 
 

@@ -6,4 +6,4 @@
 
     </main>
     <x-plugins></x-plugins>
-</x-layout>
+</x-layout> 

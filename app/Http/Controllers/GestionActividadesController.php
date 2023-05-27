@@ -8,6 +8,6 @@ class GestionActividadesController extends Controller
 {
     public function index()
     {
-        return view('gestionActividades');
+        return view('pages/gestion-actividades');
     }
 }
