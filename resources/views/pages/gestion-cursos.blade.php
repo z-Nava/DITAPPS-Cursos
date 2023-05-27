@@ -6,6 +6,7 @@
         <x-navbars.navs.auth titlePage="Gestion de cursos"></x-navbars.navs.auth>
         <!-- End Navbar -->
         <script>
+            
             // Obtén el contenedor principal
             var contenedorSemestre = document.getElementById('contenedor-semestre');
 
