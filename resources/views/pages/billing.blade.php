@@ -5,60 +5,60 @@
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage="Billing"></x-navbars.navs.auth>
         <!-- End Navbar -->
-        <div class="card">
-            <div class="table-responsive">
-              <table class="table align-items-center mb-0">
-                <thead>
-                  <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Curso</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Calificación</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Estado</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Avance</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($calificaciones as $calificacion)
-                      <tr>
-                          <td>
-                              <div class="d-flex px-2">
-                                  <div>
-                                      <img src="https://demos.creative-tim.com/soft-ui-design-system-pro/assets/img/logos/small-logos/logo-spotify.svg" class="avatar avatar-sm rounded-circle me-2">
-                                  </div>
-                                  <div class="my-auto">
-                                      <h6 class="mb-0 text-xs">{{ $calificacion->curso }}</h6>
-                                  </div>
-                              </div>
-                          </td>
-                          <td>
-                              <p class="text-xs font-weight-normal mb-0">{{ $calificacion->calificacion }}</p>
-                          </td>
-                          <td>
-                              <span class="badge badge-dot me-4">
-                                  <i class="bg-info"></i>
-                                  <span class="text-dark text-xs">Trabajando</span>
-                              </span>
-                          </td>
-                          <td class="align-middle text-center">
-                              <div class="d-flex align-items-center">
-                                  <span class="me-2 text-xs">{{ $calificacion->calificacion }}%</span>
-                                  <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="{{ $calificacion->calificacion }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $calificacion->calificacion }}%;"></div>
-                              </div>
-                          </td>
-                          <td class="align-middle">
-                              <button class="btn btn-link text-secondary mb-0">
-                                  <span class="material-icons">
-                                      more_vert
-                                  </span>
-                              </button>
-                          </td>
-                      </tr>
-                  @endforeach
-              </tbody>
-              
-              </table>
+        <div class="row">
+            <div class="col-lg mt-4">
+              <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                  <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                    <h6 class="text-white text-capitalize ps-3">Tus calificaciones</h6>
+                  </div>
+                </div>
+                <div class="card-body px-0 pb-2">
+                  <div class="table-responsive p-0">
+                    <table class="table align-items-center mb-0">
+                      <thead>
+                        <tr>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Curso</th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tema</th>
+                          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tarea/Examen</th>
+                          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Calificacion</th>
+                          <th class="text-secondary opacity-7"></th>
+                        </tr>
+                      </thead>
+                      <!-- ... -->
+                        <tbody>
+                            @foreach ($calificaciones as $calificacion)
+                                <tr>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div>
+                                                <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ $calificacion->curso }}</h6>
+                                                <p class="text-xs text-secondary mb-0">{{ $calificacion->tema }}</p>
+                                                <p class="text-xs text-secondary mb-0">{{ $calificacion->tarea }}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <span class="text-secondary text-xs font-weight-bold">{{ $calificacion->calificacion }}</span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                            Edit
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <!-- ... -->
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
             <x-footers.auth></x-footers.auth>
     </main>
     <x-plugins></x-plugins>

@@ -186,18 +186,17 @@ return redirect()->back()->with(['success' => 'El tema se ha actualizado correct
     }
 
     public function getCalificaciones()
-{
-    $calificaciones = Entrega::where('entregas.user_id', auth()->user()->id)
-        ->join('recursos', 'entregas.recurso_id', '=', 'recursos.id')
-        ->join('temas', 'recursos.tema_id', '=', 'temas.id')
-        ->join('semestres', 'temas.semestre_id', '=', 'semestres.id')
-        ->join('cursos', 'semestres.curso_id', '=', 'cursos.id')
-        ->select('cursos.nombre as curso', 'entregas.calificacion', 'entregas.created_at')
-        ->get();
+    {
+        $calificaciones = Entrega::where('entregas.user_id', auth()->user()->id)
+            ->join('recursos', 'entregas.recurso_id', '=', 'recursos.id')
+            ->join('temas', 'recursos.tema_id', '=', 'temas.id')
+            ->join('semestres', 'temas.semestre_id', '=', 'semestres.id')
+            ->join('cursos', 'semestres.curso_id', '=', 'cursos.id')
+            ->select('cursos.nombre as curso', 'temas.nombre as tema', 'recursos.titulo as tarea', 'entregas.calificacion')
+            ->get();
 
-        
+        return view('pages.billing')->with('calificaciones', $calificaciones);
+    }
 
-    return view('pages.billing')->with('calificaciones', $calificaciones);
-}
 
 }
