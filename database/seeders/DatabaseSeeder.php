@@ -7,6 +7,10 @@ use App\Models\User;
 use App\Models\Rol;
 use App\Models\Profesor;
 use App\Models\Alumno;
+use App\Models\Curso;
+use App\Models\Semestre;
+use App\Models\Tema;
+
 
 
 
@@ -84,6 +88,8 @@ class DatabaseSeeder extends Seeder
             'status' => 'verified',
             'password' => ('secret')
         ]);
+
+
 
 
         
