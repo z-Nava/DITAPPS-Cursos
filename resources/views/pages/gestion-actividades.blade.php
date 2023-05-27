@@ -19,19 +19,21 @@
                     </div>
                     <div class="card-body p-3 pb-0">
                         <ul class="list-group">
-                            <li id="entrega-" class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                <div class="d-flex flex-column">
-                                    <h6 class="mb-1 text-dark font-weight-bold text-sm"></h6>
-                                    <span class="text-xs"></span>
-                                    <span class="text-xs">Alumno:</span>
-                                </div>
-                                <div class="d-flex align-items-center text-sm">
-                                    <a href="" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4">
-                                        <i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> Descargar PDF
-                                    </a>
-                                    <button class="btn btn-primary btn-sm mb-0 ms-4" data-bs-toggle="modal" data-bs-target="#calificarModal">Calificar</button>
-                                </div>
-                            </li>
+                            @foreach ($entregas as $entrega)
+                                <li id="entrega-{{ $entrega->id }}" class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                                    <div class="d-flex flex-column">
+                                        <h6 class="mb-1 text-dark font-weight-bold text-sm">{{ $entrega->id }}</h6>
+                                        <span class="text-xs">{{ $entrega->descripcion }}</span>
+                                        <span class="text-xs">Alumno: {{ $entrega->user_id }}</span>
+                                    </div>
+                                    <div class="d-flex align-items-center text-sm">
+                                        <a href="{{ asset($entrega->archivo) }}" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4">
+                                            <i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> Descargar PDF
+                                        </a>
+                                        <button class="btn btn-primary btn-sm mb-0 ms-4" data-bs-toggle="modal" data-bs-target="#calificarModal">Calificar</button>
+                                    </div>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

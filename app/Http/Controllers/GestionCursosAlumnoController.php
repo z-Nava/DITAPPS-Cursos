@@ -116,10 +116,5 @@ public function entregarExamen(Request $request)
         $entrega->save();
     // Redirigir a donde prefieras después de que el usuario ha entregado el examen
     #return redirect()->route('dashboard');
-}
-
-
-
-
-
+    }
 }
