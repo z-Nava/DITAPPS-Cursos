@@ -18,29 +18,26 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Curso</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tema</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tarea/Examen</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Calificacion</th>
-                                        <th class="text-secondary opacity-7"></th>
+                                        <th class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-7">Curso</th>
+                                        <th class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-7 ps-2">Tema</th>
+                                        <th class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-7">Tarea/Examen</th>
+                                        <th class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-7">Calificacion</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($calificaciones as $calificacion)
-                                    <tr>
-                                        <td>{{ $calificacion->curso }}</td>
-                                        <td>{{ $calificacion->tema }}</td>
-                                        <td>{{ $calificacion->tarea }}</td>
-                                        <td class="text-end">{{ $calificacion->calificacion }}</td>
-                                        <td class="align-middle">
-                                            @if(in_array(Auth::user()->rol_id, [1, 2, 3])) 
-                                            <button class="btn btn-link text-secondary mb-0" data-bs-toggle="modal" data-bs-target="#modalEditarCalificacion{{ $calificacion->id }}">
-                                                Editar
-                                            </button>                             
-                                            @endif
-                                        </td> 
-                                    </tr>
-                                    @endforeach
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"></span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"></span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"></span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"></span>
+                                        </td>
                                 </tbody>
                             </table>
                         </div>
@@ -49,41 +46,6 @@
             </div>
         </div>
         <x-footers.auth></x-footers.auth>
-
-        @foreach ($calificaciones as $calificacion)
-    <!-- Modal de Edición -->
-    <div class="modal fade" id="modalEditarCalificacion{{ $calificacion->id }}" tabindex="-1" role="dialog" aria-labelledby="modalEditarCalificacionLabel{{ $calificacion->id }}" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- Contenido del modal -->
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editarModalLabel{{ $calificacion->id }}">Editar Calificación</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{{ route('editarCalificacion', $calificacion->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="calificacion{{ $calificacion->id }}">Calificación:</label>
-                            <input type="text" class="form-control" id="calificacion{{ $calificacion->id }}" name="calificacion" value="{{ $calificacion->calificacion }}">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                    </div>
-                </form>
-                
-            </div>
-        </div>
-    </div>
-@endforeach
-
-
     </main>
     <x-plugins></x-plugins>
-
 </x-layout>
