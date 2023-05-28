@@ -83,9 +83,7 @@
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 NUMERO TELEFONICO 
                                             </th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                CURSO
-                                            </th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -126,9 +124,7 @@
                                                 <span class="text-secondary text-xs font-weight-bold">{{$user->phone}}</span>
                                             </td>
                                            
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">{{$curso->nombre}}</span>
-                                            </td>
+                                            
                                         
                                             <!--COPIAR LO DE ELIMNAR, TODO EL FORM-->
                                             <td class="align-middle">
