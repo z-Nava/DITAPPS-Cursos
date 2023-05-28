@@ -20,7 +20,7 @@
                                     @foreach($tema->recursos as $recurso)
                                        
                                     @if($recurso->tipo == 'tarea' && $recurso->estado == 'activo')
-                                    @if(!in_array($recurso->id, $entregas))
+                                   {{-- @if(!in_array($recurso->id, $entregas))--}}
                                         <div class="card mt-3">
                                             <div class="card-header">
                                                 <h5 class="mb-0">{{ $recurso->titulo }}</h5>
@@ -50,7 +50,7 @@
                                     
                                     
                                     @if($recurso->tipo == 'examen' && $recurso->estado == 'activo') 
-                                    @if(!in_array($recurso->id, $respuestasUsuarios))
+                                  {{--@if(!in_array($recurso->id, $entregas))--}}      
                                             <div class="card mt-3">
                                                 <div class="card-header">
                                                     <h5 class="mb-0">{{ $recurso->titulo }}</h5>
