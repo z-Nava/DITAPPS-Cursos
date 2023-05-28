@@ -33,14 +33,14 @@
                                 </div>
                               </div>
                                <div class="carousel-item">
-                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image: url('https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-1-min.jpg');">
+                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image:url('/assets/img/IDCC-ZAMORA/IDCC-ZAMORA-2.jpeg');  background-size: 100% 100%;">
                                   <span class="mask bg-gradient-dark"></span>
                                   <div class="container">
                                     <div class="row justify-content-center">
                                       <div class="col-lg-6 my-auto">
-                                        <h4 class="text-white mb-0 fadeIn1 fadeInBottom">CURSO</h4>
-                                        <h1 class="text-white fadeIn2 fadeInBottom">PROGRAMACION IoT CON PYTHON</h1>
-                                        <p class="lead text-white opacity-8 fadeIn3 fadeInBottom">APRENDERAS A USAR ARDUINO Y MANEJAR EL LENGUAJE PYTHON.</p>
+                                        <!--<h4 class="text-white mb-0 fadeIn1 fadeInBottom">CURSO</h4>-->
+                                        <!--<h1 class="text-white fadeIn2 fadeInBottom">PROGRAMACION IoT CON PYTHON</h1>-->
+                                        <!--<p class="lead text-white opacity-8 fadeIn3 fadeInBottom">APRENDERAS A USAR ARDUINO Y MANEJAR EL LENGUAJE PYTHON.</p>-->
                                       </div>
                                     </div>
                                   </div>

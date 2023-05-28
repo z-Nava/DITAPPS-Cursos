@@ -46,7 +46,7 @@
                                             </div>
                                             @endif
                                         </div>
-                                    @endif
+                                   
                                     
                                     
                                     @if($recurso->tipo == 'examen' && $recurso->estado == 'activo') 
@@ -84,7 +84,7 @@
                                                     </form>
                                                 </div>
                                             </div>
-                                        @endif
+                                        
                                             <script>
                                                 document.getElementById('mostrarFormulario').addEventListener('click', function() {
                                                     var formulario = document.getElementById('formularioExamen');
