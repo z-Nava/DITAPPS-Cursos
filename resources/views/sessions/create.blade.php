@@ -19,14 +19,14 @@
                         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner mb-4">
                               <div class="carousel-item">
-                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image: url('https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-3-min.jpg');">
+                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image:url('/assets/img/IDCC-ZAMORA/IDCC-ZAMORA-1.jpeg');  background-size: 100% 100%;">
                                   <span class="mask bg-gradient-dark"></span>
                                   <div class="container">
                                     <div class="row justify-content-center">
                                       <div class="col-lg-6 my-auto">
-                                        <h4 class="text-white mb-0 fadeIn1 fadeInBottom">CURSO</h4>
-                                        <h1 class="text-white fadeIn2 fadeInBottom">PROGRAMACION EN PHP</h1>
-                                        <p class="lead text-white opacity-8 fadeIn3 fadeInBottom">APRENDERAS A USAR PHP, ADEMAS DE DIFERENTES FRAMEWORKS.</p>
+                                        <!--<h4 class="text-white mb-0 fadeIn1 fadeInBottom">CURSO</h4>-->
+                                       <!-- <h1 class="text-white fadeIn2 fadeInBottom">PROGRAMACION EN PHP</h1>-->
+                                       <!-- <p class="lead text-white opacity-8 fadeIn3 fadeInBottom">APRENDERAS A USAR PHP, ADEMAS DE DIFERENTES FRAMEWORKS.</p> -->
                                       </div>
                                     </div>
                                   </div>
