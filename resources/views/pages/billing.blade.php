@@ -47,39 +47,39 @@
                                             </td>
                                             <td class="align-middle text-center">
                                                 <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editarCalificacionModal{{ $calificacion->id }}">Editar</button>
+                                                <!-- MODAL EDITAR CALIFICACION -->
+                                                <div class="modal fade" id="editarCalificacionModal{{ $calificacion->id }}" tabindex="-1" role="dialog" aria-labelledby="editarCalificacionModalLabel{{ $calificacion->id }}" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editarCalificacionModalLabel{{ $calificacion->id }}">Editar Calificación</h5>
+                                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Cerrar">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <form action="{{ route('editarCalificacion', ['id' => $calificacion->id]) }}" method="POST">
+                                                                @csrf
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <label for="calificacion">Calificación:</label>
+                                                                        <input type="number" class="form-control" id="calificacion" name="calificacion" min="0" max="100" required>
+                                                                        <input type="hidden" name="entrega_id" value="{{ $calificacion->id }}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                    <button type="submit" class="btn btn-primary">Guardar Calificación</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- FIN MODAL EDITAR CALIFICACION -->
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                             <!-- Modal de Edición de Calificación -->
-    <div class="modal fade" id="editarCalificacionModal{{ $calificacion->id }}" tabindex="-1" role="dialog" aria-labelledby="editarCalificacionModalLabel{{ $calificacion->id }}" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editarCalificacionModalLabel{{ $calificacion->id }}">Editar Calificación</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Cerrar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{{ route('editarCalificacion', ['id' => $calificacion->id]) }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="calificacion">Calificación:</label>
-                            <input type="number" class="form-control" id="calificacion" name="calificacion" min="0" max="100" required>
-                            <input type="hidden" name="entrega_id" value="{{ $calificacion->id }}">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Guardar Calificación</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
                         </div>
                     </div>
                 </div>

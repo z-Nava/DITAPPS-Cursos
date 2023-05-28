@@ -18,10 +18,10 @@ class CursoController extends Controller
 {
     // Validar los datos del formulario
     $request->validate([
-        'nombre' => 'required|max:100|min:5|',
-        'descripcion' => 'required|max:255|min:10|string|',
-        'fecha_inicio' => 'required|date|after_or_equal:today|before:fecha_fin|',
-        'fecha_fin' => 'required|date|after:fecha_inicio|after_or_equal:today|',
+        'nombre' => 'required|max:100',
+        'descripcion' => 'required|max:255|min:5|string',
+        'fecha_inicio' => 'required|date|',
+        'fecha_fin' => 'required|date|',
     ]);
 
     $user = auth()->user();
