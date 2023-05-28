@@ -19,7 +19,7 @@
                         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner mb-4">
                               <div class="carousel-item">
-                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image:url('/assets/img/IDCC-ZAMORA/IDCC-ZAMORA-1.jpeg');  background-size: 100% 100%;">
+                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image:url('/assets/img/IDCC-ZAMORA/IDCC-ZAMORA-3.jpeg');  background-size: 100% 100%;">
                                   <span class="mask bg-gradient-dark"></span>
                                   <div class="container">
                                     <div class="row justify-content-center">
@@ -52,9 +52,9 @@
                                   <div class="container">
                                     <div class="row justify-content-center">
                                       <div class="col-lg-6 my-auto">
-                                        <h4 class="text-white mb-0 fadeIn1 fadeInBottom">CURSO</h4>
-                                        <h1 class="text-white fadeIn2 fadeInBottom">FUNDAMENTO DE POO</h1>
-                                        <p class="lead text-white opacity-8 fadeIn3 fadeInBottom">APRENDERAS ACERCA DE LOS FUNDAMENTOS DE POO.</p>
+                                        <!--<h4 class="text-white mb-0 fadeIn1 fadeInBottom">CURSO</h4>-->
+                                        <!--<h1 class="text-white fadeIn2 fadeInBottom">FUNDAMENTO DE POO</h1>-->
+                                        <!--<p class="lead text-white opacity-8 fadeIn3 fadeInBottom">APRENDERAS ACERCA DE LOS FUNDAMENTOS DE POO.</p>-->
                                       </div>
                                     </div>
                                   </div>
