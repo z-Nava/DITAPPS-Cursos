@@ -5,6 +5,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
 use App\Notifications\EmailVerificationNotification;
+use App\Models\Curso;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -14,7 +15,8 @@ class UserManagementController extends Controller
     public function index()
     {
         $usuarios = User::all();
-        return view('pages/laravel-examples/user-management', compact('usuarios'));
+        $cursos = Curso::all();
+        return view('pages/laravel-examples/user-management', compact('usuarios', 'cursos'));
     }
 
     public function destroy($id)

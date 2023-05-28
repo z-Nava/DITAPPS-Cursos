@@ -83,11 +83,15 @@
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 NUMERO TELEFONICO 
                                             </th>
-                                            <th class="text-secondary opacity-7"></th>
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                CURSO
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        
                                         @foreach ($usuarios as $user)
+                                     
                                         @if ($user->rol_id != 1 && $user->rol_id != 2 || Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2)
                                         <tr>
                                             <td>
@@ -121,6 +125,11 @@
                                             <td class="align-middle text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">{{$user->phone}}</span>
                                             </td>
+                                           
+                                            <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">{{$curso->nombre}}</span>
+                                            </td>
+                                        
                                             <!--COPIAR LO DE ELIMNAR, TODO EL FORM-->
                                             <td class="align-middle">
                                                 <a rel="tooltip" class="btn btn-success btn-link" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal{{ $user->id }}">
@@ -192,6 +201,7 @@
                                         </tr>
                                         @endif
                                         @endforeach
+                                       
                                     </tbody>
                                 </table>
                             </div>
