@@ -158,7 +158,7 @@
                                                                 </div>
                                                                 <!--FIN MODAL-->
           
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#">
+                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="gestion-cursos/{{ $tema->id }}/crear-examen">
                                                                         <i class="material-icons text-sm me-2">assignment_turned_in</i>Examen
                                                                     </a>
                                                                     <a class="btn btn-link text-dark px-3 mb-2" href="#">

@@ -18,4 +18,4 @@ use App\Http\Controllers\GestionCursosAlumnoController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/crearexamen',  [GestionCursosAlumnoController::class, 'crearExamen'])->name('crearExamen');
+Route::post('/crearexamen',  [GestionCursosAlumnoController::class, 'crearExamen'])->name('crearExamenApi');

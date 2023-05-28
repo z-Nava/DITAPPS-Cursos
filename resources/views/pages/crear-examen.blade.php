@@ -1,54 +1,205 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ejemplo Examen</title>
-    <script>
-        var preguntaCount = 0;
-      
-        document.getElementById('add-pregunta').addEventListener('click', function() {
-          preguntaCount++;
-          var preguntaDiv = document.createElement('div');
-          preguntaDiv.className = 'pregunta';
-          preguntaDiv.innerHTML = `
-            <label for="pregunta-${preguntaCount}">Pregunta:</label>
-            <input type="text" id="pregunta-${preguntaCount}" name="preguntas[]" required>
-            <label for="respuesta-${preguntaCount}">Respuesta:</label>
-            <input type="text" id="respuesta-${preguntaCount}" name="respuestas[]" required>
-          `;
-          document.getElementById('preguntas').appendChild(preguntaDiv);
-        });
-      </script>
-</head>
-<body>
-    <div class="container">
-        <h2>Crear Examen</h2>
-        <form action="/gestion-cursos/crear-examen" method="POST">
-          @csrf
-          <label for="titulo">Título del Examen:</label>
-          <input type="text" id="titulo" name="titulo" required>
-          <label for="tipo">Tipo de examen:</label>
-          <select id="tipo" name="tipo" required>
-              <option value="pregunta_abierta">Pregunta abierta</option>
-              <option value="opcion_multiple">Opción múltiple</option>
-          </select>
-          <label for="fecha_entrega">Fecha de entrega:</label>
-          <input type="date" id="fecha_entrega" name="fecha_entrega" required>
-          <div id="preguntas">
-            <div class="pregunta">
-              <label for="pregunta-0">Pregunta:</label>
-              <input type="text" id="pregunta-0" name="preguntas[]" required>
-              <label for="respuesta-0">Respuesta:</label>
-              <input type="text" id="respuesta-0" name="respuestas[]" required>
+<x-layout bodyClass="g-sidenav-show bg-gray-200">
+    <x-navbars.sidebar activePage="Gestion de cursos"></x-navbars.sidebar>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+        <!-- Navbar -->
+        <x-navbars.navs.auth titlePage="Gestion de actividades"></x-navbars.navs.auth>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Primer div -->
+                <div class="card h-100 mt-3">
+                    <div class="card-header pb-0 p-3">
+                        <div class="row">
+                            <div class="col-6 d-flex align-items-center">
+                                <h6 class="mb-0">Crear examen</h6>
+                            </div>
+                            <div class="col-6 text-end">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-3 pb-0">
+                        <div class="row">
+                            <div class="col-6">
+                                <div id="sub-table-actions" class="input-group input-group-outline mb-3">
+                                    <label for="titulo" class="form-label">Título del Examen:</label>
+                                    <input type="text" id="titulo" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div id="sub-table-actions" class="input-group input-group-outline mb-3">
+                                    <label for="fecha_entrega">Fecha de entrega:</label>
+                                    <input type="date" id="fecha_entrega" class="form-control" name="fecha_entrega"
+                                        required>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div id="preguntas">
+                            <div class="pregunta">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div id="sub-table-actions" class="input-group input-group-outline mb-3">
+                                            <input type="text" id="pregunta-0" name="preguntas[]" placeholder="Pregunta"
+                                                class="form-control pregunta-input" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-8 respuestas-content" id="respuestas-0">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <div id="sub-table-actions"
+                                                    class="input-group input-group-outline mb-3">
+                                                    <input type="text" id="respuesta-0" name="respuestas[]" placeholder="Respuesta"
+                                                        class="form-control respuesta-input" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="preguntasVerdaderas-0">
+                                                    <label class="custom-control-label"
+                                                        for="customCheck1">Correcta</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <button class="btn btn-primary" onclick="add_option(0)">Agregar opcion</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- <div id="preguntas">
+                                <div class="pregunta">
+                                    <label for="pregunta-0 pregunta-input">Pregunta:</label>
+                                    <input type="text" id="pregunta-0" name="preguntas[]" required>
+                                    <label for="respuesta-0 respuesta-input">Respuesta:</label>
+                                    <input type="text" id="respuesta-0" name="respuestas[]" required>
+                                </div>
+                            </div> --}}
+                        <button class="btn btn-primary" type="button" id="add-pregunta">Añadir pregunta</button>
+                        <button class="btn btn-success" type="submit" onclick="sendTest(this)">Crear Examen</button>
+                        
+                        <form action="{{ route('crearExamenApi') }}" id="send_exam_form" method="POST">
+                          <input type="hidden" id="titulo_hidden" name="titulo" value="">
+                          <input type="hidden" id="tema_id_hidden" name="tema_id" value="{{ $tema->id }}">
+                          <input type="hidden" id="preguntas_hidden" name="preguntas" value="">
+                          <input type="hidden" id="fecha_entrega_hidden" name="fecha_entrega" value="">
+                        </form>
+
+
+                    </div>
+                </div>
             </div>
-          </div>
-          <button type="button" id="add-pregunta">Añadir pregunta</button>
-          <button type="submit">Crear Examen</button>
-        </form>
-      </div>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
-</html>
+
+
+    </main>
+    <x-plugins></x-plugins>
+</x-layout>
+
+<script>
+  var enviar = false;
+    var preguntaCount = 0;
+    var dataImportant = {
+        "titulo": "examen unidad 1",
+        "tema_id": {{ $tema->id }},
+        "preguntas": []
+    }
+    var respuestasCount = 0
+
+    function add_option(p) {
+        respuestasCount++;
+        
+        var respuestaDiv = document.createElement('div');
+        respuestaDiv.className = 'row';
+        respuestaDiv.innerHTML = `<div class="col-8">
+                                      <div id="sub-table-actions"
+                                          class="input-group input-group-outline mb-3">
+                                          <input type="text" id="respuesta-${respuestasCount}" placeholder="Respuesta"
+                                              name="respuestas[]" class="form-control respuesta-input" required>
+                                      </div>
+                                  </div>
+                                  <div class="col-4">
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="checkbox"
+                                              id="preguntasVerdaderas-${respuestasCount}">
+                                          <label class="custom-control-label"
+                                              for="customCheck1">Correcta</label>
+                                      </div>
+                                  </div>`
+        document.getElementById(`respuestas-${p}`).appendChild(respuestaDiv)
+    }
+
+    document.getElementById('add-pregunta').addEventListener('click', function() {
+        preguntaCount++;
+        respuestasCount++;
+        var preguntaDiv = document.createElement('div');
+        preguntaDiv.className = 'row';
+        preguntaDiv.innerHTML = `<div class="col-4">
+                                        <div id="sub-table-actions" class="input-group input-group-outline mb-3">
+                                            <input type="text" id="pregunta-${preguntaCount}" name="preguntas[]" placeholder="Pregunta"
+                                                class="form-control pregunta-input" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-8 respuestas-content" id="respuestas-${preguntaCount}">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <div id="sub-table-actions"
+                                                    class="input-group input-group-outline mb-3">
+                                                    <input type="text" id="respuesta-${respuestasCount}" placeholder="Respuesta"
+                                                        name="respuestas[]" class="form-control respuesta-input" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="preguntasVerdaderas-${respuestasCount}">
+                                                    <label class="custom-control-label"
+                                                        for="customCheck1">Correcta</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <button class="btn btn-primary" onclick="add_option(${preguntaCount})">Agregar opcion</button>
+                                    </div>`
+
+        document.getElementById('preguntas').appendChild(preguntaDiv) 
+    });
+    function sendTest(boton){
+      if(!enviar){
+        index = 0;
+        formulario = document.getElementById('preguntas')
+        preguntas = formulario.querySelectorAll('.pregunta-input')
+        preguntasList = []
+        respuestaContent = formulario.querySelectorAll('.respuestas-content')
+        respuestaContent.forEach(q => {
+          respuestas = q.querySelectorAll('.respuesta-input')
+          correcta = q.querySelectorAll('.form-check-input')
+          opcionesList = []
+          correcta_index = 0;
+          respuestas.forEach(res => {
+            opcionesList.push({
+              "respuesta":res.value,
+              // "correcta":"nooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
+              "correcta":correcta[correcta_index].checked
+            })
+            correcta_index ++;
+          });
+          preguntasList.push({
+            "pregunta": preguntas[index].value,
+            "tipo":"abierta",
+            "opciones": opcionesList
+          })
+        });
+        document.getElementById('titulo_hidden').value = document.getElementById('titulo').value
+        document.getElementById('tema_id_hidden').value = {{ $tema->id }}
+        document.getElementById('preguntas_hidden').value = JSON.stringify(preguntasList);
+        document.getElementById('fecha_entrega_hidden').value = document.getElementById('fecha_entrega').value
+        enviar = true;
+        boton.setAttribute('form', 'send_exam_form')
+        boton.click();
+      }
+    }
+</script>
