@@ -17,9 +17,6 @@
                     <div class="accordion " id="cursosAccordion">
                                 <div class="accordion-item shadow-lg bg-light my-3">
                                     <h2 class="accordion-header bg-dark text-light p-2 rounded">
-                                                                   
-
-
                                         <button class="accordion-button collapsed text-light" type="button" data-bs-toggle="collapse" data-bs-target="#semestresCollapse{{ $curso->id }}{{ $semestre->id }}" aria-expanded="false" aria-controls="semestresCollapse{{ $curso->id }}{{ $semestre->id }}">
                                               Semestre {{ $semestre->nombre }}
                                         </button>
@@ -103,7 +100,7 @@
                                                                           <form action="{{ route('guardarTarea') }}" method="POST">
                                                                               @csrf
                                                                               <div class="modal-body">
-                                                                                  <input type="hidden" id="temaIdInput" name="tema_id">
+                                                                                <input type="hidden" id="temaIdInput{{ $tema->id }}" name="tema_id">
                                                                                   <div class="form-group">
                                                                                       <label for="titulo" class="text-start">Título</label>
                                                                                       <input type="text" class="form-control" id="titulo" name="titulo" required>
@@ -180,17 +177,16 @@
     </div>
     <!--FIN MODAL-->         
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        var asignarTareaBtns = document.querySelectorAll('.asignar-tarea-btn');
-        var temaIdInput = document.getElementById('temaIdInput');
-    
-        asignarTareaBtns.forEach(function(btn) {
-          btn.addEventListener('click', function() {
-            var temaId = this.getAttribute('data-tema-id');
-            temaIdInput.value = temaId;
-          });
+      
+
+      document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('.asignar-tarea-btn').forEach(item => {
+        item.addEventListener('click', event => {
+            let temaId = event.currentTarget.getAttribute('data-tema-id');
+            document.querySelector(`#temaIdInput${temaId}`).value = temaId;
         });
-      });
+    });
+});
     </script>
     
   </main>
