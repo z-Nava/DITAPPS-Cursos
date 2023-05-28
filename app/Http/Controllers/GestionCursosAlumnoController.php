@@ -43,23 +43,30 @@ class GestionCursosAlumnoController extends Controller
 
     public function dashboard()
     {
-        // Obtener el usuario autenticado
-        if (auth()->check()) {
-            $alumno = auth()->user();
+         // Obtener el usuario autenticado
+    if (auth()->check()) {
+        $alumno = auth()->user();
 
+        // Obtener los cursos inscritos del alumno
+        $cursos = $alumno->cursos;
 
-            // Obtener los cursos inscritos del alumno
-            $cursos = $alumno->cursos;
+        // Obtener las entregas del alumno
+        $entregas = $alumno->entregas->pluck('recurso_id')->toArray();
+        
 
-            // Cargar los datos necesarios para cada curso
-            foreach ($cursos as $curso) {
-                $curso->load(['semestres.temas', 'semestres.temas.recursos' => function ($query) {
-                    $query->whereIn('tipo', ['examen', 'tarea']);
-                }]);
-            }
-            // Retornar la vista del dashboard con los datos cargados
-            return view('dashboard', compact('cursos'));
+        // Obtener las respuestas del alumno
+        $respuestasUsuarios = $alumno->respuestasUsuarios->pluck('recurso_id')->toArray();
+
+        // Cargar los datos necesarios para cada curso
+        foreach ($cursos as $curso) {
+            $curso->load(['semestres.temas', 'semestres.temas.recursos' => function ($query) {
+                $query->whereIn('tipo', ['examen', 'tarea']);
+            }]);
         }
+       
+        // Retornar la vista del dashboard con los datos cargados
+        return view('dashboard', compact('cursos', 'entregas', 'respuestasUsuarios'));
+    }
     }
 
     public function entregarTarea(Request $request)
@@ -142,10 +149,11 @@ class GestionCursosAlumnoController extends Controller
         $entrega = new Entrega;
         $entrega->recurso_id = $request->input('recurso_id');
         $entrega->user_id = auth()->user()->id;
+        $entrega->archivo = NULL;
         // Aquí puedes añadir cualquier otro campo necesario para la tabla de entregas
 
         $entrega->save();
         // Redirigir a donde prefieras después de que el usuario ha entregado el examen
-        #return redirect()->route('dashboard');
+        return redirect()->route('dashboard');
     }
 }

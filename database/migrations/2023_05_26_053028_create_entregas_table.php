@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('recurso_id')->constrained('recursos')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('archivo');
+            $table->string('archivo')->nullable();
             $table->text('descripcion')->nullable();
             $table->timestamp('fecha_entrega')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->float('calificacion')->nullable();

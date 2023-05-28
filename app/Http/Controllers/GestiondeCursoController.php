@@ -38,8 +38,8 @@ class GestiondeCursoController extends Controller
         $request->validate([
             'nombre' => 'required',
             'fecha_inicio' => 'required|date',
-            'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
-            'curso_id' => 'required|exists:cursos,id',  // Aquí estás validando que el ID del curso exista en la tabla de cursos
+            'fecha_fin' => 'required|date',
+            'curso_id' => 'required',  // Aquí estás validando que el ID del curso exista en la tabla de cursos
         ]);
 
         // Crear un nuevo semestre

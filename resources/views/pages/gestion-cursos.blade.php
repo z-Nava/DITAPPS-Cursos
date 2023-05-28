@@ -15,51 +15,9 @@
                   @foreach ($cursos as $curso)
                 @foreach ($curso->semestres as $semestre)  
                     <div class="accordion " id="cursosAccordion">
-                        
-                            
                                 <div class="accordion-item shadow-lg bg-light my-3">
                                     <h2 class="accordion-header bg-dark text-light p-2 rounded">
-
-
-
-                                      <!--MODAL-->
-                                      <div class="modal fade" id="crearSemestreModal" tabindex="-1" role="dialog" aria-labelledby="crearSemestreModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                          <div class="modal-content">
-                                            <div class="modal-header">
-                                              <h5 class="modal-title" id="crearSemestreModalLabel">Crear nuevo semestre</h5>
-                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                              <form action="{{ route('gestion-cursos.store') }}" method="POST">
-                                                @csrf
-                                                <div class="mb-3">
-                                                  <label for="nombre" class="form-label">Nombre</label>
-                                                  <input type="text" class="form-control" id="nombre" name="nombre" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                  <label for="fecha_inicio" class="form-label">Fecha de inicio</label>
-                                                  <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                  <label for="fecha_fin" class="form-label">Fecha de fin</label>
-                                                  <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                  <label for="curso_id" class="form-label">Curso</label>
-                                                  <select class="form-select" id="curso_id" name="curso_id" required>
-                                                    @foreach ($cursos as $curso)
-                                                      <option value="{{ $curso->id }}">{{ $curso->nombre }}</option>
-                                                    @endforeach
-                                                  </select>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary">Crear semestre</button>
-                                              </form>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <!--FIN MODAL-->                                      
+                                                                   
 
 
                                         <button class="accordion-button collapsed text-light" type="button" data-bs-toggle="collapse" data-bs-target="#semestresCollapse{{ $curso->id }}{{ $semestre->id }}" aria-expanded="false" aria-controls="semestresCollapse{{ $curso->id }}{{ $semestre->id }}">
@@ -115,12 +73,23 @@
                                                         @foreach ($semestre->temas as $tema)
                                                             <div class="p-2 bg-light border rounded my-2">
                                                                 <h5>{{ $tema->nombre }}</h5>
-                                                                <p>{{ $tema->descripcion }}</p>
+                                                                <p>{{ $tema->contenido }}</p>
                                                                 <div class="ms-auto text-end">          
-                                                                  <a class="btn btn-link text-dark px-3 mb-2 asignar-tarea-btn" href="#" data-bs-toggle="modal" data-bs-target="#crearActividadModal{{ $tema->id }}" data-tema-id="{{ $tema->id }}">
-                                                                    <i class="material-icons text-sm me-2">assignment</i>Tarea
-                                                                </a>
-                                                                
+                                                                    <a class="btn btn-link text-dark px-3 mb-2 asignar-tarea-btn" href="#" data-bs-toggle="modal" data-bs-target="#crearActividadModal{{ $tema->id }}" data-tema-id="{{ $tema->id }}">
+                                                                      
+                                                                      <i class="material-icons text-sm me-2">assignment</i>Tarea
+                                                                      
+                                                                    </a>
+                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="gestion-cursos/{{ $tema->id }}/crear-examen">
+                                                                        <i class="material-icons text-sm me-2">assignment_turned_in</i>Examen
+                                                                    </a>
+                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#">
+                                                                        <i class="material-icons text-sm me-2">edit</i>Editar
+                                                                    </a>
+                                                                    <a class="btn btn-link text-danger text-gradient px-3 mb-2" href="#">
+                                                                        <i class="material-icons text-sm me-2">delete</i>Eliminar
+                                                                    </a>
+                                                                </div>
                                                                 <!--MODAL-->
                                                                 <div class="modal fade" id="crearActividadModal{{ $tema->id }}" tabindex="-1" role="dialog" aria-labelledby="crearActividadModalLabel" aria-hidden="true">
                                                                   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -157,17 +126,6 @@
                                                                   </div>
                                                                 </div>
                                                                 <!--FIN MODAL-->
-          
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="gestion-cursos/{{ $tema->id }}/crear-examen">
-                                                                        <i class="material-icons text-sm me-2">assignment_turned_in</i>Examen
-                                                                    </a>
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#">
-                                                                        <i class="material-icons text-sm me-2">edit</i>Editar
-                                                                    </a>
-                                                                    <a class="btn btn-link text-danger text-gradient px-3 mb-2" href="#">
-                                                                        <i class="material-icons text-sm me-2">delete</i>Eliminar
-                                                                    </a>
-                                                                </div>
                                                             </div>
                                                         @endforeach
                                                     </div>
@@ -183,6 +141,44 @@
             </div>
         </div>
     </div>
+    <!--MODAL-->
+    <div class="modal fade" id="crearSemestreModal" tabindex="-1" role="dialog" aria-labelledby="crearSemestreModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="crearSemestreModalLabel">Crear nuevo semestre</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="{{ route('gestion-cursos.store') }}" method="POST">
+              @csrf
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+              </div>
+              <div class="mb-3">
+                <label for="fecha_inicio" class="form-label">Fecha de inicio</label>
+                <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
+              </div>
+              <div class="mb-3">
+                <label for="fecha_fin" class="form-label">Fecha de fin</label>
+                <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" required>
+              </div>
+              <div class="mb-3">
+                <label for="curso_id" class="form-label">Curso</label>
+                <select class="form-select" id="curso_id" name="curso_id" required>
+                  @foreach ($cursos as $curso)
+                    <option value="{{ $curso->id }}">{{ $curso->nombre }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Crear semestre</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--FIN MODAL-->         
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         var asignarTareaBtns = document.querySelectorAll('.asignar-tarea-btn');
