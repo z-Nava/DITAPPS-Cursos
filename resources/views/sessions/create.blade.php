@@ -47,7 +47,7 @@
                                 </div>  
                               </div>
                               <div class="carousel-item active">
-                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image: url('https://demos.creative-tim.com/test/material-dashboard-pro/assets/img/products/product-2-min.jpg');">
+                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image:url('/assets/img/IDCC-ZAMORA/IDCC-ZAMORA-3.jpeg');  background-size: 100% 100%;">
                                   <span class="mask bg-gradient-dark"></span>
                                   <div class="container">
                                     <div class="row justify-content-center">
