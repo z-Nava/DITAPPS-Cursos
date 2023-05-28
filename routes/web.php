@@ -106,7 +106,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/gestion-actividades', [GestionActividadesController::class, 'index'])->name('gestion-actividades');
 	Route::post('/gestion-actividades/calificar/{id}', [GestionActividadesController::class, 'calificarEntrega'])->name('gestion-actividades.calificar');
-
+	Route::post('/calificaciones/{id}/editar', [GestiondeCursoController::class, 'editarCalificacion'])->name('editarCalificacion');
 
 
 	Route::get('virtual-reality', function () {return view('pages.virtual-reality');})->name('virtual-reality');

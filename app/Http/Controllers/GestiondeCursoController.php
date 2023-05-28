@@ -188,30 +188,34 @@ return redirect()->back()->with(['success' => 'El tema se ha actualizado correct
 
     
 
-        public function getCalificaciones()
-    {
-        $userId = Auth::user()->id;
-        $userRole = Auth::user()->rol_id;
+    public function getCalificaciones()
+{
+    $userId = Auth::user()->id;
+    $userRole = Auth::user()->rol_id;
 
-        if ($userRole === 3) { // ID del rol de profesor
-            $calificaciones = Entrega::join('recursos', 'entregas.recurso_id', '=', 'recursos.id')
-                ->join('temas', 'recursos.tema_id', '=', 'temas.id')
-                ->join('semestres', 'temas.semestre_id', '=', 'semestres.id')
-                ->join('cursos', 'semestres.curso_id', '=', 'cursos.id')
-                ->select('cursos.nombre as curso', 'temas.nombre as tema', 'recursos.titulo as tarea', 'entregas.calificacion')
-                ->get();
-        } else {
-            $calificaciones = Entrega::join('recursos', 'entregas.recurso_id', '=', 'recursos.id')
-                ->join('temas', 'recursos.tema_id', '=', 'temas.id')
-                ->join('semestres', 'temas.semestre_id', '=', 'semestres.id')
-                ->join('cursos', 'semestres.curso_id', '=', 'cursos.id')
-                ->where('entregas.user_id', $userId)
-                ->select('cursos.nombre as curso', 'temas.nombre as tema', 'recursos.titulo as tarea', 'entregas.calificacion')
-                ->get();
-        }
-        
-        return view('pages.billing')->with('calificaciones', $calificaciones);
+    if ($userRole === 3) { // ID del rol de profesor
+        $calificaciones = Entrega::join('recursos', 'entregas.recurso_id', '=', 'recursos.id')
+            ->join('temas', 'recursos.tema_id', '=', 'temas.id')
+            ->join('semestres', 'temas.semestre_id', '=', 'semestres.id')
+            ->join('cursos', 'semestres.curso_id', '=', 'cursos.id')
+            ->join('users', 'entregas.user_id', '=', 'users.id')
+            ->select('entregas.id', 'cursos.nombre as curso', 'temas.nombre as tema', 'recursos.titulo as tarea', 'entregas.calificacion', 'users.name as alumno')
+            ->get();
+    } else {
+        $calificaciones = Entrega::join('recursos', 'entregas.recurso_id', '=', 'recursos.id')
+            ->join('temas', 'recursos.tema_id', '=', 'temas.id')
+            ->join('semestres', 'temas.semestre_id', '=', 'semestres.id')
+            ->join('cursos', 'semestres.curso_id', '=', 'cursos.id')
+            ->join('users', 'entregas.user_id', '=', 'users.id')
+            ->where('entregas.user_id', $userId)
+            ->select('entregas.id', 'cursos.nombre as curso', 'temas.nombre as tema', 'recursos.titulo as tarea', 'entregas.calificacion', 'users.name as alumno')
+            ->get();
     }
+    
+    return view('pages.billing')->with('calificaciones', $calificaciones);
+}
+
+    
 
     public function editarCalificacion(Request $request, $id)
     {
