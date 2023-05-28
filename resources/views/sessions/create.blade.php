@@ -19,7 +19,7 @@
                         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner mb-4">
                               <div class="carousel-item">
-                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image:url('/assets/img/IDCC-ZAMORA/IDCC-ZAMORA-3.jpeg');  background-size: 100% 100%;">
+                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image:url('/assets/img/IDCC-ZAMORA/IDCC-ZAMORA-1.jpeg');  background-size: 100% 100%;">
                                   <span class="mask bg-gradient-dark"></span>
                                   <div class="container">
                                     <div class="row justify-content-center">
