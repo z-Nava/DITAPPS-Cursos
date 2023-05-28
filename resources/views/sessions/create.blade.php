@@ -18,7 +18,7 @@
                     <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-4 start-5 text-center justify-content-center flex-column">
                         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner mb-4">
-                              <div class="carousel-item">
+                              <div class="carousel-item active">
                                 <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image:url('/assets/img/IDCC-ZAMORA/IDCC-ZAMORA-1.jpeg');  background-size: 100% 100%;">
                                   <span class="mask bg-gradient-dark"></span>
                                   <div class="container">
@@ -46,7 +46,7 @@
                                   </div>
                                 </div>  
                               </div>
-                              <div class="carousel-item active">
+                              <div class="carousel-item">
                                 <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image:url('/assets/img/IDCC-ZAMORA/IDCC-ZAMORA-3.jpeg');  background-size: 100% 100%;">
                                   <span class="mask bg-gradient-dark"></span>
                                   <div class="container">
