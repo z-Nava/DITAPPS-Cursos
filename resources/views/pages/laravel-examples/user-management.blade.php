@@ -136,8 +136,9 @@
                                                             <p class="text-xs">{{ $curso->nombre }}</p>
                                                         @endforeach
                                                     @else
+                                                    @if (Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2)
                                                         <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#asignarCursoModal{{ $user->id }}">Asignar Curso</button>
-                                            
+                                                    @endif
                                                         <!-- Modal Asignar Curso -->
                                                         <div class="modal fade" id="asignarCursoModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="asignarCursoModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
