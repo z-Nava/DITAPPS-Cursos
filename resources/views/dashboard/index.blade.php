@@ -85,6 +85,22 @@
                                                                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalFormularioExamen{{ $recurso->id }}">
                                                                                             Mostrar Formulario
                                                                                           </button>
+                                                                                          <script>
+                                                                                            @foreach($tema->recursos as $recurso)
+                                                                                                if($recurso->tipo == 'examen' && $recurso->estado == 'activo') {
+                                                                                                    if(!auth()->user()->haCompletado($recurso)) {
+                                                                                                        document.getElementById('mostrarFormulario{{ $recurso->id }}').addEventListener('click', function() {
+                                                                                                            var form = document.getElementById('formularioExamen{{ $recurso->id }}');
+                                                                                                            if (form.style.display === 'none') {
+                                                                                                                form.style.display = 'block';
+                                                                                                            } else {
+                                                                                                                form.style.display = 'none';
+                                                                                                            }
+                                                                                                        });
+                                                                                                    }
+                                                                                                }
+                                                                                            @endforeach
+                                                                                        </script>
                                                                                           <div class="modal fade" id="modalFormularioExamen{{ $recurso->id }}" tabindex="-1" aria-labelledby="modalFormularioExamen{{ $recurso->id }}Label" aria-hidden="true">
                                                                                             <div class="modal-dialog">
                                                                                               <div class="modal-content">
@@ -138,21 +154,6 @@
                 @endforeach
             </div>
         </div>
-        <script>
-            @foreach($tema->recursos as $recurso)
-                if($recurso->tipo == 'examen' && $recurso->estado == 'activo') {
-                    if(!auth()->user()->haCompletado($recurso)) {
-                        document.getElementById('mostrarFormulario{{ $recurso->id }}').addEventListener('click', function() {
-                            var form = document.getElementById('formularioExamen{{ $recurso->id }}');
-                            if (form.style.display === 'none') {
-                                form.style.display = 'block';
-                            } else {
-                                form.style.display = 'none';
-                            }
-                        });
-                    }
-                }
-            @endforeach
-        </script>
+        
     </main>
 </x-layout>

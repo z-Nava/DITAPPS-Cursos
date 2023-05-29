@@ -23,8 +23,9 @@
                                         <th class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-7 ps-2">Tema</th>
                                         <th class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-7">Tarea/Examen</th>
                                         <th class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-7">Calificacion</th>
+                                        @if (Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2 || Auth::user()->rol_id == 3)
                                         <th class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-7"> EDITAR </th>
-                                        
+                                        @endif                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -46,7 +47,9 @@
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $calificacion->calificacion }}</span>
                                             </td>
                                             <td class="align-middle text-center">
+                                                @if (Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2 || Auth::user()->rol_id == 3)
                                                 <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editarCalificacionModal{{ $calificacion->id }}">Editar</button>
+                                                @endif
                                                 <!-- MODAL EDITAR CALIFICACION -->
                                                 <div class="modal fade" id="editarCalificacionModal{{ $calificacion->id }}" tabindex="-1" role="dialog" aria-labelledby="editarCalificacionModalLabel{{ $calificacion->id }}" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
