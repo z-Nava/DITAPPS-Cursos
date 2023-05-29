@@ -8,9 +8,11 @@
         <div class="row">
             <div class="col-12">
                 <h2>Mis cursos</h2>
+                @if (Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2)
                 <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#crearSemestreModal">
                   Crear nuevo semestre
                 </button>
+                @endif
                 <div class="rounded p-3 bg-light">
                   @foreach ($cursos as $curso)
                 @foreach ($curso->semestres as $semestre)  
