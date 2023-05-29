@@ -73,7 +73,7 @@
                                                                             @endif
                                                                             @endif
                                                                             
-                                                                            @if($recurso->tipo == 'examen' && $recurso->estado == 'activo')
+                                                                            @if($recurso->tipo == 'examen' && $recurso->estado == 'activo' && $recurso->fehca_inicio < date('Y-m-d H:i:s'))
                                                                             @if(!auth()->user()->haCompletado($recurso))
                                                                                 <div class="card mt-3">
                                                                                     <div class="card-header">

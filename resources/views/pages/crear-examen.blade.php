@@ -19,16 +19,26 @@
                     </div>
                     <div class="card-body p-3 pb-0">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div id="sub-table-actions" class="input-group input-group-outline mb-3">
                                     <label for="titulo" class="form-label">Título del Examen:</label>
                                     <input type="text" id="titulo" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            
+                            <div class="col-4">
                                 <div id="sub-table-actions" class="input-group input-group-outline mb-3">
-                                    <label for="fecha_entrega">Fecha de entrega:</label>
-                                    <input type="date" id="fecha_entrega" class="form-control" name="fecha_entrega"
+                                    <label for="fecha_inicio">Fecha y hora de inicio:</label>
+                                    <input type="datetime-local" id="fecha_inicio" class="form-control" name="fecha_inicio"
+                                        required>
+
+                                </div>
+                            </div>
+                            
+                            <div class="col-4">
+                                <div id="sub-table-actions" class="input-group input-group-outline mb-3">
+                                    <label for="fecha_entrega">Fecha y hora de entrega:</label>
+                                    <input type="datetime-local" id="fecha_entrega" class="form-control" name="fecha_entrega"
                                         required>
 
                                 </div>
@@ -86,6 +96,7 @@
                             <input type="hidden" id="titulo_hidden" name="titulo" value="">
                             <input type="hidden" id="tema_id_hidden" name="tema_id" value="{{ $tema->id }}">
                             <input type="hidden" id="preguntas_hidden" name="preguntas" value="">
+                            <input type="hidden" id="fecha_inicio_hidden" name="fecha_inicio" value="">
                             <input type="hidden" id="fecha_entrega_hidden" name="fecha_entrega" value="">
                         </form>
 
@@ -199,6 +210,7 @@
             document.getElementById('tema_id_hidden').value = {{ $tema->id }}
             document.getElementById('preguntas_hidden').value = JSON.stringify(preguntasList);
             document.getElementById('fecha_entrega_hidden').value = document.getElementById('fecha_entrega').value
+            document.getElementById('fecha_inicio_hidden').value = document.getElementById('fecha_inicio').value
             enviar = true;
             boton.setAttribute('form', 'send_exam_form')
             boton.click();
