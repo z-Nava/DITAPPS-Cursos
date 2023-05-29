@@ -66,5 +66,21 @@ class UserManagementController extends Controller
         return redirect()->route('user-management');
     }
 
+    public function asignarCurso(Request $request, $id)
+    {
+        $userId = $request->input('user_id');
+        $cursoId = $request->input('curso_id');
+
+        $user = User::findOrFail($userId);
+        $curso = Curso::findOrFail($cursoId);
+
+        $user->cursos()->attach($curso);
+
+        return redirect()->route('user-management')->with('success', 'Curso asignado correctamente.');
+    }
+
+
+
+
    
 }

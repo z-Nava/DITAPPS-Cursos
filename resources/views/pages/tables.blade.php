@@ -17,10 +17,10 @@
           <div class="row">
               <div class="col">
                   <div class="col-12">
-                    @if(Auth::user()->rol_id != 4)
+                    @if(Auth::user()->rol_id != 4 && Auth::user()->rol_id != 3)
                       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarCursoModal">Agregar curso</button>
                       @endif
-                      @if(Auth::user()->rol_id != 4)
+                      @if(Auth::user()->rol_id != 4 && Auth::user()->rol_id != 3)
                       <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarCursoModal">Eliminar curso</button> 
                       @endif
                   </div>
@@ -54,7 +54,9 @@
                                       </div>
                                       <hr class="dark horizontal my-0">
                                       <div class="card-footer d-flex justify-content-center">
+                                        @if(Auth::user()->rol_id != 4)
                                         <a href="{{ route('curso.inscripcion', ['curso' => $curso->id]) }}" class="btn btn-primary btn-lg">Inscribirse al curso</a>
+                                        @endif
                                       </div>
                                   </div>
                               </div>

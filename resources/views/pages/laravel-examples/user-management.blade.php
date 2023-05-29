@@ -13,6 +13,7 @@
                             <a class="btn bg-gradient-dark mb-0" href="javascript:;" data-bs-target="#agregarUsuarioModal" data-bs-toggle="modal"><i
                                     class="material-icons text-sm">add</i>&nbsp;&nbsp;Agregar nuevo usuario</a>
                         </div>
+                        
                         <!-- Modal Agregar usuario -->
             <div class="modal fade" id="agregarUsuarioModal" tabindex="-1" role="dialog" aria-labelledby="agregarUsuarioModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -83,14 +84,19 @@
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 NUMERO TELEFONICO 
                                             </th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                CURSO ASIGNADO
+                                            </th>
                                             
                                         </tr>
                                     </thead>
                                     <tbody>
                                         
                                         @foreach ($usuarios as $user)
-                                     
+                                       
                                         @if ($user->rol_id != 1 && $user->rol_id != 2 || Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2)
+                                        
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
@@ -123,9 +129,48 @@
                                             <td class="align-middle text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">{{$user->phone}}</span>
                                             </td>
-                                           
-                                            
-                                        
+                                            <td>
+                                                @if ($user->rol_id == 3)
+                                                    @if ($user->cursos->count() > 0)
+                                                        @foreach ($user->cursos as $curso)
+                                                            <p class="text-xs">{{ $curso->nombre }}</p>
+                                                        @endforeach
+                                                    @else
+                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#asignarCursoModal{{ $user->id }}">Asignar Curso</button>
+
+                                                        <!-- Modal Asignar Curso -->
+                                                        <div class="modal fade" id="asignarCursoModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="asignarCursoModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="asignarCursoModalLabel">Asignar Curso</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form action="{{ route('usermanagement.asignar-curso', ['id' => $user->id]) }}" method="POST">
+                                                                            @csrf
+                                                                            <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                                                            <div class="mb-3">
+                                                                                <label for="curso_id" class="form-label">Curso</label>
+                                                                                <select class="form-control" id="curso_id" name="curso_id" required>
+                                                                                    @foreach ($cursos as $curso)
+                                                                                        <option value="{{ $curso->id }}">{{ $curso->nombre }}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                                <button type="submit" class="btn btn-primary">Asignar</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Acaba Modal Asignar Curso -->
+                                                    @endif
+                                                @endif
+                                            </td>
                                             <!--COPIAR LO DE ELIMNAR, TODO EL FORM-->
                                             <td class="align-middle">
                                                 <a rel="tooltip" class="btn btn-success btn-link" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal{{ $user->id }}">

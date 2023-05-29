@@ -120,6 +120,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('user-management', [UserManagementController::class, 'store'])->name('usermanagement.store');
 	Route::delete('user-management/{id}', [UserManagementController::class, 'destroy'])->name('usermanagement.destroy');
 	Route::put('user-management/{id}', [UserManagementController::class, 'update'])->name('usermanagement.update');
+	Route::post('user-management/{id}/asignar-curso', [UserManagementController::class, 'asignarCurso'])->name('usermanagement.asignar-curso');
+
+
+
 
 	Route::get('user-profile', function () {return view('pages.laravel-examples.user-profile');})->name('user-profile');
 });
