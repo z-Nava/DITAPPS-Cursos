@@ -90,41 +90,39 @@
                                       <div class="d-flex align-items-center text-sm">
                                         <button class="btn btn-primary btn-sm mb-0 ms-4" data-bs-toggle="modal" data-bs-target="#calificarModal{{ $entrega->id }}" data-respuestas="{{ $entrega->respuestas }}">Calificar</button>
                                           <!-- MODAL CALIFICAR EXAMEN -->
-<div class="modal fade" id="calificarModal{{ $entrega->id }}" tabindex="-1" role="dialog" aria-labelledby="calificarModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="calificarModalLabel">Calificar entrega</h5>
-              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <form action="{{ route('gestion-actividades.calificar', $entrega->id) }}" method="POST">
-              @csrf
-              <div class="modal-body">
-                  <div class="form-group">
-                      <label for="calificacion">Calificación</label>
-                      <input type="number" class="form-control" id="calificacion" name="calificacion" required min="0" max="100">
-                  </div>
-                  <h4>Respuestas del alumno:</h4>
-                  <ul>
-                      @foreach ($entrega->respuestasUsuario as $respuestaUsuario)
-                          <li>Pregunta: {{ $respuestaUsuario->pregunta->pregunta }}</li>
-                          <li>Respuesta: {{ $respuestaUsuario->respuesta }}</li>
-                      @endforeach
-                  </ul>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                  <button type="submit" class="btn btn-primary">Guardar calificación</button>
-              </div>
-          </form>
-      </div>
-  </div>
-</div>
-<!-- ACABA MODAL CALIFICAR EXAMEN -->
-
-
+                                      <div class="modal fade" id="calificarModal{{ $entrega->id }}" tabindex="-1" role="dialog" aria-labelledby="calificarModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="calificarModalLabel">Calificar entrega</h5>
+                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form action="{{ route('gestion-actividades.calificar', $entrega->id) }}" method="POST">
+                                                    @csrf
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="calificacion">Calificación</label>
+                                                            <input type="number" class="form-control" id="calificacion" name="calificacion" required min="0" max="100">
+                                                        </div>
+                                                        <h4>Respuestas del alumno:</h4>
+                                                        <ul>
+                                                            @foreach ($entrega->respuestasUsuario as $respuestaUsuario)
+                                                                <li>Pregunta: {{ $respuestaUsuario->pregunta->pregunta }}</li>
+                                                                <li>Respuesta: {{ $respuestaUsuario->respuesta }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                        <button type="submit" class="btn btn-primary">Guardar calificación</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <!-- ACABA MODAL CALIFICAR EXAMEN -->
                                       </div>
                                   </li>
                               @endif
