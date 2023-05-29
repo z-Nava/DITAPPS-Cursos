@@ -54,9 +54,9 @@
                                       </div>
                                       <hr class="dark horizontal my-0">
                                       <div class="card-footer d-flex justify-content-center">
-                                        @if(Auth::user()->rol_id != 4)
+                                       
                                         <a href="{{ route('curso.inscripcion', ['curso' => $curso->id]) }}" class="btn btn-primary btn-lg">Inscribirse al curso</a>
-                                        @endif
+                                      
                                       </div>
                                   </div>
                               </div>

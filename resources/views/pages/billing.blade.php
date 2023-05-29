@@ -22,6 +22,7 @@
                                         <th class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-7">Curso</th>
                                         <th class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-7 ps-2">Tema</th>
                                         <th class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-7">Tarea/Examen</th>
+                                        <th class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-7">Alumno</th>
                                         <th class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-7">Calificacion</th>
                                         @if (Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2 || Auth::user()->rol_id == 3)
                                         <th class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-7"> EDITAR </th>
@@ -35,13 +36,16 @@
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $calificacion->id }}</span>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">{{ $calificacion->alumno }}</span>
+                                                <span class="text-secondary text-xs font-weight-bold">{{ $calificacion->curso }}</span>
                                             </td>
                                             <td class="align-middle text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $calificacion->tema }}</span>
                                             </td>
                                             <td class="align-middle text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $calificacion->tarea }}</span>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">{{ $calificacion->alumno }}</span>
                                             </td>
                                             <td class="align-middle text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $calificacion->calificacion }}</span>
