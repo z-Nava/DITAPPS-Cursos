@@ -39,8 +39,8 @@
                                 <div class="row">
                                     <div class="col-4">
                                         <div id="sub-table-actions" class="input-group input-group-outline mb-3">
-                                            <input type="text" id="pregunta-0" name="preguntas[]" placeholder="Pregunta"
-                                                class="form-control pregunta-input" required>
+                                            <input type="text" id="pregunta-0" name="preguntas[]"
+                                                placeholder="Pregunta" class="form-control pregunta-input" required>
                                         </div>
                                     </div>
                                     <div class="col-8 respuestas-content" id="respuestas-0">
@@ -48,8 +48,9 @@
                                             <div class="col-8">
                                                 <div id="sub-table-actions"
                                                     class="input-group input-group-outline mb-3">
-                                                    <input type="text" id="respuesta-0" name="respuestas[]" placeholder="Respuesta"
-                                                        class="form-control respuesta-input" required>
+                                                    <input type="text" id="respuesta-0" name="respuestas[]"
+                                                        placeholder="Respuesta" class="form-control respuesta-input"
+                                                        required>
                                                 </div>
                                             </div>
                                             <div class="col-4">
@@ -80,12 +81,12 @@
                             </div> --}}
                         <button class="btn btn-primary" type="button" id="add-pregunta">Añadir pregunta</button>
                         <button class="btn btn-success" type="submit" onclick="sendTest(this)">Crear Examen</button>
-                        
+
                         <form action="{{ route('crearExamenApi') }}" id="send_exam_form" method="POST">
-                          <input type="hidden" id="titulo_hidden" name="titulo" value="">
-                          <input type="hidden" id="tema_id_hidden" name="tema_id" value="{{ $tema->id }}">
-                          <input type="hidden" id="preguntas_hidden" name="preguntas" value="">
-                          <input type="hidden" id="fecha_entrega_hidden" name="fecha_entrega" value="">
+                            <input type="hidden" id="titulo_hidden" name="titulo" value="">
+                            <input type="hidden" id="tema_id_hidden" name="tema_id" value="{{ $tema->id }}">
+                            <input type="hidden" id="preguntas_hidden" name="preguntas" value="">
+                            <input type="hidden" id="fecha_entrega_hidden" name="fecha_entrega" value="">
                         </form>
 
 
@@ -99,7 +100,7 @@
 </x-layout>
 
 <script>
-  var enviar = false;
+    var enviar = false;
     var preguntaCount = 0;
     var dataImportant = {
         "titulo": "examen unidad 1",
@@ -110,7 +111,7 @@
 
     function add_option(p) {
         respuestasCount++;
-        
+
         var respuestaDiv = document.createElement('div');
         respuestaDiv.className = 'row';
         respuestaDiv.innerHTML = `<div class="col-8">
@@ -165,41 +166,42 @@
                                         <button class="btn btn-primary" onclick="add_option(${preguntaCount})">Agregar opcion</button>
                                     </div>`
 
-        document.getElementById('preguntas').appendChild(preguntaDiv) 
+        document.getElementById('preguntas').appendChild(preguntaDiv)
     });
-    function sendTest(boton){
-      if(!enviar){
-        index = 0;
-        formulario = document.getElementById('preguntas')
-        preguntas = formulario.querySelectorAll('.pregunta-input')
-        preguntasList = []
-        respuestaContent = formulario.querySelectorAll('.respuestas-content')
-        respuestaContent.forEach(q => {
-          respuestas = q.querySelectorAll('.respuesta-input')
-          correcta = q.querySelectorAll('.form-check-input')
-          opcionesList = []
-          correcta_index = 0;
-          respuestas.forEach(res => {
-            opcionesList.push({
-              "respuesta":res.value,
-              // "correcta":"nooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
-              "correcta":correcta[correcta_index].checked
-            })
-            correcta_index ++;
-          });
-          preguntasList.push({
-            "pregunta": preguntas[index].value,
-            "tipo":"abierta",
-            "opciones": opcionesList
-          })
-        });
-        document.getElementById('titulo_hidden').value = document.getElementById('titulo').value
-        document.getElementById('tema_id_hidden').value = {{ $tema->id }}
-        document.getElementById('preguntas_hidden').value = JSON.stringify(preguntasList);
-        document.getElementById('fecha_entrega_hidden').value = document.getElementById('fecha_entrega').value
-        enviar = true;
-        boton.setAttribute('form', 'send_exam_form')
-        boton.click();
-      }
+
+    function sendTest(boton) {
+        if (!enviar) {
+            index = 0;
+            formulario = document.getElementById('preguntas')
+            preguntas = formulario.querySelectorAll('.pregunta-input')
+            preguntasList = []
+            respuestaContent = formulario.querySelectorAll('.respuestas-content')
+            respuestaContent.forEach(q => {
+                respuestas = q.querySelectorAll('.respuesta-input')
+                correcta = q.querySelectorAll('.form-check-input')
+                opcionesList = []
+                correcta_index = 0;
+                respuestas.forEach(res => {
+                    opcionesList.push({
+                        "respuesta": res.value,
+                        // "correcta":"nooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
+                        "correcta": correcta[correcta_index].checked
+                    })
+                    correcta_index++;
+                });
+                preguntasList.push({
+                    "pregunta": preguntas[index].value,
+                    "tipo": "abierta",
+                    "opciones": opcionesList
+                })
+            });
+            document.getElementById('titulo_hidden').value = document.getElementById('titulo').value
+            document.getElementById('tema_id_hidden').value = {{ $tema->id }}
+            document.getElementById('preguntas_hidden').value = JSON.stringify(preguntasList);
+            document.getElementById('fecha_entrega_hidden').value = document.getElementById('fecha_entrega').value
+            enviar = true;
+            boton.setAttribute('form', 'send_exam_form')
+            boton.click();
+        }
     }
 </script>
