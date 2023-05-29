@@ -53,7 +53,7 @@
                                                             </div>
                                                             <div class="mb-3">
                                                               <label for="enlace" class="form-label">Enlace</label>
-                                                              <input type="text" class="form-control" id="enlace" name="enlace" required>
+                                                              <input type="text" class="form-control" id="enlace" name="enlace">
                                                             </div>
                                                             <button type="submit" class="btn btn-primary">Crear Tema</button>
                                                           </form>
