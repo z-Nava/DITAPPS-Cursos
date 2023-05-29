@@ -74,7 +74,8 @@ class UserManagementController extends Controller
         $user = User::findOrFail($userId);
         $curso = Curso::findOrFail($cursoId);
 
-        $user->cursos()->attach($curso);
+        $curso->user_id = $userId;
+        $curso->save();
 
         return redirect()->route('user-management')->with('success', 'Curso asignado correctamente.');
     }

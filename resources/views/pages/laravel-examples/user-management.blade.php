@@ -131,13 +131,13 @@
                                             </td>
                                             <td>
                                                 @if ($user->rol_id == 3)
-                                                    @if ($user->cursos->count() > 0)
+                                                    @if ($user->cursos->isNotEmpty())
                                                         @foreach ($user->cursos as $curso)
                                                             <p class="text-xs">{{ $curso->nombre }}</p>
                                                         @endforeach
                                                     @else
-                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#asignarCursoModal{{ $user->id }}">Asignar Curso</button>
-
+                                                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#asignarCursoModal{{ $user->id }}">Asignar Curso</button>
+                                            
                                                         <!-- Modal Asignar Curso -->
                                                         <div class="modal fade" id="asignarCursoModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="asignarCursoModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
@@ -171,6 +171,8 @@
                                                     @endif
                                                 @endif
                                             </td>
+                                            
+                                            
                                             <!--COPIAR LO DE ELIMNAR, TODO EL FORM-->
                                             <td class="align-middle">
                                                 <a rel="tooltip" class="btn btn-success btn-link" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal{{ $user->id }}">
