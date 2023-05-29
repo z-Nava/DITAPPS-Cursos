@@ -72,4 +72,9 @@ class User extends Authenticatable
         return $this->hasMany(Entrega::class);
     }
 
+    public function haCompletado($recurso)
+    {
+        return $this->entregas()->where('recurso_id', $recurso->id)->exists();
+    }   
+
 }

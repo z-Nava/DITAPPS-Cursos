@@ -11,4 +11,10 @@ class RespuestaUsuario extends Model
     protected $table = 'respuestas_usuarios';
     protected $fillable = ['pregunta_id', 'recurso_id', 'user_id', 'respuesta'];
 
+     // Relación con Pregunta
+     public function pregunta()
+     {
+         return $this->belongsTo(Pregunta::class);
+     }
+
 }

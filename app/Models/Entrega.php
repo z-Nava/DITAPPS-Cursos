@@ -29,4 +29,11 @@ class Entrega extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function respuestasUsuario()
+    {
+        return $this->hasMany(RespuestaUsuario::class, 'user_id', 'user_id')
+                 ->where('recurso_id', $this->recurso_id);
+    }
+
+
 }

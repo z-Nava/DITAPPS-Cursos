@@ -3,7 +3,8 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage="Dashboard"></x-navbars.navs.auth>
-        <!-- End Navbar -->
+        <!-- End Navbar -->          
+
         <div class="container mt-4">
             <div class="accordion" id="cursosAccordion">
                 @foreach($cursos as $curso)
@@ -44,6 +45,7 @@
                                                                     <div class="card-body">
                                                                         @foreach($tema->recursos as $recurso)
                                                                             @if($recurso->tipo == 'tarea' && $recurso->estado == 'activo')
+                                                                            @if(!auth()->user()->haCompletado($recurso))
                                                                                 <div class="card mt-3">
                                                                                     <div class="card-header">
                                                                                         <h5 class="mb-0">{{ $recurso->titulo }}</h5>
@@ -57,7 +59,7 @@
                                                                                             @csrf
                                                                                             <input type="hidden" name="recurso_id" value="{{ $recurso->id }}">
                                                                                             <div class="mb-3">
-                                                                                                <label for="descripcion" class="form-label">Descripción</label>
+                                                                                                <label for="descripcion" class="form-label">Comentario</label>
                                                                                                 <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
                                                                                             </div>
                                                                                             <div class="mb-3">
@@ -69,8 +71,10 @@
                                                                                     </div>
                                                                                 </div>
                                                                             @endif
+                                                                            @endif
                                                                             
                                                                             @if($recurso->tipo == 'examen' && $recurso->estado == 'activo')
+                                                                            @if(!auth()->user()->haCompletado($recurso))
                                                                                 <div class="card mt-3">
                                                                                     <div class="card-header">
                                                                                         <h5 class="mb-0">{{ $recurso->titulo }}</h5>
@@ -78,32 +82,45 @@
                                                                                     <div class="card-body">
                                                                                         <p>{{ $recurso->contenido }}</p>
                                                                                         <p>Fecha de entrega: {{ $recurso->fecha_entrega }}</p>
-                                    
-                                                                                        <button id="mostrarFormulario" class="btn btn-primary">Mostrar Formulario</button>
-                                
-                                                                                        <form id="formularioExamen" action="{{ route('entregarExamen') }}" method="post" enctype="multipart/form-data" style="display: none;">
-                                                                                        @csrf
-                                                                                        <input type="hidden" name="recurso_id" value="{{ $recurso->id }}">
-                                
-                                                                                        @foreach($recurso->preguntas as $pregunta)
-                                                                                            <div class="mb-3">
-                                                                                            <label class="form-label">{{ $pregunta->pregunta }}</label>
-                                                                                            @if($pregunta->tipo == 'abierta')
-                                                                                             <textarea class="form-control" name="respuesta-{{ $pregunta->id }}" rows="3"></textarea>
-                                                                                             @else
-                                                                                             @foreach($pregunta->respuestas as $respuesta)
-                                                                                                <div class="form-check">
-                                                                                                    <input class="form-check-input" type="radio" name="respuesta-{{ $pregunta->id }}" value="{{ $respuesta->id }}">
-                                                                                                    <label class="form-check-label">{{ $respuesta->respuesta }}</label>
+                                                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalFormularioExamen{{ $recurso->id }}">
+                                                                                            Mostrar Formulario
+                                                                                          </button>
+                                                                                          <div class="modal fade" id="modalFormularioExamen{{ $recurso->id }}" tabindex="-1" aria-labelledby="modalFormularioExamen{{ $recurso->id }}Label" aria-hidden="true">
+                                                                                            <div class="modal-dialog">
+                                                                                              <div class="modal-content">
+                                                                                                <div class="modal-header">
+                                                                                                  <h5 class="modal-title" id="modalFormularioExamen{{ $recurso->id }}Label">{{ $recurso->titulo }}</h5>
+                                                                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                                                 </div>
-                                                                                             @endforeach
-                                                                                             @endif
+                                                                                                <div class="modal-body">
+                                                                                                  <form action="{{ route('entregarExamen') }}" method="post" enctype="multipart/form-data">
+                                                                                                    @csrf
+                                                                                                    <input type="hidden" name="recurso_id" value="{{ $recurso->id }}">
+                                                                                                    @foreach($recurso->preguntas as $pregunta)
+                                                                                                      <div class="mb-3">
+                                                                                                        <label class="form-label">{{ $pregunta->pregunta }}</label>
+                                                                                                        @if($pregunta->tipo == 'abierta')
+                                                                                                          <textarea class="form-control" name="respuesta-{{ $pregunta->id }}" rows="3"></textarea>
+                                                                                                        @else
+                                                                                                          @foreach($pregunta->respuestas as $respuesta)
+                                                                                                            <div class="form-check">
+                                                                                                              <input class="form-check-input" type="radio" name="respuesta-{{ $pregunta->id }}" value="{{ $respuesta->id }}">
+                                                                                                              <label class="form-check-label">{{ $respuesta->respuesta }}</label>
+                                                                                                            </div>
+                                                                                                          @endforeach
+                                                                                                        @endif
+                                                                                                      </div>
+                                                                                                    @endforeach
+                                                                                                    <button type="submit" class="btn btn-success">Enviar respuestas</button>
+                                                                                                  </form>
+                                                                                                </div>
+                                                                                              </div>
                                                                                             </div>
-                                                                                        @endforeach
-                                                                                        </form>
+                                                                                          </div>
                                                                                     </div>
                                                                                 </div>
                                                                             @endif
+                                                                        @endif                                                                        
                                                                         @endforeach
                                                                     </div>
                                                                 </div>
@@ -121,5 +138,21 @@
                 @endforeach
             </div>
         </div>
+        <script>
+            @foreach($tema->recursos as $recurso)
+                if($recurso->tipo == 'examen' && $recurso->estado == 'activo') {
+                    if(!auth()->user()->haCompletado($recurso)) {
+                        document.getElementById('mostrarFormulario{{ $recurso->id }}').addEventListener('click', function() {
+                            var form = document.getElementById('formularioExamen{{ $recurso->id }}');
+                            if (form.style.display === 'none') {
+                                form.style.display = 'block';
+                            } else {
+                                form.style.display = 'none';
+                            }
+                        });
+                    }
+                }
+            @endforeach
+        </script>
     </main>
 </x-layout>
