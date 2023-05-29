@@ -25,7 +25,7 @@
                       @endif
                   </div>
                   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-                      @foreach ($cursos as $curso)
+                      @foreach ($cursosNoInscritos as $curso)
                       <div class="col">
                           <div class="card my-4">
                               <div class="card-group">
@@ -125,7 +125,7 @@
           <div class="mb-3">
             <label for="cursoEliminar" class="form-label">Selecciona el curso a eliminar</label>
             <select class="form-select" id="cursoEliminar" name="cursoEliminar">
-              @foreach ($cursos as $curso)
+              @foreach ($cursosNoInscritos as $curso)
               <option value="{{ $curso->id }}">{{ $curso->nombre }}</option>
               @endforeach
             </select>
