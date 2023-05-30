@@ -281,7 +281,7 @@
             document.getElementById('fecha_entrega_hidden').value = document.getElementById('fecha_entrega').value
             document.getElementById('fecha_inicio_hidden').value = document.getElementById('fecha_inicio').value
             enviar = true;
-        
+        //listo
             boton.setAttribute('form', 'send_exam_form')
             boton.click();
         }
