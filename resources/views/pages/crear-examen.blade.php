@@ -123,6 +123,7 @@
         "preguntas": []
     }
     var respuestasCount = 0
+   
 
     function add_option(p) {
         respuestasCount++;
@@ -145,11 +146,13 @@
                                       </div>
                                   </div>`
         document.getElementById(`respuestas-${p}`).appendChild(respuestaDiv)
+       
     }
 
     document.getElementById('add-pregunta').addEventListener('click', function() {
         preguntaCount++;
         respuestasCount++;
+       
         var preguntaDiv = document.createElement('div');
         preguntaDiv.className = 'row';
         preguntaDiv.innerHTML = `<div class="col-4">
@@ -182,6 +185,7 @@
                                     </div>`
 
         document.getElementById('preguntas').appendChild(preguntaDiv)
+        console.log("preguntadiv", preguntaDiv);
     });
 
     document.getElementById('add-pregunta-vyf').addEventListener('click', function() {
@@ -233,21 +237,29 @@
                                     </div>`
 
         preguntaCount++;
+        
         respuestasCount++;
         document.getElementById('preguntas').appendChild(preguntaDiv)
+       
     });
 
     function sendTest(boton) {
         if (!enviar) {
             index = 0;
             formulario = document.getElementById('preguntas')
+           
             preguntas = formulario.querySelectorAll('.pregunta-input')
+            
             preguntasList = []
+            
             respuestaContent = formulario.querySelectorAll('.respuestas-content')
             respuestaContent.forEach(q => {
                 respuestas = q.querySelectorAll('.respuesta-input')
+             
                 correcta = q.querySelectorAll('.form-check-input')
+           
                 opcionesList = []
+           
                 correcta_index = 0;
                 respuestas.forEach(res => {
                     opcionesList.push({
@@ -269,6 +281,7 @@
             document.getElementById('fecha_entrega_hidden').value = document.getElementById('fecha_entrega').value
             document.getElementById('fecha_inicio_hidden').value = document.getElementById('fecha_inicio').value
             enviar = true;
+        
             boton.setAttribute('form', 'send_exam_form')
             boton.click();
         }
