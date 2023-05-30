@@ -264,7 +264,6 @@
                 respuestas.forEach(res => {
                     opcionesList.push({
                         "respuesta": res.value,
-                        // "correcta":"nooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
                         "correcta": correcta[correcta_index].checked
                     })
                     correcta_index++;
@@ -274,6 +273,7 @@
                     "tipo": "abierta",
                     "opciones": opcionesList
                 })
+                index++; // Aquí incrementamos el valor de index después de cada iteración
             });
             document.getElementById('titulo_hidden').value = document.getElementById('titulo').value
             document.getElementById('tema_id_hidden').value = {{ $tema->id }}
@@ -286,4 +286,5 @@
             boton.click();
         }
     }
+
 </script>
