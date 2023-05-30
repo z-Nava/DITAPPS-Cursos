@@ -27,6 +27,7 @@ class CursoController extends Controller
         'descripcion' => 'required|max:255|min:5|string',
         'fecha_inicio' => 'required|date|',
         'fecha_fin' => 'required|date|',
+        'semestre_id' => 'required',
     ]);
 
     $user = auth()->user();
@@ -39,7 +40,9 @@ class CursoController extends Controller
         'fecha_fin' => $request->input('fecha_fin'),
         'user_id' => $user->id,
     ]);
-        
+    $semestre = Semestre::find($request->input('semestre_id'));
+    $semestre->curso_id = $curso->id;
+    $semestre->save($curso);
 
     // Obtener y guardar la imagen asociada al curso
     if ($request->hasFile('imagen')) {
