@@ -65,10 +65,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('billing/{id}', [GestiondeCursoController::class, 'editarCalificacion'])->name('editarCalificacion');
 
 
-
-
-
-
 	Route::get('/tables', [CursoController::class, 'index'])->name('tables');
 	Route::post('/tables', [CursoController::class, 'store'])->name('cursos.store');
 	Route::delete('/tables/{id}', [CursoController::class, 'destroy'])->name('cursos.destroy');
@@ -108,7 +104,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/gestion-actividades', [GestionActividadesController::class, 'index'])->name('gestion-actividades');
 	Route::post('/gestion-actividades/calificar/{id}', [GestionActividadesController::class, 'calificarEntrega'])->name('gestion-actividades.calificar');
-	Route::post('/calificaciones/{id}/editar', [GestiondeCursoController::class, 'editarCalificacion'])->name('editarCalificacion');
+	//Route::post('/calificaciones/{id}/editar', [GestiondeCursoController::class, 'editarCalificacion'])->name('editarCalificacion');
 
 
 	Route::get('virtual-reality', function () {return view('pages.virtual-reality');})->name('virtual-reality');
