@@ -89,8 +89,12 @@
                                     <input type="text" id="respuesta-0" name="respuestas[]" required>
                                 </div>
                             </div> --}}
-                        <button class="btn btn-primary" type="button" id="add-pregunta">Añadir pregunta</button>
-                        <button class="btn btn-success" type="submit" onclick="sendTest(this)">Crear Examen</button>
+                        <div class="mb-5 mt-5">
+                            
+                            <button class="btn btn-primary" type="button" id="add-pregunta">Añadir pregunta</button>
+                            <button class="btn btn-info" type="button" id="add-pregunta-vyf">Añadir Verdad o Mentira</button>
+                            <button class="btn btn-success" type="submit" onclick="sendTest(this)">Crear Examen</button>
+                        </div>
 
                         <form action="{{ route('crearExamenApi') }}" id="send_exam_form" method="POST">
                             <input type="hidden" id="titulo_hidden" name="titulo" value="">
@@ -177,6 +181,59 @@
                                         <button class="btn btn-primary" onclick="add_option(${preguntaCount})">Agregar opcion</button>
                                     </div>`
 
+        document.getElementById('preguntas').appendChild(preguntaDiv)
+    });
+
+    document.getElementById('add-pregunta-vyf').addEventListener('click', function() {
+        preguntaCount++;
+        respuestasCount++;
+        var preguntaDiv = document.createElement('div');
+        preguntaDiv.className = 'row';
+        preguntaDiv.innerHTML = `<div class="col-4">
+                                        <div id="sub-table-actions" class="input-group input-group-outline mb-3">
+                                            <input type="text" id="pregunta-${preguntaCount}" name="preguntas[]" placeholder="Pregunta"
+                                                class="form-control pregunta-input" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-8 respuestas-content" id="respuestas-${preguntaCount}">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <div id="sub-table-actions"
+                                                    class="input-group input-group-outline mb-3">
+                                                    <input type="text" id="respuesta-${respuestasCount}" placeholder="Respuesta" disabled
+                                                        name="respuestas[]" value="Verdadero" class="form-control respuesta-input" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="preguntasVerdaderas-${respuestasCount}">
+                                                    <label class="custom-control-label"
+                                                        for="customCheck1">Correcta</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <div id="sub-table-actions"
+                                                    class="input-group input-group-outline mb-3">
+                                                    <input type="text" id="respuesta-${respuestasCount+1}" placeholder="Respuesta" disabled
+                                                        name="respuestas[]" value="Falso" class="form-control respuesta-input" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="preguntasVerdaderas-${respuestasCount+1}">
+                                                    <label class="custom-control-label"
+                                                        for="customCheck1">Correcta</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`
+
+        preguntaCount++;
+        respuestasCount++;
         document.getElementById('preguntas').appendChild(preguntaDiv)
     });
 
