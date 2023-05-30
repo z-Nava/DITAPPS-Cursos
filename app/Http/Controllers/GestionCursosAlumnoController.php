@@ -144,47 +144,48 @@ class GestionCursosAlumnoController extends Controller
     }
 
     public function entregarExamen(Request $request)
-{
-    // Asegúrate de que el usuario ha respondido todas las preguntas
-    $preguntas = Pregunta::where('recurso_id', $request->input('recurso_id'))->get();
-    $preguntasCorrectas = 0;
-
-    foreach ($preguntas as $pregunta) {
-        // El nombre del campo de respuesta debe coincidir con lo que estableciste en la vista
-        if (!$request->has('respuesta-' . $pregunta->id)) {
-            // Maneja el error si no se ha proporcionado una respuesta
-
-            return redirect()->back()->with('error', 'Debes responder a todas las preguntas.');
+    {
+        // Asegúrate de que el usuario ha respondido todas las preguntas
+        $preguntas = Pregunta::where('recurso_id', $request->input('recurso_id'))->get();
+        $preguntasCorrectas = 0;
+    
+        foreach ($preguntas as $pregunta) {
+            // El nombre del campo de respuesta debe coincidir con lo que estableciste en la vista
+            if (!$request->has('respuesta-' . $pregunta->id)) {
+                // Maneja el error si no se ha proporcionado una respuesta
+                return redirect()->back()->with('error', 'Debes responder a todas las preguntas.');
+            }
+    
+            $respuestaUsuario = new RespuestaUsuario;
+            $respuestaUsuario->pregunta_id = $pregunta->id;
+            $respuestaUsuario->recurso_id = $request->input('recurso_id');
+            $respuestaUsuario->user_id = auth()->user()->id;
+            $respuestaUsuario->respuesta = $request->input('respuesta-' . $pregunta->id);
+            $respuestaUsuario->save();
+    
+            // Verificar si la respuesta es correcta
+            $respuestaCorrecta = Respuesta::where('pregunta_id', $pregunta->id)
+                                        ->where('correcta', true)
+                                        ->first();
+    
+            if ($respuestaCorrecta && $respuestaCorrecta->respuesta == $request->input('respuesta-' . $pregunta->id)) {
+                $preguntasCorrectas++;
+            }
         }
-        $respuestaUsuario = new RespuestaUsuario;
-        $respuestaUsuario->pregunta_id = $pregunta->id;
-        $respuestaUsuario->recurso_id = $request->input('recurso_id');
-        $respuestaUsuario->user_id = auth()->user()->id;
-        $respuestaUsuario->respuesta = $request->input('respuesta-' . $pregunta->id);
-        $respuestaUsuario->save();
-
-        // Verificar si la respuesta es correcta
-        $respuestaCorrecta = Respuesta::where('pregunta_id', $pregunta->id)
-                                       ->where('correcta', 1)
-                                       ->first();
-
-        if ($respuestaCorrecta->respuesta == $request->input('respuesta-' . $pregunta->id)) {
-            $preguntasCorrectas++;
-        }
+    
+        // Calcular la calificación
+        $calificacion = ($preguntasCorrectas * 10) / $preguntas->count();
+    
+        $entrega = new Entrega;
+        $entrega->recurso_id = $request->input('recurso_id');
+        $entrega->user_id = auth()->user()->id;
+        $entrega->archivo = 'asdasd';
+        $entrega->calificacion = $calificacion;
+        $entrega->save();
+    
+        // Redirigir a donde prefieras después de que el usuario ha entregado el examen
+        return redirect()->route('dashboard');
     }
-
-    // Calcular la calificación
-    $calificacion = ($preguntasCorrectas * 10) / $preguntas->count();
-
-    $entrega = new Entrega;
-    $entrega->recurso_id = $request->input('recurso_id');
-    $entrega->user_id = auth()->user()->id;
-    $entrega->archivo = 'asdasd';
-    $entrega->calificacion = $calificacion;
-    $entrega->save();
-
-    // Redirigir a donde prefieras después de que el usuario ha entregado el examen
-    return redirect()->route('dashboard');
-}
+    
 
 }
