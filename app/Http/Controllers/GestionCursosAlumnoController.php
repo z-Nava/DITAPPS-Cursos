@@ -36,7 +36,7 @@ class GestionCursosAlumnoController extends Controller
         }
 
         // Adjuntar la relación alumno-curso
-        $user->cursos->attach($curso);
+        $user->cursos()->attach($curso);
 
         return redirect()->route('dashboard')->with('success', 'Te has inscrito al curso exitosamente');
     }
