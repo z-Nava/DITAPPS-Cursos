@@ -37,7 +37,9 @@ class GestionCursosAlumnoController extends Controller
 
         // Adjuntar la relación alumno-curso
         $user->cursos()->attach($curso);
-
+        if($user->rol_id == 1||$user->rol_id == 2 || $user->rol_id == 3){
+            return redirect()->route('gestion-cursos')->with('success', 'Te has inscrito al curso exitosamente');
+        }
         return redirect()->route('dashboard')->with('success', 'Te has inscrito al curso exitosamente');
     }
 
