@@ -23,7 +23,7 @@
                                               Semestre {{ $semestre->nombre }}
                                         </button>
                                     </h2>
-                                    <div id="semestresCollapse{{ $curso->id }}{{ $semestre->id }}" class="accordion-collapse collapse" data-bs-parent="#cursosAccordion">
+                                    <div id="semestresCollapse{{ $curso->id }}{{ $semestre->id }}" class="accordion-collapse " data-bs-parent="#cursosAccordion">
                                         <div class="accordion-body bg-white">
                                             <div class="accordion-item ">
                                                 <h2 class="accordion-header bg-secondary text-light p-2 rounded">
@@ -67,7 +67,7 @@
                                                       Curso {{ $curso->nombre }}
                                                     </button>
                                                 </h2>
-                                                <div id="temasCollapse{{ $curso->id }}{{ $semestre->id }}" class="accordion-collapse collapse" data-bs-parent="#semestresCollapse{{ $curso->id }}{{ $semestre->id }}">
+                                                <div id="temasCollapse{{ $curso->id }}{{ $semestre->id }}" class="accordion-collapse " data-bs-parent="#semestresCollapse{{ $curso->id }}{{ $semestre->id }}">
                                                     <div class="accordion-body bg-white">
                                                         @foreach ($semestre->temas as $tema)
                                                             <div class="p-2 bg-light border rounded my-2">
