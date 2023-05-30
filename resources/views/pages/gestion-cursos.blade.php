@@ -15,7 +15,7 @@
                 @endif
                 <div class="rounded p-3 bg-light">
                   @foreach ($cursos as $curso)
-                  {{ $curso->nombre }}
+                  {{-- {{ $curso->nombre }} --}}
                 @foreach ($curso->semestres as $semestre)  
                     <div class="accordion " id="cursosAccordion">
                                 <div class="accordion-item shadow-lg bg-light my-3">
