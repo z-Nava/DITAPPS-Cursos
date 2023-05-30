@@ -120,16 +120,16 @@
                                                                                                     @foreach($recurso->preguntas as $pregunta)
                                                                                                       <div class="mb-3">
                                                                                                         <label class="form-label">{{ $pregunta->pregunta }}</label>
-                                                                                                        @if($pregunta->tipo == 'abierta')
+                                                                                                        {{-- @if($pregunta->tipo == 'abierta')
                                                                                                           <textarea class="form-control" name="respuesta-{{ $pregunta->id }}" rows="3"></textarea>
-                                                                                                        @else
+                                                                                                        @else --}}
                                                                                                           @foreach($pregunta->respuestas as $respuesta)
                                                                                                             <div class="form-check">
                                                                                                               <input class="form-check-input" type="radio" name="respuesta-{{ $pregunta->id }}" value="{{ $respuesta->id }}">
                                                                                                               <label class="form-check-label">{{ $respuesta->respuesta }}</label>
                                                                                                             </div>
                                                                                                           @endforeach
-                                                                                                        @endif
+                                                                                                        {{-- @endif --}}
                                                                                                       </div>
                                                                                                     @endforeach
                                                                                                     <button type="submit" class="btn btn-success">Enviar respuestas</button>

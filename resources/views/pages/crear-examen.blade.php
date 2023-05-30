@@ -92,7 +92,7 @@
                         <div class="mb-5 mt-5">
                             
                             <button class="btn btn-primary" type="button" id="add-pregunta">Añadir pregunta</button>
-                            <button class="btn btn-info" type="button" id="add-pregunta-vyf">Añadir Verdad o Mentira</button>
+                            <button class="btn btn-info" type="button" id="add-pregunta-vyf">Añadir Verdadero o Falso </button>
                             <button class="btn btn-success" type="submit" onclick="sendTest(this)">Crear Examen</button>
                         </div>
 
@@ -207,7 +207,7 @@
                                             <div class="col-4">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox"
-                                                        id="preguntasVerdaderas-${respuestasCount}">
+                                                        id="preguntasVerdaderas-${respuestasCount}" checked>
                                                     <label class="custom-control-label"
                                                         for="customCheck1">Correcta</label>
                                                 </div>

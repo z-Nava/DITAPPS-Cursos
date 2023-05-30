@@ -175,7 +175,7 @@ return redirect()->back()->with(['success' => 'El tema se ha actualizado correct
         $recurso->tipo = 'tarea';
         $recurso->titulo = $request->titulo;
         $recurso->contenido = $request->contenido;
-        $recurso->fehca_entrega = $request->fecha_entrega;
+        $recurso->fecha_entrega = $request->fecha_entrega;
         $tema = Tema::findOrFail($request->tema_id);
         $recurso->tema()->associate($tema);
         

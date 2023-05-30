@@ -167,7 +167,7 @@ class GestionCursosAlumnoController extends Controller
         $entrega = new Entrega;
         $entrega->recurso_id = $request->input('recurso_id');
         $entrega->user_id = auth()->user()->id;
-        $entrega->archivo = NULL;
+        $entrega->archivo = 'asdasd';
         // Aquí puedes añadir cualquier otro campo necesario para la tabla de entregas
 
         $entrega->save();
