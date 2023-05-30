@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('contenido')->nullable();
             $table->string('url')->nullable();
             $table->string('archivo')->nullable();
-            $table->date('fecha_entrega')->nullable();
+            // $table->date('fecha_entrega')->nullable();
             $table->enum('estado', ['activo', 'inactivo'])->default('activo');
             $table->foreignId('tema_id')->constrained('temas')->onDelete('cascade');
             $table->timestamps();
