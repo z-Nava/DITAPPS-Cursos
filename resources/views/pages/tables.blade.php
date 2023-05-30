@@ -31,10 +31,10 @@
                               <div class="card-group">
                                   <div class="card" data-animation="false">
                                       <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 d-flex justify-content-center">
-                                          <a class="d-block blur-shadow-image">
+                                          {{-- <a class="d-block blur-shadow-image">
                                             <img src="{{ $curso->imagen_url }}" alt="Imagen del curso" class="custom-image">
                                           </a>
-                                          <div class="colored-shadow" style="background-image: url(&quot;{{ asset($curso->imagen) }}&quot;);"></div>
+                                          <div class="colored-shadow" style="background-image: url(&quot;{{ asset($curso->imagen) }}&quot;);"></div> --}}
                                       </div>
                                       <div class="card-body text-center">
                                           <div class="d-flex mt-n6 mx-auto">
