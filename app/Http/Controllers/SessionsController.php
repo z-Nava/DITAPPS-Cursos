@@ -21,7 +21,7 @@ class SessionsController extends Controller
     {
         $attributes = request()->validate([
             'login' => 'required|email|exists:users,email',
-            'password' => 'required|min:5|max:10'
+            'password' => 'required|min:5|max:40'
         ]);
 
         $loginType = filter_var($attributes['login'], FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
