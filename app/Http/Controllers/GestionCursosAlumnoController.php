@@ -155,20 +155,20 @@ class GestionCursosAlumnoController extends Controller
                 // Maneja el error si no se ha proporcionado una respuesta
                 return redirect()->back()->with('error', 'Debes responder a todas las preguntas.');
             }
-    
+            
             $respuestaUsuario = new RespuestaUsuario;
             $respuestaUsuario->pregunta_id = $pregunta->id;
             $respuestaUsuario->recurso_id = $request->input('recurso_id');
             $respuestaUsuario->user_id = auth()->user()->id;
             $respuestaUsuario->respuesta = $request->input('respuesta-' . $pregunta->id);
             $respuestaUsuario->save();
-    
+            
             // Verificar si la respuesta es correcta
             $respuestaCorrecta = Respuesta::where('pregunta_id', $pregunta->id)
-                                        ->where('correcta', true)
-                                        ->first();
-    
-            if ($respuestaCorrecta && $respuestaCorrecta->respuesta == $request->input('respuesta-' . $pregunta->id)) {
+                ->where('correcta', true)
+                ->first();
+                
+            if ($respuestaCorrecta->id ==  $request->input('respuesta-' . $pregunta->id)) {
                 $preguntasCorrectas++;
             }
         }
