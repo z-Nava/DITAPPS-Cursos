@@ -30,20 +30,20 @@
                           <div class="card my-4">
                               <div class="card-group">
                                   <div class="card" data-animation="false">
-                                      <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 d-flex justify-content-center">
-                                          {{-- <a class="d-block blur-shadow-image">
+                                      {{-- <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 d-flex justify-content-center">
+                                          <a class="d-block blur-shadow-image">
                                             <img src="{{ $curso->imagen_url }}" alt="Imagen del curso" class="custom-image">
                                           </a>
-                                          <div class="colored-shadow" style="background-image: url(&quot;{{ asset($curso->imagen) }}&quot;);"></div> --}}
-                                      </div>
-                                      <div class="card-body text-center">
+                                          <div class="colored-shadow" style="background-image: url(&quot;{{ asset($curso->imagen) }}&quot;);"></div>
+                                      </div> --}}
+                                      <div class="card-body text-center mt-4">
                                           <div class="d-flex mt-n6 mx-auto">
-                                              <a class="btn btn-link text-primary ms-auto border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Refresh">
+                                              {{-- <a class="btn btn-link text-primary ms-auto border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Refresh">
                                                   <i class="material-icons text-lg">refresh</i>
                                               </a>
                                               <button class="btn btn-link text-info me-auto border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit">
                                                   <i class="material-icons text-lg">edit</i>
-                                              </button>
+                                              </button> --}}
                                           </div>
                                           <h5 class="font-weight-normal mt-3">
                                               <a href="javascript:;">{{ $curso->nombre }}</a>

@@ -18,8 +18,18 @@ class GestiondeCursoController extends Controller
     public function index(Request $request)
 {
     $cursoId = $request->query('curso');
+    $cursos = [];
+
+    $all = Curso::with(['usuarios'])->get();
     
-    $cursos = Curso::where('user_id', auth()->user()->id)->with(['semestres.temas.recursos'])->get();
+    foreach($all as $curso) {
+        foreach($curso->usuarios as $usuario) {
+            if($usuario->id == auth()->user()->id) {
+                array_push($cursos, $curso);
+            }
+        }
+    }
+    // $cursos = Curso::where('user_id', auth()->user()->id)->with(['semestres.temas.recursos'])->get();
     
     $entregas = Entrega::all();
     $recursos = Recurso::whereIn('tipo', ['tarea', 'examen'])->get();
