@@ -15,6 +15,7 @@ class Entrega extends Model
         'fecha_entrega',
         'recurso_id',
         'user_id',
+        'calificacion',
     ];
 
     // Relación con Recurso
