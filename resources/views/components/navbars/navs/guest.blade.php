@@ -6,7 +6,7 @@
         <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 d-flex flex-column" href="{{ route('dashboard') }}">
             {{-- Desarrollo Integral de Tecnologías y Apps
             <span>DITAPPS</span> --}}
-            Instituto Dr. Carlos Coqui
+            ZAMORA, MICHOACAN
             <span>IDCC</span>
         </a>
         <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
