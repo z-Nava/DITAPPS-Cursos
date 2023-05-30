@@ -73,6 +73,17 @@
                                                             <div class="p-2 bg-light border rounded my-2">
                                                                 <h5>{{ $tema->nombre }}</h5>
                                                                 <p>{{ $tema->contenido }}</p>
+
+                                                                @foreach ($tema->recursos as $recurso )
+                                                                <hr>
+                                                                  <div>
+                                                                    <h6>{{ $recurso->tipo }} - {{ $recurso->titulo }}</h6>
+                                                                    <div style="text-align: right">
+                                                                      <p>Fecha de inicio: {{ $recurso->fecha_inicio }}</p>
+                                                                      <p>Fecha de entrega: {{ $recurso->fecha_entrega }}</p>
+                                                                    </div>
+                                                                  </div>
+                                                                @endforeach
                                                                 <div class="ms-auto text-end">          
                                                                     <a class="btn btn-link text-dark px-3 mb-2 asignar-tarea-btn" href="#" data-bs-toggle="modal" data-bs-target="#crearActividadModal{{ $tema->id }}" data-tema-id="{{ $tema->id }}">
                                                                       

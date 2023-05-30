@@ -14,6 +14,7 @@ class Recurso extends Model
         'titulo',
         'contenido',
         'fecha_entrega',
+        'fecha_inicio',
         'url',
         'tema_id',
     ];

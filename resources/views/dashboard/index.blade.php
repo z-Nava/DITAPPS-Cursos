@@ -72,8 +72,9 @@
                                                                                 </div>
                                                                             @endif
                                                                             @endif
+                                                                            @if($recurso->tipo == 'examen' && $recurso->estado == 'activo' && 
+                                                                            \Carbon\Carbon::now()->between(new \Carbon\Carbon($recurso->fecha_inicio), new \Carbon\Carbon($recurso->fecha_fin)))
                                                                             
-                                                                            @if($recurso->tipo == 'examen' && $recurso->estado == 'activo' && $recurso->fehca_inicio < date('Y-m-d H:i:s'))
                                                                             @if(!auth()->user()->haCompletado($recurso))
                                                                                 <div class="card mt-3">
                                                                                     <div class="card-header">

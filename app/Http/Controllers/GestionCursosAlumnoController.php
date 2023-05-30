@@ -96,7 +96,8 @@ class GestionCursosAlumnoController extends Controller
             'titulo' => 'required',
             'preguntas' => 'required',
             'tema_id' => 'required',
-            'fecha_entrega' => 'required'
+            'fecha_entrega' => 'required',
+            'fecha_inicio' => 'required'
         ]);
 
         $recurso = new Recurso();
@@ -104,6 +105,7 @@ class GestionCursosAlumnoController extends Controller
         $recurso->titulo = $request->titulo;
         $recurso->tema_id = $request->tema_id;
         $recurso->fecha_entrega = $request->fecha_entrega;
+        $recurso->fecha_inicio = $request->fecha_inicio;
         $recurso->save();
         foreach (json_decode($request->preguntas) as $p) {
             //return $p['pregunta'];

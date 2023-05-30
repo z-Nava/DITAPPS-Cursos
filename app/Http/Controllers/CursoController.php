@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Curso;
+use App\Models\Semestre;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,8 +15,9 @@ class CursoController extends Controller
     {
         $user = Auth::user();
         $cursosInscritos = $user->cursos;
+        $semestres = Semestre::all();
         $cursosNoInscritos = Curso::whereNotIn('id', $cursosInscritos->pluck('id'))->get();
-        return view('pages.tables', compact('cursosNoInscritos'));
+        return view('pages.tables', compact('cursosNoInscritos', 'semestres'));
     }
     public function store(Request $request)
 {

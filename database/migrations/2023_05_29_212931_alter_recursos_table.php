@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('recursos', function (Blueprint $table) {
-            $table->dropColumn('fecha_entrega');
-            $table->dateTimeTz('fehca_entrega', $precision = 0)->nullable();
-            $table->dateTimeTz('fehca_inicio', $precision = 0)->nullable();
+            $table->dateTimeTz('fecha_entrega', $precision = 0)->nullable();
+            $table->dateTimeTz('fecha_inicio', $precision = 0)->nullable();
         });
     }
 
