@@ -41,6 +41,22 @@ class GestionCursosAlumnoController extends Controller
         return redirect()->route('dashboard')->with('success', 'Te has inscrito al curso exitosamente');
     }
 
+    public function salirCurso(Curso $curso)
+    {
+        $user = Auth::user();
+
+        // Verificar si el alumno está inscrito en el curso
+        if (!$user->cursos->contains($curso)) {
+            return redirect()->route('dashboard')->with('error', 'No estás inscrito en este curso');
+        }
+
+        // Eliminar la relación alumno-curso
+        $user->cursos()->detach($curso);
+
+        return redirect()->route('dashboard')->with('success', 'Has salido del curso exitosamente');
+    }
+
+
     public function dashboard()
     {
          // Obtener el usuario autenticado

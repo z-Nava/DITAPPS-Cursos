@@ -11,6 +11,10 @@
                     <div class="card mb-4">
                         <div class="card-header" id="curso{{$curso->id}}">
                             <h3 class="mb-0">
+                                <form method="POST" action="{{ route('salirCurso', $curso) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-warning" onclick="return confirmarSalida()">Salir de curso</button>
+                                </form>                                
                                 <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCurso{{$curso->id}}" aria-expanded="true" aria-controls="collapseCurso{{$curso->id}}">
                                     {{ $curso->nombre }}
                                 </button>
@@ -155,6 +159,12 @@
                 @endforeach
             </div>
         </div>
-        
+        <script>
+            function confirmarSalida() {
+                console.log('entro al aviso');
+                return confirm('¿Estás seguro de que quieres salir de este curso?, por favor, antes de hacer esto, asegurate de haberlo consultado con tu profesor.');
+            }
+            </script>
+            
     </main>
 </x-layout>
