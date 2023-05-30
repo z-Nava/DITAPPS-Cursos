@@ -36,7 +36,7 @@ class GestionCursosAlumnoController extends Controller
         }
 
         // Adjuntar la relación alumno-curso
-        $user->cursos->attach($curso);
+        $user->cursos()->attach($curso);
 
         return redirect()->route('dashboard')->with('success', 'Te has inscrito al curso exitosamente');
     }
@@ -103,7 +103,7 @@ class GestionCursosAlumnoController extends Controller
         $recurso->tipo = 'examen';
         $recurso->titulo = $request->titulo;
         $recurso->tema_id = $request->tema_id;
-        $recurso->fecha_entrega = $request->fecha_entrega;
+        $recurso->fehca_entrega = $request->fecha_entrega;
         $recurso->save();
         foreach (json_decode($request->preguntas) as $p) {
             //return $p['pregunta'];
