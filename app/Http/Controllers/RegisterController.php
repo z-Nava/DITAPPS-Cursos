@@ -26,7 +26,7 @@ class RegisterController extends Controller
         ]);
         
         $user = User::create($attributes);
-        $user->rol_id = 2;
+        $user->rol_id = 4;
         $user->save();
 
         URL::temporarySignedRoute(
