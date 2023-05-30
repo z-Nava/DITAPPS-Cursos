@@ -5,7 +5,7 @@
         <x-navbars.navs.auth titlePage="Dashboard"></x-navbars.navs.auth>
         <!-- End Navbar -->          
 
-        <div class="container mt-4">
+        <div class="container mt-4 col-lg-12">
             <div class="accordion" id="cursosAccordion">
                 @foreach($cursos as $curso)
                     <div class="card mb-4">
@@ -15,20 +15,20 @@
                                     @csrf
                                     <button type="submit" class="btn btn-warning" onclick="return confirmarSalida()">Salir de curso</button>
                                 </form>                                
-                                <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCurso{{$curso->id}}" aria-expanded="true" aria-controls="collapseCurso{{$curso->id}}">
-                                    {{ $curso->nombre }}
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCurso{{$curso->id}}" aria-expanded="true" aria-controls="collapseCurso{{$curso->id}}">
+                                    <h5>{{ $curso->nombre }}</h5> <h5>PROFESOR: {{ $curso->descripcion }}</h5>
                                 </button>
                             </h3>
                         </div>
-                        <div id="collapseCurso{{$curso->id}}" class="collapse" aria-labelledby="curso{{$curso->id}}" data-bs-parent="#cursosAccordion">
-                            <div class="card-body">
-                                <p>{{ $curso->descripcion }}</p>
+                        <div id="collapseCurso{{$curso->id}}" class="collapse bg-primary" aria-labelledby="curso{{$curso->id}}" data-bs-parent="#cursosAccordion">
+                            <div class="card-body bg-primary">
+                                
                                 <div class="accordion" id="semestreAccordion{{$curso->id}}">
                                     @foreach ($curso->semestres as $semestre)
                                         <div class="card mb-3">
-                                            <div class="card-header" id="semestre{{$semestre->id}}">
+                                            <div class="card-header " id="semestre{{$semestre->id}}">
                                                 <h4 class="mb-0">
-                                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSemestre{{$semestre->id}}" aria-expanded="true" aria-controls="collapseSemestre{{$semestre->id}}">
+                                                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSemestre{{$semestre->id}}" aria-expanded="true" aria-controls="collapseSemestre{{$semestre->id}}">
                                                         Semestre: {{ $semestre->nombre }}
                                                     </button>
                                                 </h4>
@@ -40,13 +40,13 @@
                                                             <div class="card mb-2">
                                                                 <div class="card-header" id="tema{{$tema->id}}">
                                                                     <h5 class="mb-0">
-                                                                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTema{{$tema->id}}" aria-expanded="true" aria-controls="collapseTema{{$tema->id}}">
+                                                                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTema{{$tema->id}}" aria-expanded="true" aria-controls="collapseTema{{$tema->id}}">
                                                                             Tema: {{ $tema->nombre }}
                                                                         </button>
                                                                     </h5>
                                                                 </div>
                                                                 <div id="collapseTema{{$tema->id}}" class="collapse" aria-labelledby="tema{{$tema->id}}" data-bs-parent="#temaAccordion{{$semestre->id}}">
-                                                                    <div class="card-body">
+                                                                    <div class="card-body bg-primary">
                                                                         @foreach($tema->recursos as $recurso)
                                                                             @if($recurso->tipo == 'tarea' && $recurso->estado == 'activo')
                                                                             @if(!auth()->user()->haCompletado($recurso))
