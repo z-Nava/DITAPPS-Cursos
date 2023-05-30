@@ -143,6 +143,38 @@ class GestionCursosAlumnoController extends Controller
         return redirect('tables')->with('success', 'El examen se ha creado correctamente.');
     }
 
+    public function entregarExamen(Request $request)
+    {
+        // Asegúrate de que el usuario ha respondido todas las preguntas
+        $preguntas = Pregunta::where('recurso_id', $request->input('recurso_id'))->get();
+        $preguntasCorrectas = 0;
+    
+        foreach ($preguntas as $pregunta) {
+            // El nombre del campo de respuesta debe coincidir con lo que estableciste en la vista
+            if (!$request->has('respuesta-' . $pregunta->id)) {
+                // Maneja el error si no se ha proporcionado una respuesta
+                return redirect()->back()->with('error', 'Debes responder a todas las preguntas.');
+            }
+    
+            $respuestaUsuario = new RespuestaUsuario;
+            $respuestaUsuario->pregunta_id = $pregunta->id;
+            $respuestaUsuario->recurso_id = $request->input('recurso_id');
+            $respuestaUsuario->user_id = auth()->user()->id;
+            $respuestaUsuario->respuesta = $request->input('respuesta-' . $pregunta->id);
+            $respuestaUsuario->save();
+    
+            // Verificar si la respuesta es correcta
+            $respuestaCorrecta = Respuesta::where('pregunta_id', $pregunta->id)
+                                        ->where('correcta', true)
+                                        ->first();
+    
+            if ($respuestaCorrecta && $respuestaCorrecta->respuesta == $request->input('respuesta-' . $pregunta->id)) {
+                $preguntasCorrectas++;
+            }
+        }
+    
+        // Calcular la calificación
+        $calificacion = ($preguntasCorrectas * 10) / $preguntas->count();
     
 
     
