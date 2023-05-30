@@ -90,7 +90,7 @@
                   </div>
                   
                   <div class="mb-3">
-                    <label for="descripcion" class="form-label">Semestre</label>
+                    <label for="descripcion" class="form-label">Semestre (opcional) </label>
                     <select class="form-control" id="semestre" name="semestre" required>
                       @foreach ($semestres as $semestre)
                         <option value="{{ $semestre->id }}">{{ $semestre->nombre }}</option>

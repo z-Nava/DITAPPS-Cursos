@@ -27,7 +27,7 @@ class CursoController extends Controller
         'descripcion' => 'required|max:255|min:5|string',
         'fecha_inicio' => 'required|date|',
         'fecha_fin' => 'required|date|',
-        'semestre_id' => 'required',
+        // 'semestre' => 'required',
     ]);
 
     $user = auth()->user();
@@ -40,9 +40,18 @@ class CursoController extends Controller
         'fecha_fin' => $request->input('fecha_fin'),
         'user_id' => $user->id,
     ]);
-    $semestre = Semestre::find($request->input('semestre_id'));
-    $semestre->curso_id = $curso->id;
-    $semestre->save($curso);
+    if($request->input('semestre')){
+        $semestre = Semestre::find($request->input('semestre'));
+        $nuevoSemestre = new Semestre();
+    
+        $nuevoSemestre->nombre = $semestre->nombre;
+        $nuevoSemestre->fecha_inicio = $semestre->fecha_inicio;
+        $nuevoSemestre->fecha_fin = $semestre->fecha_fin;
+        // $nuevoSemestre->descripcion = $semestre->descripcion;
+        $nuevoSemestre->estado = $semestre->estado;
+        $nuevoSemestre->curso_id = $semestre->curso_id;
+        $nuevoSemestre->save();
+    }
 
     // Obtener y guardar la imagen asociada al curso
     if ($request->hasFile('imagen')) {
