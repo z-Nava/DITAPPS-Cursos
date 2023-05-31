@@ -83,10 +83,10 @@
                                                                       <i class="material-icons text-sm me-2">assignment_turned_in</i>Examen
                                                                   </a>
                                                                   <a class="btn btn-link text-dark px-3 mb-2" href="#" data-bs-toggle="modal" data-bs-target="#editarTemaModal{{ $tema->id }}">
-                                                                    <i class="material-icons text-sm me-2">edit</i>Editar
+                                                                    <i class="material-icons text-sm me-2">edit</i>Editar tema
                                                                 </a>
                                                                 <a class="btn btn-link text-danger text-gradient px-3 mb-2" href="#" data-bs-toggle="modal" data-bs-target="#eliminarTemaModal{{ $tema->id }}">
-                                                                    <i class="material-icons text-sm me-2">delete</i>Eliminar
+                                                                    <i class="material-icons text-sm me-2">delete</i>Eliminar tema
                                                                 </a>
                                                               </div>
                                                                 @foreach ($tema->recursos as $recurso )
