@@ -65,6 +65,7 @@
                                                                 </button>
                                                             </div>
                                                             <form action="{{ route('editarCalificacion', ['id' => $calificacion->id]) }}" method="POST">
+                                                                @method('PUT')
                                                                 @csrf
                                                                 <div class="modal-body">
                                                                     <div class="form-group">
