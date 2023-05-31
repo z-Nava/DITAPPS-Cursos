@@ -88,24 +88,32 @@ class GestionCursosAlumnoController extends Controller
     }
 
     public function entregarTarea(Request $request)
-    {
-        $request->validate([
-            'recurso_id' => 'required|exists:recursos,id',
-            'descripcion' => 'required|max:255|min:10|string',
-            'archivo' => 'required|mimes:pdf,docx|'
-        ]);
+{
+    $request->validate([
+        'recurso_id' => 'required|exists:recursos,id',
+        'descripcion' => 'required|max:255|min:10|string',
+        'archivo' => 'required|mimes:pdf,docx'
+    ]);
 
-        $path = $request->file('archivo')->storeAs('public/entregas', $request->file('archivo')->getClientOriginalName());
+    $nombreArchivo = hash('sha256', $request->file('archivo')->getContent()) . '.' . $request->file('archivo')->extension();
+    $path = $request->file('archivo')->storeAs('public/entregas', $nombreArchivo);
 
-        $entrega = new Entrega();
-        $entrega->recurso_id = $request->recurso_id;
-        $entrega->user_id = Auth::id();
-        $entrega->archivo = $path;
-        $entrega->descripcion = $request->descripcion;
-        $entrega->save();
+    $entrega = new Entrega();
+    $entrega->recurso_id = $request->recurso_id;
+    $entrega->user_id = Auth::id();
+    $entrega->archivo = $path;
+    $entrega->descripcion = $request->descripcion;
 
-        return redirect()->back()->with('success', 'La tarea se ha entregado correctamente.');
-    }
+    // Generar la URL para acceder al archivo
+    $archivoUrl = asset('storage/'.$path);
+    $entrega->archivo_url = $archivoUrl;
+
+    $entrega->save();
+
+    return redirect()->route('gestion-actividades')->with('success', 'La tarea se ha entregado correctamente.');
+}
+
+
 
 
     public function crearExamen(Request $request)

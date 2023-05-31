@@ -278,8 +278,8 @@ return redirect()->back()->with(['success' => 'El tema se ha actualizado correct
         return redirect()->route('gestion-cursos');  // Deberías redirigir a la página que prefieras
     }
 
-public function mostrarCrearExamen($id)
-{
-    return view('pages.crear-examen', ['tema'=>Tema::find($id)]);
-}
+    public function mostrarCrearExamen($id)
+    {
+        return view('pages.crear-examen', ['tema'=>Tema::find($id)]);
+    }
 }

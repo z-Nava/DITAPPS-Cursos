@@ -16,6 +16,7 @@ class Entrega extends Model
         'recurso_id',
         'user_id',
         'calificacion',
+        'archivo_url',
     ];
 
     // Relación con Recurso

@@ -104,6 +104,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/gestion-actividades', [GestionActividadesController::class, 'index'])->name('gestion-actividades');
 	Route::post('/gestion-actividades/calificar/{id}', [GestionActividadesController::class, 'calificarEntrega'])->name('gestion-actividades.calificar');
+	Route::get('/archivos-entrega/{id}', [GestionActividadesController::class, 'verArchivo'])->name('archivos-entrega');
+
+
 	//Route::post('/calificaciones/{id}/editar', [GestiondeCursoController::class, 'editarCalificacion'])->name('editarCalificacion');
 
 
