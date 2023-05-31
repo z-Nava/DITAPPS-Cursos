@@ -168,7 +168,7 @@ class GestionCursosAlumnoController extends Controller
                                     ->where('correcta', 1)
                                     ->first();
 
-            if ($respuestaCorrecta && $respuestaCorrecta->respuesta == $request->input('respuesta-' . $pregunta->id)) {
+            if ($respuestaCorrecta->id == $request->input('respuesta-' . $pregunta->id)) {
                 $preguntasCorrectas++;
             }
         }
