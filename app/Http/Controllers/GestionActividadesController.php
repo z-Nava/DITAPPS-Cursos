@@ -46,7 +46,8 @@ class GestionActividadesController extends Controller
             return redirect()->back()->with('message', 'No se encontró la entrega.');
         }
     
-        $rutaArchivo = $entrega->archivo;
+        $rutaArchivo = 'entregas/' . $entrega->archivo;
+
     
         return view('pages.vistapdf')->with('rutaArchivo', $rutaArchivo);
     }

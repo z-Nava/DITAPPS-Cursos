@@ -96,12 +96,13 @@ class GestionCursosAlumnoController extends Controller
     ]);
 
     $nombreArchivo = hash('sha256', $request->file('archivo')->getContent()) . '.' . $request->file('archivo')->extension();
-    $path = $request->file('archivo')->storeAs('public/entregas', $nombreArchivo);
+    $path = $request->file('archivo')->storeAs('entregas', $nombreArchivo, 'public');
+
 
     $entrega = new Entrega();
     $entrega->recurso_id = $request->recurso_id;
     $entrega->user_id = Auth::id();
-    $entrega->archivo = $path;
+    $entrega->archivo = $nombreArchivo;
     $entrega->descripcion = $request->descripcion;
 
     // Generar la URL para acceder al archivo
