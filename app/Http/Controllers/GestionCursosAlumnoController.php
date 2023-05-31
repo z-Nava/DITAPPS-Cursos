@@ -165,7 +165,7 @@ class GestionCursosAlumnoController extends Controller
 
             // Verificar si la respuesta es correcta
             $respuestaCorrecta = Respuesta::where('pregunta_id', $pregunta->id)
-                                        ->where('correcta', 1)
+                                        ->where('correcta', true)
                                         ->first();
 
             if ($respuestaCorrecta && $respuestaCorrecta->respuesta == $request->input('respuesta-' . $pregunta->id)) {
