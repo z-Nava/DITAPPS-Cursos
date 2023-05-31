@@ -168,10 +168,10 @@ class GestionCursosAlumnoController extends Controller
                                     ->where('correcta', 1)
                                     ->first();
 
-        if ($respuestaCorrecta && $respuestaCorrecta->respuesta == $request->input('respuesta-' . $pregunta->id)) {
-            $preguntasCorrectas++;
+            if ($respuestaCorrecta && $respuestaCorrecta->respuesta == $request->input('respuesta-' . $pregunta->id)) {
+                $preguntasCorrectas++;
+            }
         }
-    }
 
     // Calcular la calificación
     $calificacion = ($preguntasCorrectas * 10) / $preguntas->count();
