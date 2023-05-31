@@ -107,34 +107,32 @@ class GestiondeCursoController extends Controller
         return redirect()->back()->with('success', 'El tema ha sido eliminado correctamente.');
     }
 
-    public function editarTema(Request $request, $id)
-    {   
-        $request->validate([
-            'nombre' => 'required',
-            'contenido' => 'required',
-            'enlace' => 'nullable',
-            // Agrega aquí las validaciones para otros campos si es necesario
-        ]);
-    
-        // Encontrar el tema por su ID
-        $tema = Tema::findOrFail($id);
-    
-        // Actualizar los campos del tema con los nuevos datos
-        $tema->nombre = $request->nombre;
-        $tema->contenido = $request->contenido;
-        $tema->enlace = $request->enlace;
-        // Actualiza otros campos si es necesario
-    
-        // Guardar los cambios en la base de datos
-        $tema->save();
+    public function actualizarTema(Request $request, $id)
+{
+    // Validar los datos del formulario
+    $request->validate([
+        'nombre' => 'required',
+        'contenido' => 'required',
+        'enlace' => 'nullable',
+        // Agrega aquí las validaciones para otros campos si es necesario
+    ]);
 
-        $temaActualizado = Tema::findOrFail($tema->id);
+    // Encontrar el tema por su ID
+    $tema = Tema::findOrFail($id);
 
-// Redireccionar a la vista del modal de edición y pasar el tema actualizado como una variable
-return redirect()->back()->with(['success' => 'El tema se ha actualizado correctamente.', 'tema' => $temaActualizado]);
-    
+    // Actualizar los campos del tema con los nuevos datos
+    $tema->nombre = $request->nombre;
+    $tema->contenido = $request->contenido;
+    $tema->enlace = $request->enlace;
+    // Actualiza otros campos si es necesario
 
-    }
+    // Guardar los cambios en la base de datos
+    $tema->save();
+
+    // Redireccionar a la vista del modal de edición y pasar el tema actualizado como una variable
+    return redirect()->back()->with(['success' => 'El tema se ha actualizado correctamente.', 'tema' => $tema]);
+}
+
 
 
 

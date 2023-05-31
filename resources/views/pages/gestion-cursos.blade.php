@@ -74,7 +74,21 @@
                                                             <div class="p-2 bg-light border rounded my-2">
                                                                 <h5>{{ $tema->nombre }}</h5>
                                                                 <p>{{ $tema->contenido }}</p>
-
+                                                                <a href="{{ $tema->enlace }}">{{ $tema->enlace }}</a>
+                                                                <div class="ms-auto text-end">          
+                                                                  <a class="btn btn-link text-dark px-3 mb-2 asignar-tarea-btn" href="#" data-bs-toggle="modal" data-bs-target="#crearActividadModal{{ $tema->id }}" data-tema-id="{{ $tema->id }}">
+                                                                    <i class="material-icons text-sm me-2">assignment</i>Tarea
+                                                                  </a>
+                                                                  <a class="btn btn-link text-dark px-3 mb-2" href="gestion-cursos/{{ $tema->id }}/crear-examen">
+                                                                      <i class="material-icons text-sm me-2">assignment_turned_in</i>Examen
+                                                                  </a>
+                                                                  <a class="btn btn-link text-dark px-3 mb-2" href="#" data-bs-toggle="modal" data-bs-target="#editarTemaModal{{ $tema->id }}">
+                                                                    <i class="material-icons text-sm me-2">edit</i>Editar
+                                                                </a>
+                                                                <a class="btn btn-link text-danger text-gradient px-3 mb-2" href="#" data-bs-toggle="modal" data-bs-target="#eliminarTemaModal{{ $tema->id }}">
+                                                                    <i class="material-icons text-sm me-2">delete</i>Eliminar
+                                                                </a>
+                                                              </div>
                                                                 @foreach ($tema->recursos as $recurso )
                                                                 <hr>
                                                                   <div>
@@ -85,22 +99,66 @@
                                                                     </div>
                                                                   </div>
                                                                 @endforeach
-                                                                <div class="ms-auto text-end">          
-                                                                    <a class="btn btn-link text-dark px-3 mb-2 asignar-tarea-btn" href="#" data-bs-toggle="modal" data-bs-target="#crearActividadModal{{ $tema->id }}" data-tema-id="{{ $tema->id }}">
-                                                                      
-                                                                      <i class="material-icons text-sm me-2">assignment</i>Tarea
-                                                                      
-                                                                    </a>
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="gestion-cursos/{{ $tema->id }}/crear-examen">
-                                                                        <i class="material-icons text-sm me-2">assignment_turned_in</i>Examen
-                                                                    </a>
-                                                                    <a class="btn btn-link text-dark px-3 mb-2" href="#">
-                                                                        <i class="material-icons text-sm me-2">edit</i>Editar
-                                                                    </a>
-                                                                    <a class="btn btn-link text-danger text-gradient px-3 mb-2" href="#">
-                                                                        <i class="material-icons text-sm me-2">delete</i>Eliminar
-                                                                    </a>
-                                                                </div>
+                                                                
+                                                                <!--MODAL EDITAR TEMA-->
+                                                                <div class="modal fade" id="editarTemaModal{{ $tema->id }}" tabindex="-1" role="dialog" aria-labelledby="editarTemaModalLabel{{ $tema->id }}" aria-hidden="true">
+                                                                  <div class="modal-dialog" role="document">
+                                                                      <div class="modal-content">
+                                                                          <div class="modal-header">
+                                                                              <h5 class="modal-title" id="editarTemaModalLabel{{ $tema->id }}">Editar Tema</h5>
+                                                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                                                          </div>
+                                                                          <div class="modal-body">
+                                                                            <form action="{{ route('gestion-cursos.actualizarTema', ['id' => $tema->id]) }}" method="POST">
+                                                                              @csrf
+                                                                              @method('PUT')
+                                                                              <div class="mb-3">
+                                                                                  <label for="nombre" class="form-label">Nombre</label>
+                                                                                  <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $tema->nombre }}" required>
+                                                                              </div>
+                                                                              <div class="mb-3">
+                                                                                  <label for="contenido" class="form-label">Contenido</label>
+                                                                                  <textarea class="form-control" id="contenido" name="contenido" rows="3" required>{{ $tema->contenido }}</textarea>
+                                                                              </div>
+                                                                              <div class="mb-3">
+                                                                                  <label for="enlace" class="form-label">Enlace</label>
+                                                                                  <input type="text" class="form-control" id="enlace" name="enlace" value="{{ $tema->enlace }}">
+                                                                              </div>
+                                                                              <!-- Otros campos de edición si es necesario -->
+                                                                              <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                                                          </form>
+                                                                          </div>
+                                                                          <div class="modal-footer">
+                                                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>                                                              
+                                                                <!--ACABA MODAL EDITAR TEMA-->
+                                                                <!--MODAL ELIMINAR TEMA-->
+                                                                <div class="modal fade" id="eliminarTemaModal{{ $tema->id }}" tabindex="-1" role="dialog" aria-labelledby="eliminarTemaModalLabel{{ $tema->id }}" aria-hidden="true">
+                                                                  <div class="modal-dialog" role="document">
+                                                                      <div class="modal-content">
+                                                                          <div class="modal-header">
+                                                                              <h5 class="modal-title" id="eliminarTemaModalLabel{{ $tema->id }}">Eliminar Tema</h5>
+                                                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                                                          </div>
+                                                                          <div class="modal-body">
+                                                                              <p>¿Estás seguro de que deseas eliminar este tema?</p>
+                                                                          </div>
+                                                                          <div class="modal-footer">
+                                                                              <form action="{{ route('eliminarTema', ['id' => $tema->id]) }}" method="POST">
+                                                                                  @csrf
+                                                                                  @method('DELETE')
+                                                                                  <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                                              </form>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                                <!---ACABA MODAL ELIMINAR TEMA-->
+
                                                                 <!--MODAL-->
                                                                 <div class="modal fade" id="crearActividadModal{{ $tema->id }}" tabindex="-1" role="dialog" aria-labelledby="crearActividadModalLabel" aria-hidden="true">
                                                                   <div class="modal-dialog modal-dialog-centered" role="document">
