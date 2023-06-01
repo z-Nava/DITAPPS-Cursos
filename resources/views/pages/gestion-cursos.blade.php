@@ -3,7 +3,6 @@
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
       <!-- Navbar -->
       <x-navbars.navs.auth titlePage="Gestion de cursos"></x-navbars.navs.auth>
-
       <div class="container-fluid py-4 ">
         <div class="row">
             <div class="col-12">
@@ -17,7 +16,7 @@
                   @foreach ($cursos as $curso)
                   {{-- {{ $curso->nombre }} --}}
                 @foreach ($curso->semestres as $semestre)  
-                    <div class="accordion " id="cursosAccordion">
+                    <div class="accordion " id="cursosAccordion"> 
                                 <div class="accordion-item shadow-lg bg-light my-3">
                                     <h2 class="accordion-header bg-dark text-light p-2 rounded">
                                         <button class="accordion-button collapsed text-light" type="button" data-bs-toggle="collapse" data-bs-target="#semestresCollapse{{ $curso->id }}{{ $semestre->id }}" aria-expanded="false" aria-controls="semestresCollapse{{ $curso->id }}{{ $semestre->id }}">
@@ -75,7 +74,10 @@
                                                                 <h5>{{ $tema->nombre }}</h5>
                                                                 <p>{{ $tema->contenido }}</p>
                                                                 <a href="{{ $tema->enlace }}">{{ $tema->enlace }}</a>
-                                                                <div class="ms-auto text-end">          
+                                                                <div class="ms-auto text-end">  
+                                                                  <a class="btn btn-link text-dark px-3 mb-2" href="#" data-bs-toggle="modal" data-bs-target="#subirArchivoModal{{ $tema->id }}">
+                                                                    <i class="material-icons text-sm me-2">cloud_upload</i>Subir Archivo
+                                                                </a>                                                                        
                                                                   <a class="btn btn-link text-dark px-3 mb-2 asignar-tarea-btn" href="#" data-bs-toggle="modal" data-bs-target="#crearActividadModal{{ $tema->id }}" data-tema-id="{{ $tema->id }}">
                                                                     <i class="material-icons text-sm me-2">assignment</i>Tarea
                                                                   </a>
@@ -96,6 +98,12 @@
                                                                     <div style="text-align: right">
                                                                       <p>Fecha de inicio: {{ $recurso->fecha_inicio }}</p>
                                                                       <p>Fecha de entrega: {{ $recurso->fecha_entrega }}</p>
+                                                                      @if ($recurso->tipo === 'archivo')
+                                                                      <!-- Agrega esto: -->
+                                                                      <a href="{{ $recurso->archivo_url }}" target="_blank"><span class="material-icons">description</span>Ver Archivo</a>
+
+                                                                    @endif
+                                                              
                                                                     </div>
                                                                   </div>
                                                                 @endforeach
@@ -158,7 +166,38 @@
                                                                   </div>
                                                               </div>
                                                                 <!---ACABA MODAL ELIMINAR TEMA-->
-
+                                                                <!--MODAL SUBIR ARCHIVO-->
+                                                                <div class="modal fade" id="subirArchivoModal{{ $tema->id }}" tabindex="-1" role="dialog" aria-labelledby="subirArchivoModalLabel" aria-hidden="true">
+                                                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                      <div class="modal-content">
+                                                                          <div class="modal-header">
+                                                                              <h5 class="modal-title" id="subirArchivoModalLabel">Subir Archivo</h5>
+                                                                              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Cerrar">
+                                                                                  <span aria-hidden="true">&times;</span>
+                                                                              </button>
+                                                                          </div>
+                                                                          <form action="{{ route('gestion-cursos.subir-archivo') }}" method="POST" enctype="multipart/form-data">
+                                                                              @csrf
+                                                                              <div class="modal-body">
+                                                                                <input type="hidden" id="temaIdInput{{ $tema->id }}" name="tema_id" value="{{ $tema->id }}">
+                                                                                <div class="form-group">
+                                                                                  <label for="titulo" class="text-start">Título</label>
+                                                                                  <input type="text" class="form-control" id="titulo" name="titulo" required>
+                                                                              </div>   
+                                                                                <div class="form-group">
+                                                                                      <label for="archivo{{ $tema->id }}" class="text-start">Archivo</label>
+                                                                                      <input type="file" class="form-control" id="archivo{{ $tema->id }}" name="archivo">
+                                                                                  </div>
+                                                                              </div>
+                                                                              <div class="modal-footer">
+                                                                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                                  <button type="submit" class="btn btn-primary">Subir Archivo</button>
+                                                                              </div>
+                                                                          </form>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                                <!--ACABA MODAL SUBIR ARCHIVO-->
                                                                 <!--MODAL-->
                                                                 <div class="modal fade" id="crearActividadModal{{ $tema->id }}" tabindex="-1" role="dialog" aria-labelledby="crearActividadModalLabel" aria-hidden="true">
                                                                   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -263,6 +302,9 @@
         });
     });
 });
+
+
+
     </script>
     
   </main>

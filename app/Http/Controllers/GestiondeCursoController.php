@@ -171,6 +171,37 @@ class GestiondeCursoController extends Controller
         return redirect()->back()->with('success', 'Recurso actualizado con éxito');
     }
 
+    public function subirArchivo(Request $request)
+    {
+      
+        $request->validate([
+            'titulo' => 'required|max:50',
+            'archivo' => 'required|mimes:pdf,docx,jpg,png|max:10000', // Asegúrate de validar los tipos de archivos que quieres permitir
+            'tema_id' => 'required|exists:temas,id',
+        ]);
+      
+        // Crear un nuevo recurso de tipo 'archivo'
+        $recurso = new Recurso();
+        $recurso->titulo = $request->titulo;
+        $recurso->tipo = 'archivo';
+        $tema = Tema::findOrFail($request->tema_id);
+        $recurso->tema()->associate($tema);
+        
+
+        // Comprobar si se subió un archivo y, si es así, guardarlo
+        if ($request->hasFile('archivo')) {
+            $nombreArchivo = hash('sha256', $request->file('archivo')->getContent()) . '.' . $request->file('archivo')->extension();
+            $path = $request->file('archivo')->storeAs('public/recursos', $nombreArchivo);
+            $recurso->archivo = Str::after($path, 'public/');  // Cambia esta línea
+            $recurso->archivo_url = Storage::url($path);
+        }
+        
+        $recurso->save();
+        // Redireccionar o realizar alguna acción adicional
+        return redirect()->back()->with('success', 'El archivo se ha subido correctamente.');
+    }
+
+
     public function storeTarea(Request $request)
     {
         // Validar los datos del formulario

@@ -82,6 +82,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/gestionsemestres', [GestiondeCursoController::class, 'index_sem'])->name('gestion-semestres');
 	Route::post('/gestioncursos/semestre', [GestiondeCursoController::class, 'store'])->name('gestion-cursos.store');
 	Route::post('/gestioncursos/tema', [GestiondeCursoController::class, 'storeTema'])->name('gestion-cursos.storeTema');
+	Route::post('/gestion-cursos/subir-archivo', [GestiondeCursoController::class, 'subirArchivo'])->name('gestion-cursos.subir-archivo');
+
 
 	Route::delete('/temas/{id}', [GestiondeCursoController::class, 'eliminarTema'])->name('eliminarTema');
 	Route::put('/temas/{id}', [GestiondeCursoController::class, 'actualizarTema'])->name('gestion-cursos.actualizarTema');
