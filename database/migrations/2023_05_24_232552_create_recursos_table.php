@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('contenido')->nullable();
             $table->string('url')->nullable();
             $table->string('archivo')->nullable();
-            $table->string('archivo_url')->nullable(); 
+            
             // $table->date('fecha_entrega')->nullable();
             $table->enum('estado', ['activo', 'inactivo'])->default('activo');
             $table->foreignId('tema_id')->constrained('temas')->onDelete('cascade');
