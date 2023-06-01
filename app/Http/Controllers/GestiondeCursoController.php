@@ -11,7 +11,10 @@ use App\Models\Entrega;
 use App\Models\Respuesta;
 use App\Models\Pregunta;
 use Illuminate\Support\Facades\Storage;
+
+
 use Auth;
+use Str;
 
 
 class GestiondeCursoController extends Controller
@@ -179,7 +182,7 @@ class GestiondeCursoController extends Controller
             'archivo' => 'nullable|mimes:pdf,docx|max:10000', // Aquí agregamos la validación para el archivo
         ]);
 
-        // Crear un nuevo recurso de tipo 'actividad'
+        // Crear un nuevo recurso de tipo 'actividad'G
         $recurso = new Recurso();
         $recurso->tipo = 'tarea';
         $recurso->titulo = $request->titulo;
@@ -192,9 +195,10 @@ class GestiondeCursoController extends Controller
         if ($request->hasFile('archivo')) {
             $nombreArchivo = hash('sha256', $request->file('archivo')->getContent()) . '.' . $request->file('archivo')->extension();
             $path = $request->file('archivo')->storeAs('public/recursos', $nombreArchivo);
-            $recurso->archivo = $path;
-            $recurso->archivo_url = Storage::url($path); // Añade la URL del archivo
+            $recurso->archivo = Str::after($path, 'public/');  // Cambia esta línea
+            $recurso->archivo_url = Storage::url($path);
         }
+        
 
         $recurso->save();
 

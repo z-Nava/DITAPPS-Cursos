@@ -9,7 +9,9 @@ use App\Models\Entrega;
 use App\Models\Respuesta;
 use App\Models\Pregunta;
 use App\Models\RespuestaUsuario;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 
 class GestionCursosAlumnoController extends Controller
@@ -195,4 +197,18 @@ class GestionCursosAlumnoController extends Controller
     // Redirigir a donde prefieras después de que el usuario ha entregado el examen
     return redirect()->route('dashboard');
 }
+
+    public function verArchivo($id)
+    {
+        $recurso = Recurso::find($id);
+
+        if (!$recurso) {
+            return redirect()->back()->with('message', 'No se encontró la tarea.');
+        }
+
+        $rutaArchivo = $recurso->archivo;
+
+        return view('pages.vistapdf')->with('rutaArchivo', $rutaArchivo);
+    }
+
 }

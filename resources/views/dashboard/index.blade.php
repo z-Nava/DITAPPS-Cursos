@@ -58,6 +58,11 @@
                                                                                     <div class="card-body">
                                                                                         <p>{{ $recurso->contenido }}</p>
                                                                                         <p>Fecha de entrega: {{ $recurso->fecha_entrega }}</p>
+
+                                                                                        <!-- Añade esto si el recurso tiene un archivo asociado -->
+                                                                                            @if($recurso->archivo_url)
+                                                                                            <a href="{{ route('recurso.verArchivo', $recurso->id) }}" target="_blank">Ver archivo adjunto</a>
+                                                                                        @endif
                                                                             
                                                                                         <form action="{{ route('entregarTarea') }}" method="post" enctype="multipart/form-data">
                                                                                             @csrf
