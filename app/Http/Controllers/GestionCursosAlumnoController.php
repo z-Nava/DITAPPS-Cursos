@@ -9,7 +9,9 @@ use App\Models\Entrega;
 use App\Models\Respuesta;
 use App\Models\Pregunta;
 use App\Models\RespuestaUsuario;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 
 class GestionCursosAlumnoController extends Controller
@@ -88,24 +90,33 @@ class GestionCursosAlumnoController extends Controller
     }
 
     public function entregarTarea(Request $request)
-    {
-        $request->validate([
-            'recurso_id' => 'required|exists:recursos,id',
-            'descripcion' => 'required|max:255|min:10|string',
-            'archivo' => 'required|mimes:pdf,docx|'
-        ]);
+{
+    $request->validate([
+        'recurso_id' => 'required|exists:recursos,id',
+        'descripcion' => 'required|max:255|min:10|string',
+        'archivo' => 'required|mimes:pdf,docx'
+    ]);
 
-        $path = $request->file('archivo')->storeAs('public/entregas', $request->file('archivo')->getClientOriginalName());
+    $nombreArchivo = hash('sha256', $request->file('archivo')->getContent()) . '.' . $request->file('archivo')->extension();
+    $path = $request->file('archivo')->storeAs('entregas', $nombreArchivo, 'public');
 
-        $entrega = new Entrega();
-        $entrega->recurso_id = $request->recurso_id;
-        $entrega->user_id = Auth::id();
-        $entrega->archivo = $path;
-        $entrega->descripcion = $request->descripcion;
-        $entrega->save();
 
-        return redirect()->back()->with('success', 'La tarea se ha entregado correctamente.');
-    }
+    $entrega = new Entrega();
+    $entrega->recurso_id = $request->recurso_id;
+    $entrega->user_id = Auth::id();
+    $entrega->archivo = $nombreArchivo;
+    $entrega->descripcion = $request->descripcion;
+
+    // Generar la URL para acceder al archivo
+    $archivoUrl = asset('storage/'.$path);
+    $entrega->archivo_url = $archivoUrl;
+
+    $entrega->save();
+
+    return redirect()->route('gestion-actividades')->with('success', 'La tarea se ha entregado correctamente.');
+}
+
+
 
 
     public function crearExamen(Request $request)
@@ -186,4 +197,18 @@ class GestionCursosAlumnoController extends Controller
     // Redirigir a donde prefieras después de que el usuario ha entregado el examen
     return redirect()->route('dashboard');
 }
+
+    public function verArchivo($id)
+    {
+        $recurso = Recurso::find($id);
+
+        if (!$recurso) {
+            return redirect()->back()->with('message', 'No se encontró la tarea.');
+        }
+
+        $rutaArchivo = $recurso->archivo;
+
+        return view('pages.vistapdf')->with('rutaArchivo', $rutaArchivo);
+    }
+
 }

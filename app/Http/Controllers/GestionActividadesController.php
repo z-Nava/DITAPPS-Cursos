@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Curso;
 use App\Models\Recurso;
 use App\Models\Entrega;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
 
 
 class GestionActividadesController extends Controller
@@ -35,6 +38,19 @@ class GestionActividadesController extends Controller
         return redirect()->back()->with('success', 'La entrega ha sido calificada correctamente.');
     }
 
+    public function verArchivo($id)
+    {   
+        $entrega = Entrega::find($id);
+    
+        if (!$entrega) {
+            return redirect()->back()->with('message', 'No se encontró la entrega.');
+        }
+    
+        $rutaArchivo = 'entregas/' . $entrega->archivo;
 
+    
+        return view('pages.vistapdf')->with('rutaArchivo', $rutaArchivo);
+    }
+    
 
 }

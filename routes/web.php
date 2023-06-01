@@ -82,9 +82,15 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/gestionsemestres', [GestiondeCursoController::class, 'index_sem'])->name('gestion-semestres');
 	Route::post('/gestioncursos/semestre', [GestiondeCursoController::class, 'store'])->name('gestion-cursos.store');
 	Route::post('/gestioncursos/tema', [GestiondeCursoController::class, 'storeTema'])->name('gestion-cursos.storeTema');
-	Route::delete('/temas/{id}', [GestiondeCursoController::class, 'eliminarTema'])->name('gestion-cursos.eliminarTema');
-	Route::get('/temas/{id}', [GestiondeCursoController::class, 'editarTema'])->name('gestion-cursos.editarTema');
+
+	Route::delete('/temas/{id}', [GestiondeCursoController::class, 'eliminarTema'])->name('eliminarTema');
+	Route::put('/temas/{id}', [GestiondeCursoController::class, 'actualizarTema'])->name('gestion-cursos.actualizarTema');
+
+
+
+
 	Route::post('/guardartarea', [GestiondeCursoController::class, 'storeTarea'])->name('guardarTarea');
+	
 	Route::post('/calificar/{id}', [GestiondeCursoController::class, 'calificarEntrega'])->name('gestion-cursos.calificarEntrega');
 	
 	Route::get('/gestion-cursos/{id}/crear-examen', [GestiondeCursoController::class, 'mostrarCrearExamen'])->name('gestion-cursos.mostrarCrearExamen');
@@ -104,6 +110,11 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/gestion-actividades', [GestionActividadesController::class, 'index'])->name('gestion-actividades');
 	Route::post('/gestion-actividades/calificar/{id}', [GestionActividadesController::class, 'calificarEntrega'])->name('gestion-actividades.calificar');
+	Route::get('/archivos-entrega/{id}', [GestionActividadesController::class, 'verArchivo'])->name('archivos-entrega');
+	Route::get('/recurso/{id}/archivo', [GestionCursosAlumnoController::class, 'verArchivo'])->name('recurso.verArchivo');
+
+
+
 	//Route::post('/calificaciones/{id}/editar', [GestiondeCursoController::class, 'editarCalificacion'])->name('editarCalificacion');
 
 
