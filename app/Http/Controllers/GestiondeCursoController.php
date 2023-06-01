@@ -10,6 +10,7 @@ use App\Models\Recurso;
 use App\Models\Entrega;
 use App\Models\Respuesta;
 use App\Models\Pregunta;
+use Illuminate\Support\Facades\Storage;
 use Auth;
 
 
@@ -169,13 +170,13 @@ class GestiondeCursoController extends Controller
 
     public function storeTarea(Request $request)
     {
-        
         // Validar los datos del formulario
         $request->validate([
             'titulo' => 'required|max:50',
             'contenido' => 'required|max:255|',
             'fecha_entrega' => 'required|date|after_or_equal:today', // Asegura que la fecha de entrega no sea anterior a la fecha actual
             'tema_id' => 'required|exists:temas,id',
+            'archivo' => 'nullable|mimes:pdf,docx|max:10000', // Aquí agregamos la validación para el archivo
         ]);
 
         // Crear un nuevo recurso de tipo 'actividad'
@@ -186,13 +187,22 @@ class GestiondeCursoController extends Controller
         $recurso->fecha_entrega = $request->fecha_entrega;
         $tema = Tema::findOrFail($request->tema_id);
         $recurso->tema()->associate($tema);
-        
+
+        // Comprobar si se subió un archivo y, si es así, guardarlo
+        if ($request->hasFile('archivo')) {
+            $nombreArchivo = hash('sha256', $request->file('archivo')->getContent()) . '.' . $request->file('archivo')->extension();
+            $path = $request->file('archivo')->storeAs('public/recursos', $nombreArchivo);
+            $recurso->archivo = $path;
+            $recurso->archivo_url = Storage::url($path); // Añade la URL del archivo
+        }
+
         $recurso->save();
-        
 
         // Redireccionar o realizar alguna acción adicional
         return redirect()->back()->with('success', 'La tarea se ha creado correctamente.');
     }
+
+
 
     
 

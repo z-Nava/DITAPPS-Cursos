@@ -169,7 +169,7 @@
                                                                                   <span aria-hidden="true">&times;</span>
                                                                               </button>
                                                                           </div>
-                                                                          <form action="{{ route('guardarTarea') }}" method="POST">
+                                                                          <form action="{{ route('guardarTarea') }}" method="POST" enctype="multipart/form-data">
                                                                               @csrf
                                                                               <div class="modal-body">
                                                                                 <input type="hidden" id="temaIdInput{{ $tema->id }}" name="tema_id">
@@ -181,6 +181,10 @@
                                                                                       <label for="contenido" class="text-start">Contenido</label>
                                                                                       <textarea class="form-control" id="contenido" name="contenido" rows="3" required></textarea>
                                                                                   </div>
+                                                                                  <div class="form-group">
+                                                                                    <label for="archivo" class="text-start">Archivo</label>
+                                                                                    <input type="file" class="form-control" id="archivo" name="archivo">
+                                                                                </div>
                                                                                   <div class="form-group">
                                                                                       <label for="fecha_entrega" class="text-start">Fecha de entrega</label>
                                                                                       <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega" required min="{{ date('Y-m-d')}}">
