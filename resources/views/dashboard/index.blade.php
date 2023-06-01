@@ -41,8 +41,10 @@
                                                                 <div class="card-header" id="tema{{$tema->id}}">
                                                                     <h5 class="mb-0">
                                                                         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTema{{$tema->id}}" aria-expanded="true" aria-controls="collapseTema{{$tema->id}}">
-                                                                            Tema: {{ $tema->nombre }}
+                                                                            Nombre del tema: {{ $tema->nombre }}
                                                                         </button>
+                                                                        <h4>Contenido del tema: {{$tema->contenido}}</h4>
+                                                                        <a>Enlace del tema: {{$tema->enlace}}</a>
                                                                     </h5>
                                                                 </div>
                                                                 <div id="collapseTema{{$tema->id}}" class="collapse" aria-labelledby="tema{{$tema->id}}" data-bs-parent="#temaAccordion{{$semestre->id}}">
