@@ -34,6 +34,39 @@
                 </a>
             </li>
 
+            @if (Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2 || Auth::user()->rol_id == 3)
+
+            <li class="nav-item">
+                <a class="nav-link text-white {{ $activePage == 'Gestion de cursos' ? ' active bg-gradient-primary' : '' }} "
+                    href="{{ route('gestion-cursos') }}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">table_view</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Gestion de tus cursos</span>
+                </a>
+            </li>
+
+            @endif
+
+            <li class="nav-item">
+                <a class="nav-link text-white {{ $activePage == 'billing' ? ' active bg-gradient-primary' : '' }}  "
+                    href="{{ route('billing') }}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">receipt_long</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Calificaciones</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white {{ $activePage == 'rtl' ? ' active bg-gradient-primary' : '' }}  "
+                    href="{{ route('rtl') }}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Biblioteca Digital</span>
+                </a>
+            </li>
             
             @if (Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2 || Auth::user()->rol_id == 3)
 
@@ -59,19 +92,7 @@
                 </a>
             </li>
 
-            @if (Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2 || Auth::user()->rol_id == 3)
-
-            <li class="nav-item">
-                <a class="nav-link text-white {{ $activePage == 'Gestion de cursos' ? ' active bg-gradient-primary' : '' }} "
-                    href="{{ route('gestion-cursos') }}">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">table_view</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Gestion de tus cursos</span>
-                </a>
-            </li>
-
-            @endif
+            
 
             @if (Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2 || Auth::user()->rol_id == 3)
 
@@ -88,9 +109,9 @@
             @endif  
 
             @if (Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2 || Auth::user()->rol_id == 4)
-            <li class="nav-item mt-3">
+            <!--<li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Pages</h6>
-            </li>
+            </li>-->
             <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'dashboard' ? ' active bg-gradient-primary' : '' }} "
                     href="{{ route('dashboard') }}">
@@ -103,15 +124,7 @@
 
             @endif
 
-            <li class="nav-item">
-                <a class="nav-link text-white {{ $activePage == 'billing' ? ' active bg-gradient-primary' : '' }}  "
-                    href="{{ route('billing') }}">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">receipt_long</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Calificaciones</span>
-                </a>
-            </li>
+            
 
           <!--  <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'virtual-reality' ? ' active bg-gradient-primary' : '' }}  "
@@ -123,15 +136,7 @@
                 </a>
             </li>-->
 
-            <li class="nav-item">
-                <a class="nav-link text-white {{ $activePage == 'rtl' ? ' active bg-gradient-primary' : '' }}  "
-                    href="{{ route('rtl') }}">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Biblioteca Digital</span>
-                </a>
-            </li>
+            
 
            <!-- <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'notifications' ? ' active bg-gradient-primary' : '' }}  "

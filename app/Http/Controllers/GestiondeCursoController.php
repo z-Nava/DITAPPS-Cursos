@@ -10,7 +10,11 @@ use App\Models\Recurso;
 use App\Models\Entrega;
 use App\Models\Respuesta;
 use App\Models\Pregunta;
+use Illuminate\Support\Facades\Storage;
+
+
 use Auth;
+use Str;
 
 
 class GestiondeCursoController extends Controller
@@ -107,34 +111,32 @@ class GestiondeCursoController extends Controller
         return redirect()->back()->with('success', 'El tema ha sido eliminado correctamente.');
     }
 
-    public function editarTema(Request $request, $id)
-    {   
-        $request->validate([
-            'nombre' => 'required',
-            'contenido' => 'required',
-            'enlace' => 'nullable',
-            // Agrega aquí las validaciones para otros campos si es necesario
-        ]);
-    
-        // Encontrar el tema por su ID
-        $tema = Tema::findOrFail($id);
-    
-        // Actualizar los campos del tema con los nuevos datos
-        $tema->nombre = $request->nombre;
-        $tema->contenido = $request->contenido;
-        $tema->enlace = $request->enlace;
-        // Actualiza otros campos si es necesario
-    
-        // Guardar los cambios en la base de datos
-        $tema->save();
+    public function actualizarTema(Request $request, $id)
+{
+    // Validar los datos del formulario
+    $request->validate([
+        'nombre' => 'required',
+        'contenido' => 'required',
+        'enlace' => 'nullable',
+        // Agrega aquí las validaciones para otros campos si es necesario
+    ]);
 
-        $temaActualizado = Tema::findOrFail($tema->id);
+    // Encontrar el tema por su ID
+    $tema = Tema::findOrFail($id);
 
-// Redireccionar a la vista del modal de edición y pasar el tema actualizado como una variable
-return redirect()->back()->with(['success' => 'El tema se ha actualizado correctamente.', 'tema' => $temaActualizado]);
-    
+    // Actualizar los campos del tema con los nuevos datos
+    $tema->nombre = $request->nombre;
+    $tema->contenido = $request->contenido;
+    $tema->enlace = $request->enlace;
+    // Actualiza otros campos si es necesario
 
-    }
+    // Guardar los cambios en la base de datos
+    $tema->save();
+
+    // Redireccionar a la vista del modal de edición y pasar el tema actualizado como una variable
+    return redirect()->back()->with(['success' => 'El tema se ha actualizado correctamente.', 'tema' => $tema]);
+}
+
 
 
 
@@ -171,16 +173,16 @@ return redirect()->back()->with(['success' => 'El tema se ha actualizado correct
 
     public function storeTarea(Request $request)
     {
-        
         // Validar los datos del formulario
         $request->validate([
             'titulo' => 'required|max:50',
             'contenido' => 'required|max:255|',
             'fecha_entrega' => 'required|date|after_or_equal:today', // Asegura que la fecha de entrega no sea anterior a la fecha actual
             'tema_id' => 'required|exists:temas,id',
+            'archivo' => 'nullable|mimes:pdf,docx|max:10000', // Aquí agregamos la validación para el archivo
         ]);
 
-        // Crear un nuevo recurso de tipo 'actividad'
+        // Crear un nuevo recurso de tipo 'actividad'G
         $recurso = new Recurso();
         $recurso->tipo = 'tarea';
         $recurso->titulo = $request->titulo;
@@ -188,13 +190,23 @@ return redirect()->back()->with(['success' => 'El tema se ha actualizado correct
         $recurso->fecha_entrega = $request->fecha_entrega;
         $tema = Tema::findOrFail($request->tema_id);
         $recurso->tema()->associate($tema);
+
+        // Comprobar si se subió un archivo y, si es así, guardarlo
+        if ($request->hasFile('archivo')) {
+            $nombreArchivo = hash('sha256', $request->file('archivo')->getContent()) . '.' . $request->file('archivo')->extension();
+            $path = $request->file('archivo')->storeAs('public/recursos', $nombreArchivo);
+            $recurso->archivo = Str::after($path, 'public/');  // Cambia esta línea
+            $recurso->archivo_url = Storage::url($path);
+        }
         
+
         $recurso->save();
-        
 
         // Redireccionar o realizar alguna acción adicional
         return redirect()->back()->with('success', 'La tarea se ha creado correctamente.');
     }
+
+
 
     
 
@@ -278,8 +290,8 @@ return redirect()->back()->with(['success' => 'El tema se ha actualizado correct
         return redirect()->route('gestion-cursos');  // Deberías redirigir a la página que prefieras
     }
 
-public function mostrarCrearExamen($id)
-{
-    return view('pages.crear-examen', ['tema'=>Tema::find($id)]);
-}
+    public function mostrarCrearExamen($id)
+    {
+        return view('pages.crear-examen', ['tema'=>Tema::find($id)]);
+    }
 }

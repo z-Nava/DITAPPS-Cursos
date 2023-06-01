@@ -27,9 +27,9 @@
                                           <h5 class="">Alumno: {{ $entrega->alumno->name }}</h5>
                                       </div>
                                       <div class="d-flex align-items-center text-sm">
-                                          <a href="{{ route('ver-archivo', ['id'=> $entrega->id]) }}" target="_blank" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4">
-                                              <i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> Ver Archivo
-                                          </a>
+                                        <a href="{{ route('archivos-entrega', ['id' => $entrega->id]) }}" target="_blank" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4">
+                                            <i class="material-icons text-lg position-relative me-1">picture_as_pdf</i> Ver Archivo
+                                        </a>                                                                                                                    
                                           <button class="btn btn-primary btn-sm mb-0 ms-4" data-bs-toggle="modal" data-bs-target="#calificarModal{{ $entrega->id }}">Calificar</button>
                                           <!-- MODAL CALIFICAR TAREA -->
                                           <div class="modal fade" id="calificarModal{{ $entrega->id }}" tabindex="-1" role="dialog" aria-labelledby="calificarModalLabel" aria-hidden="true">
