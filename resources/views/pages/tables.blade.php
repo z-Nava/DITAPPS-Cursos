@@ -87,16 +87,7 @@
                   <div class="mb-3">
                     <label for="descripcion" class="form-label">Profesor del curso</label>
                     <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
-                  </div>
-                  
-                  <div class="mb-3">
-                    <label for="descripcion" class="form-label">Semestre (opcional) </label>
-                    <select class="form-control" id="semestre" name="semestre">
-                      @foreach ($semestres as $semestre)
-                        <option value="{{ $semestre->id }}">{{ $semestre->nombre }}</option>
-                      @endforeach
-                    </select>
-                  </div>
+                  </div> 
                   <div class="form-group">
                     <label for="imagen">Imagen del curso:</label>
                     <input type="file" class="form-control" id="imagen" name="imagen">
