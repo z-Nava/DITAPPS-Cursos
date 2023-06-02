@@ -203,7 +203,8 @@ class GestiondeCursoController extends Controller
 
 
     public function storeTarea(Request $request)
-    {   
+{   
+      
         // Validar los datos del formulario
         $request->validate([
             'titulo' => 'required|max:50',

@@ -78,9 +78,9 @@
                                                                   <a class="btn btn-link text-dark px-3 mb-2" href="#" data-bs-toggle="modal" data-bs-target="#subirArchivoModal{{ $tema->id }}">
                                                                     <i class="material-icons text-sm me-2">cloud_upload</i>Subir Archivo
                                                                 </a>                                                                        
-                                                                  <a class="btn btn-link text-dark px-3 mb-2 asignar-tarea-btn" href="#" data-bs-toggle="modal" data-bs-target="#crearActividadModal{{ $tema->id }}" data-tema-id="{{ $tema->id }}">
-                                                                    <i class="material-icons text-sm me-2">assignment</i>Tarea
-                                                                  </a>
+                                                                <a class="btn btn-link text-dark px-3 mb-2 asignar-tarea-btn" href="#" data-bs-toggle="modal" data-bs-target="#crearActividadModal{{ $tema->id }}" data-tema-id="{{ $tema->id }}">
+                                                                  <i class="material-icons text-sm me-2">assignment</i>Tarea
+                                                              </a>                                                                                                                           
                                                                   <a class="btn btn-link text-dark px-3 mb-2" href="gestion-cursos/{{ $tema->id }}/crear-examen">
                                                                       <i class="material-icons text-sm me-2">assignment_turned_in</i>Examen
                                                                   </a>
@@ -211,7 +211,7 @@
                                                                           <form action="{{ route('guardarTarea') }}" method="POST" enctype="multipart/form-data">
                                                                               @csrf
                                                                               <div class="modal-body">
-                                                                                <input type="hidden" id="temaIdInput{{ $tema->id }}" name="tema_id">
+                                                                                <input type="hidden" id="temaIdInput{{ $tema->id }}" name="tema_id" value="{{ $tema->id }}">
                                                                                   <div class="form-group">
                                                                                       <label for="titulo" class="text-start">Título</label>
                                                                                       <input type="text" class="form-control" id="titulo" name="titulo" required>
@@ -292,15 +292,11 @@
     </div>
     <!--FIN MODAL-->         
     <script>
-     document.addEventListener('DOMContentLoaded', (event) => {
     document.querySelectorAll('.asignar-tarea-btn').forEach(item => {
-        item.addEventListener('click', event => {
-            let temaId = event.currentTarget.getAttribute('data-tema-id');
-            let inputTemaId = document.querySelector(`#temaIdInput${temaId}`);
-            console.log(`Input before: ${inputTemaId.value}`);
-            inputTemaId.value = temaId;
-            console.log(`Input after: ${inputTemaId.value}`);
-        });
+    item.addEventListener('click', event => {
+        let temaId = event.currentTarget.getAttribute('data-tema-id');
+        console.log(`Asignando temaId: ${temaId}`);
+        document.querySelector(`#temaIdInput${temaId}`).value = temaId;
     });
 });
 
