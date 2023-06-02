@@ -44,7 +44,21 @@
                                                                             Nombre del tema: {{ $tema->nombre }}
                                                                         </button>
                                                                         <h4>Contenido del tema: {{$tema->contenido}}</h4>
-                                                                        <a>Enlace del tema: {{$tema->enlace}}</a>
+                                                                        <h5>Enlace de apoyo: <a href="{{ $tema->enlace }}">{{ $tema->enlace }}</a></h5>
+                                                                         <!-- Insertamos los recursos relacionados a cada tema aquí -->
+                                                                        @foreach($tema->recursos as $recurso)
+                                                                        <div>
+                                                                            <h6>{{ $recurso->tipo }} - {{ $recurso->titulo }}</h6>
+                                                                            <div style="text-align: right">
+                                                                                @if ($recurso->tipo === 'archivo')
+                                                                                    <a href="{{ $recurso->archivo_url }}" target="_blank">
+                                                                                        <span class="material-icons">description</span>Ver Archivo
+                                                                                    </a>
+                                                                                @endif
+                                                                            </div>
+                                                                        </div>
+                                                                    @endforeach
+                                                                    <!-- Fin de la inserción de recursos -->
                                                                     </h5>
                                                                 </div>
                                                                 <div id="collapseTema{{$tema->id}}" class="collapse" aria-labelledby="tema{{$tema->id}}" data-bs-parent="#temaAccordion{{$semestre->id}}">
@@ -56,7 +70,6 @@
                                                                                     <div class="card-header">
                                                                                         <h5 class="mb-0">{{ $recurso->titulo }}</h5>
                                                                                     </div>
-                                                                                    
                                                                                     <div class="card-body">
                                                                                         <p>{{ $recurso->contenido }}</p>
                                                                                         <p>Fecha de entrega: {{ $recurso->fecha_entrega }}</p>
