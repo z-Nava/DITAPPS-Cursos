@@ -203,14 +203,14 @@ class GestiondeCursoController extends Controller
 
 
     public function storeTarea(Request $request)
-    {
+    {   
         // Validar los datos del formulario
         $request->validate([
             'titulo' => 'required|max:50',
             'contenido' => 'required|max:255|',
             'fecha_entrega' => 'required|date|after_or_equal:today', // Asegura que la fecha de entrega no sea anterior a la fecha actual
             'tema_id' => 'required|exists:temas,id',
-            'archivo' => 'nullable|mimes:pdf,docx|max:10000', // Aquí agregamos la validación para el archivo
+            'archivo' => 'nullable', // Aquí agregamos la validación para el archivo
         ]);
 
         // Crear un nuevo recurso de tipo 'actividad'G

@@ -292,20 +292,20 @@
     </div>
     <!--FIN MODAL-->         
     <script>
-      
-
-      document.addEventListener('DOMContentLoaded', (event) => {
+     document.addEventListener('DOMContentLoaded', (event) => {
     document.querySelectorAll('.asignar-tarea-btn').forEach(item => {
         item.addEventListener('click', event => {
             let temaId = event.currentTarget.getAttribute('data-tema-id');
-            document.querySelector(`#temaIdInput${temaId}`).value = temaId;
+            let inputTemaId = document.querySelector(`#temaIdInput${temaId}`);
+            console.log(`Input before: ${inputTemaId.value}`);
+            inputTemaId.value = temaId;
+            console.log(`Input after: ${inputTemaId.value}`);
         });
     });
 });
 
-
-
-    </script>
+  </script>
+  
     
   </main>
     <x-plugins></x-plugins>
