@@ -44,6 +44,11 @@ class SessionsController extends Controller
 
         session()->regenerate();
 
+          // Redirige a los usuarios según su rol
+        if (auth()->user()->rol_id == 1 || auth()->user()->rol_id == 2 || auth()->user()->rol_id == 3) {
+        return redirect('gestioncursos');
+        }
+
         return redirect('/dashboard');
 
     }
