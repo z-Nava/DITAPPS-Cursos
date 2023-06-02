@@ -176,7 +176,7 @@ class GestiondeCursoController extends Controller
       
         $request->validate([
             'titulo' => 'required|max:50',
-            'archivo' => 'required|mimes:pdf,docx,jpg,png|max:10000', // Asegúrate de validar los tipos de archivos que quieres permitir
+            'archivo' => 'required|mimes:pdf,docx,jpg,png,pptx|max:10000', // Asegúrate de validar los tipos de archivos que quieres permitir
             'tema_id' => 'required|exists:temas,id',
         ]);
       
