@@ -245,7 +245,7 @@ class GestiondeCursoController extends Controller
     $userId = Auth::user()->id;
     $userRole = Auth::user()->rol_id;
 
-    if ($userRole === 3) { // ID del rol de profesor
+    if ($userRole === 3 || $userRole === 2 || $userRole === 1) { // ID del rol de profesor
         $calificaciones = Entrega::join('recursos', 'entregas.recurso_id', '=', 'recursos.id')
             ->join('temas', 'recursos.tema_id', '=', 'temas.id')
             ->join('semestres', 'temas.semestre_id', '=', 'semestres.id')
