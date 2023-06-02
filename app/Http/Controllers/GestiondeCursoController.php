@@ -263,7 +263,7 @@ class GestiondeCursoController extends Controller
             ->where('entregas.user_id', $userId)
             ->select('entregas.id', 'cursos.nombre as curso', 'temas.nombre as tema', 'recursos.titulo as tarea', 'entregas.calificacion', 'users.name as alumno')
             ->get();
-    }
+    }   
     
     return view('pages.billing')->with('calificaciones', $calificaciones);
 }

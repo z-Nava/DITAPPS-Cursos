@@ -44,7 +44,7 @@
                                                                             Nombre del tema: {{ $tema->nombre }}
                                                                         </button>
                                                                         <h4>Contenido del tema: {{$tema->contenido}}</h4>
-                                                                        <a>Enlace del tema: {{$tema->enlace}}</a>
+                                                                        <h5>Enlace de apoyo: <a href="{{ $tema->enlace }}">{{ $tema->enlace }}</a></h5>
                                                                          <!-- Insertamos los recursos relacionados a cada tema aquí -->
                                                                         @foreach($tema->recursos as $recurso)
                                                                         <div>
