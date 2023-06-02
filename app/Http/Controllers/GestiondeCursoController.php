@@ -10,6 +10,7 @@ use App\Models\Recurso;
 use App\Models\Entrega;
 use App\Models\Respuesta;
 use App\Models\Pregunta;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -37,10 +38,7 @@ class GestiondeCursoController extends Controller
     
     $entregas = Entrega::all();
     $recursos = Recurso::whereIn('tipo', ['tarea', 'examen'])->get();
-
-
-    
-    
+    //$alumnos = User::where('rol_id', 4)->get();
 
     return view('pages.gestion-cursos', compact('cursos', 'recursos', 'entregas'));
 }
@@ -265,12 +263,58 @@ class GestiondeCursoController extends Controller
             ->select('entregas.id', 'cursos.nombre as curso', 'temas.nombre as tema', 'recursos.titulo as tarea', 'entregas.calificacion', 'users.name as alumno')
             ->get();
     }   
+
+    $alumnos = User::where('rol_id', 4)->whereHas('cursos', function ($query) use ($userId) {
+        $query->whereHas('usuarios', function ($query) use ($userId) {
+            $query->where('users.id', $userId);
+        });
+    })->get();
+
+    $recursos = Recurso::whereIn('tipo', ['tarea', 'examen'])->get();
+
+    $cursos = Curso::whereHas('usuarios', function ($query) use ($userId) {
+        $query->where('users.id', $userId);
+    })->get();
+
+    $temas = Tema::whereIn('semestre_id', function ($query) use ($cursos) {
+        $query->select('id')
+            ->from('semestres')
+            ->whereIn('curso_id', $cursos->pluck('id')->toArray());
+    })->get();
+
+    return view('pages.billing')->with([
+        'calificaciones' => $calificaciones,
+        'alumnos' => $alumnos,
+        'recursos' => $recursos,
+        'cursos' => $cursos,
+        'temas' => $temas
+    ]);
+}
+
+
+public function storeCalificacion(Request $request)
+{
+    // Validar los datos del formulario
+    $validatedData = $request->validate([
+        'alumno_id' => 'required',
+        'recurso_id' => 'required',
+        'calificacion' => 'required|numeric|min:0|max:100',
+    ]);
+
+    // Crear una nueva instancia de Entrega con los datos del formulario
+    $entrega = new Entrega();
+    $entrega->user_id = $request->alumno_id;
+    $entrega->recurso_id = $request->recurso_id;
+    $entrega->calificacion = $request->calificacion;
     
-    return view('pages.billing')->with('calificaciones', $calificaciones);
+    // Guardar la calificación en la base de datos
+    $entrega->save();
+
+    // Redireccionar a la página de calificaciones o a donde sea necesario
+    return redirect()->back()->with('success', 'La calificación se ha agregado correctamente.');
 }
 
     
-
     public function editarCalificacion(Request $request, $id)
     {
         $request->validate([
