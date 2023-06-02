@@ -19,7 +19,7 @@
                         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner mb-4">
                               <div class="carousel-item active">
-                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image:url('/assets/img/DITAPPS/DITAPPS1.jpg');  background-size: 100% 100%;">
+                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image:url('/assets/img/ROENTGEN/ROENTGEN1.jpg');  background-size: 100% 100%;">
                                   <div class="container">
                                     <div class="row justify-content-center">
                                       <div class="col-lg-6 my-auto">
@@ -32,7 +32,7 @@
                                 </div>
                               </div>
                                <div class="carousel-item">
-                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image:url('/assets/img/DITAPPS/DITAPPS2.jpg');  background-size: 100% 100%;">
+                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image:url('/assets/img/ROENTGEN/ROENTGEN1.jpg');  background-size: 100% 100%;">
                                   <div class="container">
                                     <div class="row justify-content-center">
                                       <div class="col-lg-6 my-auto">
@@ -45,7 +45,7 @@
                                 </div>  
                               </div>
                               <div class="carousel-item">
-                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image:url('/assets/img/DITAPPS/DITAPPS3.jpg');  background-size: 100% 100%;">
+                                <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image:url('/assets/img/ROENTGEN/ROENTGEN1.jpg');  background-size: 100% 100%;">
                                   <div class="container">
                                     <div class="row justify-content-center">
                                       <div class="col-lg-6 my-auto">
