@@ -111,9 +111,10 @@ class GestionCursosAlumnoController extends Controller
     $archivoUrl = asset('storage/'.$path);
     $entrega->archivo_url = $archivoUrl;
 
+ 
     $entrega->save();
-
-    return redirect()->route('gestion-actividades')->with('success', 'La tarea se ha entregado correctamente.');
+    return redirect()->route('dashboard')->with('success', 'Has entregado la tarea!');
+    
 }
 
 

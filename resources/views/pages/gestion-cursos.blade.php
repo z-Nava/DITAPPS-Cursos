@@ -224,10 +224,13 @@
                                                                                     <label for="archivo" class="text-start">Archivo</label>
                                                                                     <input type="file" class="form-control" id="archivo" name="archivo">
                                                                                 </div>
-                                                                                  <div class="form-group">
-                                                                                      <label for="fecha_entrega" class="text-start">Fecha de entrega</label>
-                                                                                      <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega" required min="{{ date('Y-m-d')}}">
+                                                                                <div class="form-group">
+                                                                                  <label for="fecha_entrega" class="text-start">Fecha y Hora de entrega (YYYY-MM-DD HH:mm)</label>
+                                                                                  <div class="input-group">
+                                                                                      <input type="datetime-local" class="form-control" id="fecha_entrega" name="fecha_entrega" required value="{{ date('Y-m-d\TH:i') }}">
+                                                                                      
                                                                                   </div>
+                                                                              </div>                                                                              
                                                                               </div>
                                                                               <div class="modal-footer">
                                                                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

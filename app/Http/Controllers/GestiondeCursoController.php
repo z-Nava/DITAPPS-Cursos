@@ -201,40 +201,40 @@ class GestiondeCursoController extends Controller
 
 
     public function storeTarea(Request $request)
-{   
-      
-        // Validar los datos del formulario
-        $request->validate([
-            'titulo' => 'required|max:50',
-            'contenido' => 'required|max:255|',
-            'fecha_entrega' => 'required|date|after_or_equal:today', // Asegura que la fecha de entrega no sea anterior a la fecha actual
-            'tema_id' => 'required|exists:temas,id',
-            'archivo' => 'nullable', // Aquí agregamos la validación para el archivo
-        ]);
+{
+    
+    // Validar los datos del formulario
+    $request->validate([
+        'titulo' => 'required|max:50',
+        'contenido' => 'required|max:255',
+        'fecha_entrega' => 'required|date|after_or_equal:today|date_format:Y-m-d\TH:i',
+        'tema_id' => 'required|exists:temas,id',
+        'archivo' => 'nullable',
+    ]);
 
-        // Crear un nuevo recurso de tipo 'actividad'G
-        $recurso = new Recurso();
-        $recurso->tipo = 'tarea';
-        $recurso->titulo = $request->titulo;
-        $recurso->contenido = $request->contenido;
-        $recurso->fecha_entrega = $request->fecha_entrega;
-        $tema = Tema::findOrFail($request->tema_id);
-        $recurso->tema()->associate($tema);
+    // Crear un nuevo recurso de tipo 'tarea'
+    $recurso = new Recurso();
+    $recurso->tipo = 'tarea';
+    $recurso->titulo = $request->titulo;
+    $recurso->contenido = $request->contenido;
+    $recurso->fecha_entrega = \Carbon\Carbon::parse($request->fecha_entrega); // Parsea la fecha y hora correctamente
+    $tema = Tema::findOrFail($request->tema_id);
+    $recurso->tema()->associate($tema);
 
-        // Comprobar si se subió un archivo y, si es así, guardarlo
-        if ($request->hasFile('archivo')) {
-            $nombreArchivo = hash('sha256', $request->file('archivo')->getContent()) . '.' . $request->file('archivo')->extension();
-            $path = $request->file('archivo')->storeAs('public/recursos', $nombreArchivo);
-            $recurso->archivo = Str::after($path, 'public/');  // Cambia esta línea
-            $recurso->archivo_url = Storage::url($path);
-        }
-        
-
-        $recurso->save();
-
-        // Redireccionar o realizar alguna acción adicional
-        return redirect()->back()->with('success', 'La tarea se ha creado correctamente.');
+    // Comprobar si se subió un archivo y, si es así, guardarlo
+    if ($request->hasFile('archivo')) {
+        $nombreArchivo = hash('sha256', $request->file('archivo')->getContent()) . '.' . $request->file('archivo')->extension();
+        $path = $request->file('archivo')->storeAs('public/recursos', $nombreArchivo);
+        $recurso->archivo = Str::after($path, 'public/');
+        $recurso->archivo_url = Storage::url($path);
     }
+
+    $recurso->save();
+
+    // Redireccionar o realizar alguna acción adicional
+    return redirect()->back()->with('success', 'La tarea se ha creado correctamente.');
+}
+
 
 
 

@@ -64,36 +64,37 @@
                                                                 <div id="collapseTema{{$tema->id}}" class="collapse" aria-labelledby="tema{{$tema->id}}" data-bs-parent="#temaAccordion{{$semestre->id}}">
                                                                     <div class="card-body bg-primary">
                                                                         @foreach($tema->recursos as $recurso)
-                                                                            @if($recurso->tipo == 'tarea' && $recurso->estado == 'activo')
-                                                                            @if(!auth()->user()->haCompletado($recurso))
-                                                                                <div class="card mt-3">
-                                                                                    <div class="card-header">
-                                                                                        <h5 class="mb-0">{{ $recurso->titulo }}</h5>
-                                                                                    </div>
-                                                                                    <div class="card-body">
-                                                                                        <p>{{ $recurso->contenido }}</p>
-                                                                                        <p>Fecha de entrega: {{ $recurso->fecha_entrega }}</p>
+                                                                                @if($recurso->tipo == 'tarea' && $recurso->estado == 'activo')
+                                                                                @if(!auth()->user()->haCompletado($recurso))
+                                                                                    <div class="card mt-3">
+                                                                                        <div class="card-header">
+                                                                                            <h5 class="mb-0">{{ $recurso->titulo }}</h5>
+                                                                                        </div>
+                                                                                        <div class="card-body">
+                                                                                            <p>{{ $recurso->contenido }}</p>
+                                                                                            <p>Fecha de entrega: {{ $recurso->fecha_entrega }}</p>
 
-                                                                                        <!-- Añade esto si el recurso tiene un archivo asociado -->
-                                                                                            @if($recurso->archivo_url)
-                                                                                            <a href="{{ route('recurso.verArchivo', $recurso->id) }}" target="_blank">Ver archivo adjunto</a>
-                                                                                        @endif
-                                                                            
-                                                                                        <form action="{{ route('entregarTarea') }}" method="post" enctype="multipart/form-data">
-                                                                                            @csrf
-                                                                                            <input type="hidden" name="recurso_id" value="{{ $recurso->id }}">
-                                                                                            <div class="mb-3">
-                                                                                                <label for="descripcion" class="form-label">Comentario</label>
-                                                                                                <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
-                                                                                            </div>
-                                                                                            <div class="mb-3">
-                                                                                                <label for="archivo" class="form-label">Subir Archivo</label>
-                                                                                                <input class="form-control" type="file" id="archivo" name="archivo">
-                                                                                            </div>
-                                                                                            <button type="submit" class="btn btn-primary">Entregar tarea</button>
-                                                                                        </form>
+                                                                                            <!-- Añade esto si el recurso tiene un archivo asociado -->
+                                                                                                @if($recurso->archivo_url)
+                                                                                                <a href="{{ route('recurso.verArchivo', $recurso->id) }}" target="_blank">Ver archivo adjunto</a>
+                                                                                            @endif
+                                                                                
+                                                                                            <form action="{{ route('entregarTarea') }}" method="post" enctype="multipart/form-data">
+                                                                                                @csrf
+                                                                                                <input type="hidden" name="recurso_id" value="{{ $recurso->id }}">
+                                                                                                <div class="mb-3">
+                                                                                                    <label for="descripcion" class="form-label">Comentario</label>
+                                                                                                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+                                                                                                </div>
+                                                                                                <div class="mb-3">
+                                                                                                    <label for="archivo" class="form-label">Subir Archivo</label>
+                                                                                                    <input class="form-control" type="file" id="archivo" name="archivo">
+                                                                                                </div>
+                                                                                                <button type="submit" class="btn btn-primary" onclick="return tareaConfirmacion()">Entregar tarea</button>
+                                                                                            </form>
+                                                                                            <div id="mensaje" class="alert alert-success" style="display: none;"></div>
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
                                                                             @endif
                                                                             @endif
                                                                             @if($recurso->tipo == 'examen' && $recurso->estado == 'activo' && 
@@ -184,6 +185,13 @@
                 console.log('entro al aviso');
                 return confirm('¿Estás seguro de que quieres salir de este curso?, por favor, antes de hacer esto, asegurate de haberlo consultado con tu profesor.');
             }
+            
+           function tareaConfirmacion()
+           {
+                console.log('Se entrego tarea!')
+                return confirm('SE ENTREGO LA TAREA CORRECTAMENTE!, PRONTO VERAS TU CALIFICACION REFLEJADA!...')
+           }
+
             </script>
             
     </main>
