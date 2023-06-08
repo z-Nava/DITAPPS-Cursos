@@ -16,7 +16,8 @@ class RegisterController extends Controller
         return view('register.create');
     }
 
-    public function store(){
+    public function store()
+    {
 
         $attributes = request()->validate([
             'name' => 'required|max:40',

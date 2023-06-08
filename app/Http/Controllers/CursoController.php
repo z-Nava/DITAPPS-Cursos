@@ -20,57 +20,58 @@ class CursoController extends Controller
         return view('pages.tables', compact('cursosNoInscritos', 'semestres'));
     }
     public function store(Request $request)
-{
-    // Validar los datos del formulario
-    $request->validate([
-        'nombre' => 'required|max:100',
-        'descripcion' => 'required|max:255|min:5|string',
-        'fecha_inicio' => 'required|date|',
-        'fecha_fin' => 'required|date|',
-        // 'semestre' => 'required',
-    ]);
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'nombre' => 'required|max:100',
+            'descripcion' => 'required|max:255|min:5|string',
+            'fecha_inicio' => 'required|date|',
+            'fecha_fin' => 'required|date|',
+            // 'semestre' => 'required',
+        ]);
 
-    $user = auth()->user();
+        $user = auth()->user();
 
-    // Crear un nuevo curso con los datos recibidos
-    $curso = Curso::create([
-        'nombre' => $request->input('nombre'),
-        'descripcion' => $request->input('descripcion'),
-        'fecha_inicio' => $request->input('fecha_inicio'),
-        'fecha_fin' => $request->input('fecha_fin'),
-        'user_id' => $user->id,
-    ]);
-    if($request->input('semestre')){
-        $semestre = Semestre::find($request->input('semestre'));
-        $nuevoSemestre = new Semestre();
-    
-        $nuevoSemestre->nombre = $semestre->nombre;
-        $nuevoSemestre->fecha_inicio = $semestre->fecha_inicio;
-        $nuevoSemestre->fecha_fin = $semestre->fecha_fin;
-        // $nuevoSemestre->descripcion = $semestre->descripcion;
-        $nuevoSemestre->estado = $semestre->estado;
-        $nuevoSemestre->curso_id = $semestre->curso_id;
-        $nuevoSemestre->save();
-    }
+        // Crear un nuevo curso con los datos recibidos
+        $curso = Curso::create([
+            'nombre' => $request->input('nombre'),
+            'descripcion' => $request->input('descripcion'),
+            'fecha_inicio' => $request->input('fecha_inicio'),
+            'fecha_fin' => $request->input('fecha_fin'),
+            'user_id' => $user->id,
+        ]);
 
-    // Obtener y guardar la imagen asociada al curso
-    if ($request->hasFile('imagen')) {
-        $imagen = $request->file('imagen');
-        $imagenPath = $imagen->storeAs('public/imagenes', $imagen->getClientOriginalName());
-        if (!$imagenPath) {
-            // Manejo del error de almacenamiento de la imagen
-            return redirect()->back()->withInput()->withErrors(['imagen' => 'Error al guardar la imagen']);
+        if($request->input('semestre')){
+            $semestre = Semestre::find($request->input('semestre'));
+            $nuevoSemestre = new Semestre();
+        
+            $nuevoSemestre->nombre = $semestre->nombre;
+            $nuevoSemestre->fecha_inicio = $semestre->fecha_inicio;
+            $nuevoSemestre->fecha_fin = $semestre->fecha_fin;
+            // $nuevoSemestre->descripcion = $semestre->descripcion;
+            $nuevoSemestre->estado = $semestre->estado;
+            $nuevoSemestre->curso_id = $semestre->curso_id;
+            $nuevoSemestre->save();
         }
-        $curso->imagen = $imagenPath;
-    
-        // Generar la URL para acceder a la imagen
-        $imagenUrl = Storage::url($imagenPath);
-        $curso->imagen_url = $imagenUrl;
+
+        // Obtener y guardar la imagen asociada al curso
+        if ($request->hasFile('imagen')) {
+            $imagen = $request->file('imagen');
+            $imagenPath = $imagen->storeAs('public/imagenes', $imagen->getClientOriginalName());
+            if (!$imagenPath) {
+                // Manejo del error de almacenamiento de la imagen
+                return redirect()->back()->withInput()->withErrors(['imagen' => 'Error al guardar la imagen']);
+            }
+            $curso->imagen = $imagenPath;
+        
+            // Generar la URL para acceder a la imagen
+            $imagenUrl = Storage::url($imagenPath);
+            $curso->imagen_url = $imagenUrl;
+        }
+        
+        $curso->save();
+        return redirect()->route('tables')->with('success', 'Curso creado correctamente');
     }
-    
-    $curso->save();
-    return redirect()->route('tables')->with('success', 'Curso creado correctamente');
-}
 
     public function destroy($id)
     {

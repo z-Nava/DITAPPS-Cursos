@@ -60,65 +60,61 @@ class GestionCursosAlumnoController extends Controller
         return redirect()->route('dashboard')->with('success', 'Has salido del curso exitosamente');
     }
 
-
     public function dashboard()
     {
          // Obtener el usuario autenticado
-    if (auth()->check()) {
-        $alumno = auth()->user();
+        if (auth()->check()) {
+            $alumno = auth()->user();
 
-        // Obtener los cursos inscritos del alumno
-        $cursos = $alumno->cursos;
+            // Obtener los cursos inscritos del alumno
+            $cursos = $alumno->cursos;
 
-        // Obtener las entregas del alumno
-        $entregas = $alumno->entregas->pluck('recurso_id')->toArray();
+            // Obtener las entregas del alumno
+            $entregas = $alumno->entregas->pluck('recurso_id')->toArray();
+            
+
+            // Obtener las respuestas del alumno
+            $respuestasUsuarios = $alumno->respuestasUsuarios->pluck('recurso_id')->toArray();
+
+            // Cargar los datos necesarios para cada curso
+            foreach ($cursos as $curso) {
+                $curso->load(['semestres.temas', 'semestres.temas.recursos' => function ($query) {
+                    $query->whereIn('tipo', ['examen', 'tarea']);
+                }]);
+            }
         
-
-        // Obtener las respuestas del alumno
-        $respuestasUsuarios = $alumno->respuestasUsuarios->pluck('recurso_id')->toArray();
-
-        // Cargar los datos necesarios para cada curso
-        foreach ($cursos as $curso) {
-            $curso->load(['semestres.temas', 'semestres.temas.recursos' => function ($query) {
-                $query->whereIn('tipo', ['examen', 'tarea']);
-            }]);
+            // Retornar la vista del dashboard con los datos cargados
+            return view('dashboard', compact('cursos', 'entregas', 'respuestasUsuarios'));
         }
-       
-        // Retornar la vista del dashboard con los datos cargados
-        return view('dashboard', compact('cursos', 'entregas', 'respuestasUsuarios'));
-    }
     }
 
     public function entregarTarea(Request $request)
-{
-    $request->validate([
-        'recurso_id' => 'required|exists:recursos,id',
-        'descripcion' => 'required|max:255|min:10|string',
-        'archivo' => 'required|mimes:pdf,docx'
-    ]);
+    {
+        $request->validate([
+            'recurso_id' => 'required|exists:recursos,id',
+            'descripcion' => 'required|max:255|min:10|string',
+            'archivo' => 'required|mimes:pdf,docx'
+        ]);
 
-    $nombreArchivo = hash('sha256', $request->file('archivo')->getContent()) . '.' . $request->file('archivo')->extension();
-    $path = $request->file('archivo')->storeAs('entregas', $nombreArchivo, 'public');
+        $nombreArchivo = hash('sha256', $request->file('archivo')->getContent()) . '.' . $request->file('archivo')->extension();
+        $path = $request->file('archivo')->storeAs('entregas', $nombreArchivo, 'public');
 
 
-    $entrega = new Entrega();
-    $entrega->recurso_id = $request->recurso_id;
-    $entrega->user_id = Auth::id();
-    $entrega->archivo = $nombreArchivo;
-    $entrega->descripcion = $request->descripcion;
+        $entrega = new Entrega();
+        $entrega->recurso_id = $request->recurso_id;
+        $entrega->user_id = Auth::id();
+        $entrega->archivo = $nombreArchivo;
+        $entrega->descripcion = $request->descripcion;
 
-    // Generar la URL para acceder al archivo
-    $archivoUrl = asset('storage/'.$path);
-    $entrega->archivo_url = $archivoUrl;
+        // Generar la URL para acceder al archivo
+        $archivoUrl = asset('storage/'.$path);
+        $entrega->archivo_url = $archivoUrl;
 
- 
-    $entrega->save();
-    return redirect()->route('dashboard')->with('success', 'Has entregado la tarea!');
     
-}
-
-
-
+        $entrega->save();
+        return redirect()->route('dashboard')->with('success', 'Has entregado la tarea!');
+        
+    }
 
     public function crearExamen(Request $request)
     {
@@ -156,48 +152,48 @@ class GestionCursosAlumnoController extends Controller
     }
 
     public function entregarExamen(Request $request)
-{
-    // Asegúrate de que el usuario ha respondido todas las preguntas
-    $preguntas = Pregunta::where('recurso_id', $request->input('recurso_id'))->get();
-    $preguntasCorrectas = 0;
+    {
+        // Asegúrate de que el usuario ha respondido todas las preguntas
+        $preguntas = Pregunta::where('recurso_id', $request->input('recurso_id'))->get();
+        $preguntasCorrectas = 0;
 
-    foreach ($preguntas as $pregunta) {
-        // El nombre del campo de respuesta debe coincidir con lo que estableciste en la vista
-        if (!$request->has('respuesta-' . $pregunta->id)) {
-            // Maneja el error si no se ha proporcionado una respuesta
-            return redirect()->back()->with('error', 'Debes responder a todas las preguntas.');
-        }
-
-        $respuestaUsuario = new RespuestaUsuario;
-        $respuestaUsuario->pregunta_id = $pregunta->id;
-        $respuestaUsuario->recurso_id = $request->input('recurso_id');
-        $respuestaUsuario->user_id = auth()->user()->id;
-        $respuestaUsuario->respuesta = $request->input('respuesta-' . $pregunta->id);
-        $respuestaUsuario->save();
-
-        // Verificar si la respuesta es correcta
-        $respuestaCorrecta = Respuesta::where('pregunta_id', $pregunta->id)
-                                    ->where('correcta', 1)
-                                    ->first();
-
-            if ($respuestaCorrecta->id == $request->input('respuesta-' . $pregunta->id)) {
-                $preguntasCorrectas++;
+        foreach ($preguntas as $pregunta) {
+            // El nombre del campo de respuesta debe coincidir con lo que estableciste en la vista
+            if (!$request->has('respuesta-' . $pregunta->id)) {
+                // Maneja el error si no se ha proporcionado una respuesta
+                return redirect()->back()->with('error', 'Debes responder a todas las preguntas.');
             }
-        }
 
-    // Calcular la calificación
-    $calificacion = ($preguntasCorrectas * 10) / $preguntas->count();
+            $respuestaUsuario = new RespuestaUsuario;
+            $respuestaUsuario->pregunta_id = $pregunta->id;
+            $respuestaUsuario->recurso_id = $request->input('recurso_id');
+            $respuestaUsuario->user_id = auth()->user()->id;
+            $respuestaUsuario->respuesta = $request->input('respuesta-' . $pregunta->id);
+            $respuestaUsuario->save();
 
-    $entrega = new Entrega;
-    $entrega->recurso_id = $request->input('recurso_id');
-    $entrega->user_id = auth()->user()->id;
-    $entrega->archivo = 'asdasd';
-    $entrega->calificacion = $calificacion;
-    $entrega->save();
+            // Verificar si la respuesta es correcta
+            $respuestaCorrecta = Respuesta::where('pregunta_id', $pregunta->id)
+                                        ->where('correcta', 1)
+                                        ->first();
 
-    // Redirigir a donde prefieras después de que el usuario ha entregado el examen
-    return redirect()->route('dashboard');
-}
+                if ($respuestaCorrecta->id == $request->input('respuesta-' . $pregunta->id)) {
+                    $preguntasCorrectas++;
+                }
+            }
+
+        // Calcular la calificación
+        $calificacion = ($preguntasCorrectas * 10) / $preguntas->count();
+
+        $entrega = new Entrega;
+        $entrega->recurso_id = $request->input('recurso_id');
+        $entrega->user_id = auth()->user()->id;
+        $entrega->archivo = 'asdasd';
+        $entrega->calificacion = $calificacion;
+        $entrega->save();
+
+        // Redirigir a donde prefieras después de que el usuario ha entregado el examen
+        return redirect()->route('dashboard');
+    }
 
     public function verArchivo($id)
     {

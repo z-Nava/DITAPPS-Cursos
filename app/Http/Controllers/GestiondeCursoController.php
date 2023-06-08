@@ -21,28 +21,27 @@ use Str;
 class GestiondeCursoController extends Controller
 {
     public function index(Request $request)
-{
-    $cursoId = $request->query('curso');
-    $cursos = [];
+    {
+        $cursoId = $request->query('curso');
+        $cursos = [];
 
-    $all = Curso::with(['usuarios'])->get();
-    
-    foreach($all as $curso) {
-        foreach($curso->usuarios as $usuario) {
-            if($usuario->id == auth()->user()->id) {
-                array_push($cursos, $curso);
+        $all = Curso::with(['usuarios'])->get();
+        
+        foreach($all as $curso) {
+            foreach($curso->usuarios as $usuario) {
+                if($usuario->id == auth()->user()->id) {
+                    array_push($cursos, $curso);
+                }
             }
         }
+        // $cursos = Curso::where('user_id', auth()->user()->id)->with(['semestres.temas.recursos'])->get();
+        
+        $entregas = Entrega::all();
+        $recursos = Recurso::whereIn('tipo', ['tarea', 'examen'])->get();
+        //$alumnos = User::where('rol_id', 4)->get();
+
+        return view('pages.gestion-cursos', compact('cursos', 'recursos', 'entregas'));
     }
-    // $cursos = Curso::where('user_id', auth()->user()->id)->with(['semestres.temas.recursos'])->get();
-    
-    $entregas = Entrega::all();
-    $recursos = Recurso::whereIn('tipo', ['tarea', 'examen'])->get();
-    //$alumnos = User::where('rol_id', 4)->get();
-
-    return view('pages.gestion-cursos', compact('cursos', 'recursos', 'entregas'));
-}
-
 
     public function store(Request $request)
     {
@@ -92,13 +91,10 @@ class GestiondeCursoController extends Controller
     }
 
     public function showTema($id)
-{
-    $temas = Tema::all();
-    return view('pages.gestion-cursos', compact('temas'));
-}
-
-
-
+    {
+        $temas = Tema::all();
+        return view('pages.gestion-cursos', compact('temas'));
+    }
 
     public function eliminarTema($id)
     {
@@ -110,33 +106,30 @@ class GestiondeCursoController extends Controller
     }
 
     public function actualizarTema(Request $request, $id)
-{
-    // Validar los datos del formulario
-    $request->validate([
-        'nombre' => 'required',
-        'contenido' => 'required',
-        'enlace' => 'nullable',
-        // Agrega aquí las validaciones para otros campos si es necesario
-    ]);
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'nombre' => 'required',
+            'contenido' => 'required',
+            'enlace' => 'nullable',
+            // Agrega aquí las validaciones para otros campos si es necesario
+        ]);
 
-    // Encontrar el tema por su ID
-    $tema = Tema::findOrFail($id);
+        // Encontrar el tema por su ID
+        $tema = Tema::findOrFail($id);
 
-    // Actualizar los campos del tema con los nuevos datos
-    $tema->nombre = $request->nombre;
-    $tema->contenido = $request->contenido;
-    $tema->enlace = $request->enlace;
-    // Actualiza otros campos si es necesario
+        // Actualizar los campos del tema con los nuevos datos
+        $tema->nombre = $request->nombre;
+        $tema->contenido = $request->contenido;
+        $tema->enlace = $request->enlace;
+        // Actualiza otros campos si es necesario
 
-    // Guardar los cambios en la base de datos
-    $tema->save();
+        // Guardar los cambios en la base de datos
+        $tema->save();
 
-    // Redireccionar a la vista del modal de edición y pasar el tema actualizado como una variable
-    return redirect()->back()->with(['success' => 'El tema se ha actualizado correctamente.', 'tema' => $tema]);
-}
-
-
-
+        // Redireccionar a la vista del modal de edición y pasar el tema actualizado como una variable
+        return redirect()->back()->with(['success' => 'El tema se ha actualizado correctamente.', 'tema' => $tema]);
+    }
 
     public function storeRecurso(Request $request)
     {
@@ -199,120 +192,114 @@ class GestiondeCursoController extends Controller
         return redirect()->back()->with('success', 'El archivo se ha subido correctamente.');
     }
 
-
     public function storeTarea(Request $request)
-{
-    
-    // Validar los datos del formulario
-    $request->validate([
-        'titulo' => 'required|max:50',
-        'contenido' => 'required|max:255',
-        'fecha_entrega' => 'required|date|after_or_equal:today|date_format:Y-m-d\TH:i',
-        'tema_id' => 'required|exists:temas,id',
-        'archivo' => 'nullable',
-    ]);
+    {
+        
+        // Validar los datos del formulario
+        $request->validate([
+            'titulo' => 'required|max:50',
+            'contenido' => 'required|max:255',
+            'fecha_entrega' => 'required|date|after_or_equal:today|date_format:Y-m-d\TH:i',
+            'tema_id' => 'required|exists:temas,id',
+            'archivo' => 'nullable',
+        ]);
 
-    // Crear un nuevo recurso de tipo 'tarea'
-    $recurso = new Recurso();
-    $recurso->tipo = 'tarea';
-    $recurso->titulo = $request->titulo;
-    $recurso->contenido = $request->contenido;
-    $recurso->fecha_entrega = \Carbon\Carbon::parse($request->fecha_entrega); // Parsea la fecha y hora correctamente
-    $tema = Tema::findOrFail($request->tema_id);
-    $recurso->tema()->associate($tema);
+        // Crear un nuevo recurso de tipo 'tarea'
+        $recurso = new Recurso();
+        $recurso->tipo = 'tarea';
+        $recurso->titulo = $request->titulo;
+        $recurso->contenido = $request->contenido;
+        $recurso->fecha_entrega = \Carbon\Carbon::parse($request->fecha_entrega); // Parsea la fecha y hora correctamente
+        $tema = Tema::findOrFail($request->tema_id);
+        $recurso->tema()->associate($tema);
 
-    // Comprobar si se subió un archivo y, si es así, guardarlo
-    if ($request->hasFile('archivo')) {
-        $nombreArchivo = hash('sha256', $request->file('archivo')->getContent()) . '.' . $request->file('archivo')->extension();
-        $path = $request->file('archivo')->storeAs('public/recursos', $nombreArchivo);
-        $recurso->archivo = Str::after($path, 'public/');
-        $recurso->archivo_url = Storage::url($path);
+        // Comprobar si se subió un archivo y, si es así, guardarlo
+        if ($request->hasFile('archivo')) {
+            $nombreArchivo = hash('sha256', $request->file('archivo')->getContent()) . '.' . $request->file('archivo')->extension();
+            $path = $request->file('archivo')->storeAs('public/recursos', $nombreArchivo);
+            $recurso->archivo = Str::after($path, 'public/');
+            $recurso->archivo_url = Storage::url($path);
+        }
+
+        $recurso->save();
+
+        // Redireccionar o realizar alguna acción adicional
+        return redirect()->back()->with('success', 'La tarea se ha creado correctamente.');
     }
 
-    $recurso->save();
-
-    // Redireccionar o realizar alguna acción adicional
-    return redirect()->back()->with('success', 'La tarea se ha creado correctamente.');
-}
-
-
-
-
-    
-
     public function getCalificaciones()
-{
-    $userId = Auth::user()->id;
-    $userRole = Auth::user()->rol_id;
+    {
+            $userId = Auth::user()->id;
+            $userRole = Auth::user()->rol_id;
 
-    if ($userRole === 3 || $userRole === 2 || $userRole === 1) { // ID del rol de profesor
-        $calificaciones = Entrega::join('recursos', 'entregas.recurso_id', '=', 'recursos.id')
-            ->join('temas', 'recursos.tema_id', '=', 'temas.id')
-            ->join('semestres', 'temas.semestre_id', '=', 'semestres.id')
-            ->join('cursos', 'semestres.curso_id', '=', 'cursos.id')
-            ->join('users', 'entregas.user_id', '=', 'users.id')
-            ->select('entregas.id', 'cursos.nombre as curso', 'temas.nombre as tema', 'recursos.titulo as tarea', 'entregas.calificacion', 'users.name as alumno')
-            ->get();
-    } else {
-        $calificaciones = Entrega::join('recursos', 'entregas.recurso_id', '=', 'recursos.id')
-            ->join('temas', 'recursos.tema_id', '=', 'temas.id')
-            ->join('semestres', 'temas.semestre_id', '=', 'semestres.id')
-            ->join('cursos', 'semestres.curso_id', '=', 'cursos.id')
-            ->join('users', 'entregas.user_id', '=', 'users.id')
-            ->where('entregas.user_id', $userId)
-            ->select('entregas.id', 'cursos.nombre as curso', 'temas.nombre as tema', 'recursos.titulo as tarea', 'entregas.calificacion', 'users.name as alumno')
-            ->get();
-    }   
+            if ($userRole === 3 || $userRole === 2 || $userRole === 1) { // ID del rol de profesor
+                $calificaciones = Entrega::join('recursos', 'entregas.recurso_id', '=', 'recursos.id')
+                    ->join('temas', 'recursos.tema_id', '=', 'temas.id')
+                    ->join('semestres', 'temas.semestre_id', '=', 'semestres.id')
+                    ->join('cursos', 'semestres.curso_id', '=', 'cursos.id')
+                    ->join('users', 'entregas.user_id', '=', 'users.id')
+                    ->select('entregas.id', 'cursos.nombre as curso', 'temas.nombre as tema', 'recursos.titulo as tarea', 'entregas.calificacion', 'users.name as alumno')
+                    ->get();
+            } else {
+                $calificaciones = Entrega::join('recursos', 'entregas.recurso_id', '=', 'recursos.id')
+                    ->join('temas', 'recursos.tema_id', '=', 'temas.id')
+                    ->join('semestres', 'temas.semestre_id', '=', 'semestres.id')
+                    ->join('cursos', 'semestres.curso_id', '=', 'cursos.id')
+                    ->join('users', 'entregas.user_id', '=', 'users.id')
+                    ->where('entregas.user_id', $userId)
+                    ->select('entregas.id', 'cursos.nombre as curso', 'temas.nombre as tema', 'recursos.titulo as tarea', 'entregas.calificacion', 'users.name as alumno')
+                    ->get();
+            }   
 
-    $alumnos = User::where('rol_id', 4)->whereHas('cursos', function ($query) use ($userId) {
-        $query->whereHas('usuarios', function ($query) use ($userId) {
-            $query->where('users.id', $userId);
-        });
-    })->get();
+            $alumnos = User::where('rol_id', 4)->whereHas('cursos', function ($query) use ($userId) {
+                $query->whereHas('usuarios', function ($query) use ($userId) {
+                    $query->where('users.id', $userId);
+                });
+            })->get();
 
-    $recursos = Recurso::whereIn('tipo', ['tarea', 'examen'])->get();
+            $recursos = Recurso::whereIn('tipo', ['tarea', 'examen'])->get();
 
-    $cursos = Curso::whereHas('usuarios', function ($query) use ($userId) {
-        $query->where('users.id', $userId);
-    })->get();
+            $cursos = Curso::whereHas('usuarios', function ($query) use ($userId) {
+                $query->where('users.id', $userId);
+            })->get();
 
-    $temas = Tema::whereIn('semestre_id', function ($query) use ($cursos) {
-        $query->select('id')
-            ->from('semestres')
-            ->whereIn('curso_id', $cursos->pluck('id')->toArray());
-    })->get();
+            $temas = Tema::whereIn('semestre_id', function ($query) use ($cursos) {
+                $query->select('id')
+                    ->from('semestres')
+                    ->whereIn('curso_id', $cursos->pluck('id')->toArray());
+            })->get();
 
-    return view('pages.billing')->with([
-        'calificaciones' => $calificaciones,
-        'alumnos' => $alumnos,
-        'recursos' => $recursos,
-        'cursos' => $cursos,
-        'temas' => $temas
-    ]);
-}
+            return view('pages.billing')->with([
+                'calificaciones' => $calificaciones,
+                'alumnos' => $alumnos,
+                'recursos' => $recursos,
+                'cursos' => $cursos,
+                'temas' => $temas
+            ]);
+    }
 
 
-public function storeCalificacion(Request $request)
-{
-    // Validar los datos del formulario
-    $validatedData = $request->validate([
-        'alumno_id' => 'required',
-        'recurso_id' => 'required',
-        'calificacion' => 'required|numeric|min:0|max:100',
-    ]);
+    public function storeCalificacion(Request $request)
+    {
+            // Validar los datos del formulario
+            $validatedData = $request->validate([
+                'alumno_id' => 'required',
+                'recurso_id' => 'required',
+                'calificacion' => 'required|numeric|min:0|max:100',
+            ]);
 
-    // Crear una nueva instancia de Entrega con los datos del formulario
-    $entrega = new Entrega();
-    $entrega->user_id = $request->alumno_id;
-    $entrega->recurso_id = $request->recurso_id;
-    $entrega->calificacion = $request->calificacion;
-    
-    // Guardar la calificación en la base de datos
-    $entrega->save();
+            // Crear una nueva instancia de Entrega con los datos del formulario
+            $entrega = new Entrega();
+            $entrega->user_id = $request->alumno_id;
+            $entrega->recurso_id = $request->recurso_id;
+            $entrega->calificacion = $request->calificacion;
+            
+            // Guardar la calificación en la base de datos
+            $entrega->save();
 
-    // Redireccionar a la página de calificaciones o a donde sea necesario
-    return redirect()->back()->with('success', 'La calificación se ha agregado correctamente.');
-}
+            // Redireccionar a la página de calificaciones o a donde sea necesario
+            return redirect()->back()->with('success', 'La calificación se ha agregado correctamente.');
+    }
 
     
     public function editarCalificacion(Request $request, $id)

@@ -53,7 +53,8 @@ class SessionsController extends Controller
 
     }
 
-    public function show(){
+    public function show()
+    {
         request()->validate([
             'email' => 'required|email',
         ]);
@@ -68,7 +69,8 @@ class SessionsController extends Controller
         
     }
 
-    public function update(){
+    public function update()
+    {
         
         request()->validate([
             'token' => 'required',

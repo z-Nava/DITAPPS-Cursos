@@ -63,6 +63,6 @@ class ExamenController extends Controller
         foreach ($recurso->preguntas as $p) {
             $p->respuestas;
         }
-        return view('pages.examen', ['recurso' => $recurso]);
+            return view('pages.examen', ['recurso' => $recurso]);
     }
 }
