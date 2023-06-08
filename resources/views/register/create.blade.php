@@ -155,6 +155,11 @@
           $(".input-group").addClass('is-filled');
         }
     });
+
+    function confirmacionRegistro() {
+                console.log('entro al aviso');
+                return confirm('Te has registrado correctamente!, por favor, verifica tu correo electronico y activa tu cuenta para poder iniciar sesion. Gracias!');
+            }
     </script>
     @endpush
 </x-layout>
