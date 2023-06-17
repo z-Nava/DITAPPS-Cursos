@@ -37,7 +37,7 @@ class RegisterController extends Controller
         
         //auth()->login($user);
         
-        return redirect('/sign-in')->with('success', 'Your account has been created. Please check your email for verification.');
+        return redirect('/sign-in')->with('success', 'Tu cuenta ha sido creada correctamente, revisa tu correo para confirmar tu correo...');
     } 
 
     public function verify(Request $request)
